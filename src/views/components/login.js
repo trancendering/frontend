@@ -3,29 +3,27 @@ import Component from "../../library/component.js";
 import LoginButton from "./login/loginButton.js";
 
 export default class Login extends Component {
-  constructor(params) {
-    super({
-      store,
-      element: document.getElementById("app"),
-    });
-    this.renderSkeleton();
-    this.components = { loginButton: new LoginButton() };
-  }
+    constructor(params) {
+        super({
+            store,
+            element: document.getElementById("app"),
+        });
+        this.renderSkeleton();
+        this.components = {loginButton: new LoginButton()};
+    }
 
-  async renderSkeleton() {
-    const view = `
-            <div class="bg-gray-100 min-h-screen flex items-center justify-center">
-                <div class="max-w-sm rounded-lg shadow-lg bg-white p-6 space-y-6 border border-gray-200">
-                    <div class="space-y-2 text-center">
-                        <h1 class="text-3xl font-bold">
-                            Login
-                        </h1>
-                    </div>
-                    <div id="login-btn" class="space-y-4"></div>
-                </div>
+    async renderSkeleton() {
+        const view = `
+            <div class="d-flex align-items-center justify-content-center vh-100 bg-light">
+                  <div class="card shadow p-3 mb-5 bg-white rounded" style="max-width: 18rem;">
+                      <div class="card-body text-center">
+                          <h1 class="h3 mb-3 font-weight-bold">Login</h1>
+                      </div>
+                      <div id="login-btn"></div>
+                  </div>
             </div>
         `;
 
-    this.element.innerHTML = view;
-  }
+        this.element.innerHTML = view;
+    }
 }

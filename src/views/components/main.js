@@ -5,51 +5,50 @@ import LanguageSelector from "./main/languageSelector.js";
 // import GameCustomizationModal from "./main/gameCustomizationModal.js";
 
 export default class Main extends Component {
-  constructor(params) {
-    super({
-      store,
-      element: document.getElementById("app"),
-    });
-    this.renderSkeleton();
-    this.components = {
-      languageSelector: new LanguageSelector(),
-      // gameModeCard1: new GameModeCard({
-      //     id: "single-game-mode",
-      //     gameMode: "1 VS 1",
-      //     description: "Play 1 vs 1 Pong Game."
-      //   }),
-      // gameModeCard2: new GameModeCard({
-      //     id: "double-game-mode",
-      //     gameMode: "2 VS 2",
-      //     description: "Play 2 vs 2 _Pong Game."
-      //   }),
-      // gameModeCard3: new GameModeCard({
-      //     id: "tournament-game-mode",
-      //     gameMode: "Tournament",
-      //     description: "Compete in a Pong Tournament."
-      //   }),
-      // gameModeCard4: new GameModeCard({
-      //     id: "ai-game-mode",
-      //     gameMode: "AI",
-      //     description: "Human vs AI Please beat the Machine!"
-      //   }),
-      // gameCustomizationModal: new GameCustomizationModal(),
-    };
-  }
+    constructor(params) {
+        super({
+            store,
+            element: document.getElementById("app"),
+        });
+        this.renderSkeleton();
+        this.components = {
+            languageSelector: new LanguageSelector(),
+            // gameModeCard1: new GameModeCard({
+            //     id: "single-game-mode",
+            //     gameMode: "1 VS 1",
+            //     description: "Play 1 vs 1 Pong Game."
+            //   }),
+            // gameModeCard2: new GameModeCard({
+            //     id: "double-game-mode",
+            //     gameMode: "2 VS 2",
+            //     description: "Play 2 vs 2 _Pong Game."
+            //   }),
+            // gameModeCard3: new GameModeCard({
+            //     id: "tournament-game-mode",
+            //     gameMode: "Tournament",
+            //     description: "Compete in a Pong Tournament."
+            //   }),
+            // gameModeCard4: new GameModeCard({
+            //     id: "ai-game-mode",
+            //     gameMode: "AI",
+            //     description: "Human vs AI Please beat the Machine!"
+            //   }),
+            // gameCustomizationModal: new GameCustomizationModal(),
+        };
+    }
 
-  async renderSkeleton() {
-    const view = `
-            <main class="flex flex-col items-center justify-center h-screen bg-gray-100 relative">
-            
-                <!-- Language Dropdown -->
-                <div id="language-selector"></div>
+    async renderSkeleton() {
+        const view = `
+            <!-- Language Dropdown -->
+            <div id="language-selector"></div>
                 
+            <main class="d-flex flex-column align-items-center justify-content-center vh-100">
                 <!-- Game Mode Selection -->
                 <div>
-                    <div class="w-full flex justify-center items-center p-4">
-                        <h1 class="text-4xl font-bold">Choose Your Pong Game Mode</h1>
+                    <div class="w-100 d-flex justify-content-center align-items-center py-2">
+                        <h1 class="display-4 fw-bold">Choose Your Pong Mode</h1>
                     </div>
-                    <div class="flex flex-row gap-8 mt-8">
+                    <div class="d-flex flex-row gap-3 mt-3">
                         <div id="single-game-mode"></div>
                         <div id="double-game-mode"></div>
                         <div id="tournament-game-mode"></div>
@@ -63,6 +62,6 @@ export default class Main extends Component {
             </main>
         `;
 
-    this.element.innerHTML = view;
-  }
+        this.element.innerHTML = view;
+    }
 }
