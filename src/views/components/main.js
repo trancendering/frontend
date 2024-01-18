@@ -3,6 +3,8 @@ import Component from "../../library/component.js";
 import LanguageSelector from "./main/languageSelector.js";
 import GameModeCard from "./main/gameModeCard.js";
 import GameCustomizationModal from "./main/gameCustomizationModal.js";
+import OpponentWaitingModal from "./main/opponentWaitingModal.js";
+import InvalidNicknameModal from "./main/invalidNicknameModal.js";
 
 export default class Main extends Component {
     constructor(params) {
@@ -34,6 +36,8 @@ export default class Main extends Component {
                 description: "Human vs AI Please beat the Machine!",
             }),
             gameCustomizationModal: new GameCustomizationModal(),
+            opponentWaitingModal: new OpponentWaitingModal(),
+            invalidNicknameModal: new InvalidNicknameModal(),
         };
     }
 
@@ -58,7 +62,12 @@ export default class Main extends Component {
                 
                 <!-- Game Customization Modal -->
                 <div id="game-customization-modal" class="modal fade" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="true"></div>
-
+                
+                <!-- Waiting Opponent Modal -->
+                <div id="opponent-waiting-modal" class="modal fade" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"></div>
+                
+                <!-- Invalid Nickname Modal -->
+                <div id="invalid-nickname-modal" class="modal fade" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"></div>
             </main>
         `;
 

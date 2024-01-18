@@ -23,7 +23,7 @@ export default class GameCustomizationModal extends Component {
 								<div class="row justify-content-center">
 									<div class="form-group col-md-6 col-lg-10">
 										<label for="nickname" class="col-form-label mt-4">Nickname</label>
-										<input type="text" class="form-control mt-2" id="nickname">
+										<input type="text" class="form-control mt-2" id="nickname" required>
 									</div>
 								</div>
 
@@ -55,11 +55,11 @@ export default class GameCustomizationModal extends Component {
 									
 								<div class="row mt-4 justify-content-center">
 									<div class="col-4 text-center mt-4">
-									  <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Close</button>
+									    <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Close</button>
 									</div>
 									<div class="col-4 text-center mt-4 ">
 									<!-- TODO: data-bs-toggle="modal" data-bs-target="#game-waiting-modal"로 수정-->
-									  <button type="button" data-link href="/game" class="btn btn-success w-100" data-bs-dismiss="modal" id="game-start-btn">Start</button>
+									    <button type="submit" class="btn btn-success w-100" data-bs-dismiss="modal" id="game-start-btn" data-bs-toggle="modal" data-bs-target="#opponent-waiting-modal">Start</button>
 									</div>
 								</div>
 							</form>
@@ -90,9 +90,9 @@ export default class GameCustomizationModal extends Component {
 				).value;
 				store.dispatch("setFancyBall", { fancyBall: fancyBallValue });
 
-				//TODO: Send Request 완성, nickname 빈칸일 때 에러 처리
+				// TODO: Send Request 완성, nickname 빈칸일 때 에러 처리
 				const gameData = {
-					accessTocken: "",
+					accessToken: "",
 					gameMode: store.state.gameMode,
 					nickname: this.element.querySelector("#nickname").value,
 					speedUp: this.element.querySelector(
