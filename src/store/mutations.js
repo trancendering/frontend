@@ -32,6 +32,8 @@ export default {
 
         return state;
     },
+    setFancyBall(state, payload) {
+        state.fancyBall = payload.fancyBall;
 
         return state;
     }

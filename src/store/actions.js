@@ -17,5 +17,7 @@ export default {
     setGameMode(context, payload) {
         context.commit('setGameMode', payload);
     },
+    setFancyBall(context, payload) {
+        context.commit('setFancyBall', payload);
     }
 };
