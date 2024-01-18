@@ -13,5 +13,9 @@ export default {
     },
     setLanguage(context, payload) {
         context.commit('setLanguage', payload);
+    },
+    setGameMode(context, payload) {
+        context.commit('setGameMode', payload);
+    },
     }
 };

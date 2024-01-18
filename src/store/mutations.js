@@ -26,5 +26,13 @@ export default {
         state.languageId = payload.languageId;
 
         return state;
+    },
+    setGameMode(state, payload) {
+        state.gameMode = payload.gameMode;
+
+        return state;
+    },
+
+        return state;
     }
 };
