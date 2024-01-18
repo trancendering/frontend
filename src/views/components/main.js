@@ -1,8 +1,8 @@
 import store from "../../store/index.js";
 import Component from "../../library/component.js";
 import LanguageSelector from "./main/languageSelector.js";
-import GameModeCard from "./main/gameModeCard.js";
-import GameCustomizationModal from "./main/gameCustomizationModal.js";
+// import GameModeCard from "./main/gameModeCard.js";
+// import GameCustomizationModal from "./main/gameCustomizationModal.js";
 
 export default class Main extends Component {
   constructor(params) {
@@ -13,11 +13,11 @@ export default class Main extends Component {
     this.renderSkeleton();
     this.components = {
       languageSelector: new LanguageSelector(),
-      gameModeCard1: new GameModeCard("1 vs 1"),
-      gameModeCard2: new GameModeCard("2 vs 2"),
-      gameModeCard3: new GameModeCard("Tournament"),
-      gameModeCard4: new GameModeCard("AI"),
-      gameCustomizationModal: new GameCustomizationModal(),
+      // gameModeCard1: new GameModeCard("1 vs 1"),
+      // gameModeCard2: new GameModeCard("2 vs 2"),
+      // gameModeCard3: new GameModeCard("Tournament"),
+      // gameModeCard4: new GameModeCard("AI"),
+      // gameCustomizationModal: new GameCustomizationModal(),
     };
   }
 
@@ -42,7 +42,7 @@ export default class Main extends Component {
                 </div>
                 
                 <!-- Game Customization Modal -->
-                <div id="game-customization-modal"></div>
+                <div id="game-customization-modal" class="hidden"></div>
 
             </main>
         `;
