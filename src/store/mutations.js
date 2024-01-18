@@ -21,5 +21,10 @@ export default {
         state.isLoggedIn = false;
 
         return state;
+    },
+    setLanguage(state, payload) {
+        state.languageId = payload.languageId;
+
+        return state;
     }
 };
