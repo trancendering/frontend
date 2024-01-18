@@ -12,26 +12,26 @@ export default class Main extends Component {
     });
     this.renderSkeleton();
     this.components = {
-      languageSelector: new LanguageSelector(),
+      // languageSelector: new LanguageSelector(),
       gameModeCard1: new GameModeCard({
           id: "single-game-mode",
           gameMode: "1 VS 1",
-          description: "Play against another player in a 1 vs 1 match."
+          description: "Play 1 vs 1 Pong Game."
         }),
       gameModeCard2: new GameModeCard({
           id: "double-game-mode",
           gameMode: "2 VS 2",
-          description: "Play against another team in a 2 vs 2 match."
+          description: "Play 2 vs 2 _Pong Game."
         }),
       gameModeCard3: new GameModeCard({
           id: "tournament-game-mode",
           gameMode: "Tournament",
-          description: "Play against other players in a tournament."
+          description: "Compete in a Pong Tournament."
         }),
       gameModeCard4: new GameModeCard({
           id: "ai-game-mode",
           gameMode: "AI",
-          description: "Play against an AI."
+          description: "Human vs AI Please beat the Machine!"
         }),
       gameCustomizationModal: new GameCustomizationModal(),
     };
