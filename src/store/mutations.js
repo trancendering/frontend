@@ -26,5 +26,15 @@ export default {
         state.languageId = payload.languageId;
 
         return state;
+    },
+    setGameMode(state, payload) {
+        state.gameMode = payload.gameMode;
+
+        return state;
+    },
+    setFancyBall(state, payload) {
+        state.fancyBall = payload.fancyBall;
+
+        return state;
     }
 };
