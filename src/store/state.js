@@ -6,5 +6,5 @@ export default {
     isLoggedIn: false,
     languageId: 'en',
     gameMode: '1 VS 1',
-    fancyBall: false
+    fancyBall: "fancy" // or "normal"
 };

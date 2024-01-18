@@ -22,8 +22,8 @@ export default class GameModeCard extends Component {
                 <img class="mr-2" src="/static/img/${this.id}.svg" alt="${this.id}">
                 <h3 class="tracking-tight text-2xl font-bold mb-2">${this.gameMode}</h3>
                 <p class="text-sm text-muted-foreground text-center">${this.description}</p>
-                <button class="mt-4 inline-flex items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-800/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50">
-                    Play
+                <button data-bs-toggle="modal"  data-bs-target="#game-customization-modal" class="mt-4 inline-flex items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-800/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50">
+                Play
                 </button>
             </div>
         </div>
@@ -34,7 +34,7 @@ export default class GameModeCard extends Component {
 
   async handleEvent() {
     this.element.querySelector("button").addEventListener("click", () => {
-      ModalHandler.openModal("game-customization-modal");
+      // ModalHandler.openModal("game-customization-modal");
       store.dispatch("setGameMode", { gameMode: this.gameMode });
     });
   }

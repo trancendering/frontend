@@ -57,7 +57,7 @@ export default class Main extends Component {
                 </div>
                 
                 <!-- Game Customization Modal -->
-                <div id="game-customization-modal" class="hidden"></div>
+                <div id="game-customization-modal" class="modal fade" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="true"></div>
 
             </main>
         `;
