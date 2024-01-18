@@ -5,37 +5,37 @@ import GameModeCard from "./main/gameModeCard.js";
 import GameCustomizationModal from "./main/gameCustomizationModal.js";
 
 export default class Main extends Component {
-  constructor(params) {
-    super({
-      store,
-      element: document.getElementById("app"),
-    });
-    this.renderSkeleton();
-    this.components = {
-      languageSelector: new LanguageSelector(),
-      gameModeCard1: new GameModeCard({
-        id: "single-game-mode",
-        gameMode: "1 VS 1",
-        description: "Play 1 vs 1 Pong Game.",
-      }),
-      gameModeCard2: new GameModeCard({
-        id: "double-game-mode",
-        gameMode: "2 VS 2",
-        description: "Play 2 vs 2 _Pong Game.",
-      }),
-      gameModeCard3: new GameModeCard({
-        id: "tournament-game-mode",
-        gameMode: "Tournament",
-        description: "Compete in a Pong Tournament.",
-      }),
-      gameModeCard4: new GameModeCard({
-        id: "ai-game-mode",
-        gameMode: "AI",
-        description: "Human vs AI Please beat the Machine!",
-      }),
-      gameCustomizationModal: new GameCustomizationModal(),
-    };
-  }
+    constructor(params) {
+        super({
+            store,
+            element: document.getElementById("app"),
+        });
+        this.renderSkeleton();
+        this.components = {
+            languageSelector: new LanguageSelector(),
+            gameModeCard1: new GameModeCard({
+                id: "single-game-mode",
+                gameMode: "1 VS 1",
+                description: "Play 1 vs 1 Pong Game.",
+            }),
+            gameModeCard2: new GameModeCard({
+                id: "double-game-mode",
+                gameMode: "2 VS 2",
+                description: "Play 2 vs 2 Pong Game.",
+            }),
+            gameModeCard3: new GameModeCard({
+                id: "tournament-game-mode",
+                gameMode: "Tournament",
+                description: "Compete in a Pong Tournament.",
+            }),
+            gameModeCard4: new GameModeCard({
+                id: "ai-game-mode",
+                gameMode: "AI",
+                description: "Human vs AI Please beat the Machine!",
+            }),
+            gameCustomizationModal: new GameCustomizationModal(),
+        };
+    }
 
     async renderSkeleton() {
         const view = `
@@ -49,10 +49,10 @@ export default class Main extends Component {
                         <h1 class="display-4 fw-bold">Choose Your Pong Mode</h1>
                     </div>
                     <div class="d-flex flex-row gap-3 mt-3">
-                        <div id="single-game-mode"></div>
-                        <div id="double-game-mode"></div>
-                        <div id="tournament-game-mode"></div>
-                        <div id="ai-game-mode"></div>
+                        <div id="single-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
+                        <div id="double-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
+                        <div id="tournament-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
+                        <div id="ai-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
                     </div>
                 </div>
                 
