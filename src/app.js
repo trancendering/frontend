@@ -1,4 +1,4 @@
-import Home from "./views/pages/Home.js";
+import Main from "./views/components/main.js";
 import Login from "./views/components/login.js";
 import Game from "./views/pages/Game.js";
 
@@ -7,7 +7,7 @@ const pathToRegex = (path) =>
 
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = [
-  { path: "/", view: Home },
+  { path: "/", view: Main },
   { path: "/login", view: Login },
   { path: "/game", view: Game },
 ];
