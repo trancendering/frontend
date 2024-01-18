@@ -180,7 +180,7 @@ export default class extends View {
     // this.components.logout.render();
   }
 
-  async afterRender() {
+  async handleEvent() {
     // Open modal
     window.openModal = function (modalId) {
       document.getElementById(modalId).style.display = "flex";

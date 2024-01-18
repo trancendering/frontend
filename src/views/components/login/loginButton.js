@@ -8,6 +8,7 @@ export default class Login extends Component {
       element: document.getElementById("login-btn"),
     });
     this.renderSkeleton();
+    this.handleEvent();
   }
 
   async renderSkeleton() {
@@ -24,7 +25,7 @@ export default class Login extends Component {
     this.element.innerHTML = view;
   }
 
-  async afterRender() {
+  async handleEvent() {
     this.element.addEventListener("click", () => {
       store.dispatch("logIn");
     });

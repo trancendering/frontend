@@ -36,7 +36,7 @@ export default class extends View {
     document.getElementById("app").innerHTML = view;
   }
 
-  async afterRender() {
+  async handleEvent() {
     document.getElementById("login-btn").addEventListener("click", () => {
       store.dispatch("logIn");
     });

@@ -13,5 +13,5 @@ export default class View {
     return "";
   }
 
-  async afterRender() {}
+  async handleEvent() {}
 }

@@ -8,12 +8,13 @@ export default class LanguageSelector extends Component {
             element: document.getElementById('language-selector')
         });
         this.renderSkeleton();
+        this.handleEvent();
     }
 
     async renderSkeleton() {
         const view = `
             <div class="absolute top-3 right-3 w-32 z-10">
-                <button id="dropdownButton" class="flex justify-between items-center bg-gray-200 px-4 py-2 rounded-md">
+                <button onclick="toggleDropdown()" class="flex justify-between items-center bg-gray-200 px-4 py-2 rounded-md">
                     <span class="text-gray-800">Language</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -33,11 +34,11 @@ export default class LanguageSelector extends Component {
         this.element.innerHTML = view;
     }
 
-    async afterRender() {
-        // Toggle Dropdown
-        document.getElementById('dropdownButton').addEventListener('click', function () {
+
+    async handleEvent() {
+        window.toggleDropdown = () => {
             document.getElementById('dropdown').classList.toggle('hidden');
-        });
+        }
 
         // Change Language
         document.querySelectorAll('#dropdown a').forEach(item => {

@@ -17,9 +17,9 @@ export default class Component {
     }
   }
 
-  async afterRender() {
+  async handleEvent() {
     for (let component in this.components) {
-      this.components[component].afterRender();
+      this.components[component].handleEvent();
     }
   }
 }
