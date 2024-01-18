@@ -13,7 +13,7 @@ export default class LanguageSelector extends Component {
 
     async renderSkeleton() {
         const view = `
-            <nav class="navbar navbar-expand-lg navbar-light me align-items-center">
+            <nav class="navbar navbar-expand navbar-light me align-items-center">
                 <div class="container-fluid">
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav ms-auto">
