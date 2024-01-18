@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- 무조건 필요한 CSS-->
+    <link rel="stylesheet" href="./static/css/style.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css'>
+</head>
+
+<body>
+    <header class="cd__intro">
+				
+
+    </header>
+    <main class="cd__main">
+        <div class="container  p-5">
+
+			<!-- Testing Button -->
+
+			<div class="col-12 text-center">
+				<button type="button" class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#statusSuccessModal" onclick="closeModalAfterDelay()">Success Modal</button>
+				<button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#statusErrorsModal">Error Modal</button>
+				<button type="button" class="btn btn-secondary m-1" data-bs-toggle="modal" data-bs-target="#statusWaitingModal">Waiting Modal</button>
+				<button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#statusSettingModal">Setting Modal</button>
+			</div>
+			
+			<div class="cd__action">
+				<a href="https://www.codehim.com/bootstrap/bootstrap-5-success-error-modal-popup" title="Back to download and tutorial page" class="cd__btn back">Back to Tutorial</a>
+			</div>
+
+
+			<!-- modal -->
+
+            <div class="row">
+
+                <!-- success modal -->
+                <div class="modal fade" id="statusSuccessModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center p-lg-4">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                    <circle class="path circle" fill="none" stroke="#198754" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                                    <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
+                                </svg>
+                                <h4 class="text-success mt-3">Game is matched!!</h4>
+                                <p class="mt-3" id="countdown">After 3s</p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+				<!-- error modal -->
+				<div class="modal fade" id="statusErrorsModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+					<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+						<div class="modal-content">
+							<div class="modal-body text-center p-lg-4">
+								<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+									<circle class="path circle" fill="none" stroke="#db3646" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+									<line class="path line" fill="none" stroke="#db3646" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+									<line class="path line" fill="none" stroke="#db3646" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" X2="34.4" y2="92.2" />
+								</svg>
+								<h4 class="text-danger mt-3">Network Error</h4>
+								<p class="mt-3">One player left the game</p>
+								<button type="button" class="btn btn-sm mt-3 btn-danger" data-bs-dismiss="modal">Ok</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+                <!-- Waiting modal -->
+                <div class="modal fade" id="statusWaitingModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center p-lg-4">
+                                <!-- Loading Spinner Wrapper-->
+                                <div class="loader text-center mt-3">
+                                    <!-- Animated Spinner -->
+                                    <div class="lds-roller mb-3">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                                <h4 class="text-center mt-3"> Wating 1 / 2</h4>
+                                <p class="mt-3">Waiting another player</p>
+                                <button type="button" class="btn btn-sm mt-3 btn-secondary" data-bs-dismiss="modal">Quit</button>
+								
+							</div>
+                        </div>
+                    </div>
+                </div>
+
+        		<!-- Setting Modal  - 모달이 꺼져도, 기존에 눌렀던 선택이 사라지지 않는다. JS 함수를 통해 초기화할 수는 있지마 그냥 둘러되면 될 듯. -->
+                <div class="modal fade" id="statusSettingModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog modal- modal-sm modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body text-center p-lg-4">
+								
+                                <h4 class="text-dark mt-3">Setting</h4>
+
+								<div class="form-group">
+									<label for="nickname" class="col-form-label mt-4">Nickname</label>
+									<input type="text" class="form-control mt-2 w-100 col-2" id="nickname">
+								</div>
+							
+
+
+								<div class="btn-group d-flex justify-content-center" role="group" id="speedOption">
+									<div class="form-group mt-4">
+										<label for="speed" class="col-form-label">Speed</label>
+										<div class="btn-group d-flex justify-content-center mt-2" role="group" aria-label="speed Options">
+											<input type="radio" name="speedOption-Btn-Group" class="btn-check" id="radioBtn1" checked>
+											<label class="btn btn-outline-primary me-2" for="radioBtn1">Normal</label>
+
+											<input type="radio" name="speedOption-Btn-Group" class="btn-check" id="radioBtn2">
+											<label class="btn btn-outline-primary" for="radioBtn2">Fast</label>
+										</div>
+									</div>
+								</div>
+
+								<div class="btn-group d-flex justify-content-center" role="group" id="ballDesignOption">
+									<div class="form-group mt-4">
+										<label for="ballDesign" class="col-form-label">Ball</label>
+										<div class="btn-group d-flex justify-content-center mt-2" role="group" aria-label="ballDesign Options">
+											<input type="radio" name="ballDesignOption-Btn-Group" class="btn-check" id="radioBtn3" checked>
+											<label class="btn btn-outline-primary me-2" for="radioBtn3">White</label>
+
+											<input type="radio" name="ballDesignOption-Btn-Group" class="btn-check" id="radioBtn4">
+											<label class="btn btn-outline-primary me-2" for="radioBtn4">Black</label>
+
+											<input type="radio" name="ballDesignOption-Btn-Group" class="btn-check" id="radioBtn5">
+											<label class="btn btn-outline-primary" for="radioBtn5">Flash</label>
+										</div>
+									</div>
+								</div>
+									
+								<div class="row mt-4 justify-content-center">
+									<div class="col-4 text-center mt-4">
+									  <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Close</button>
+									</div>
+									<div class="col-4 text-center mt-4 ">
+									  <button type="button" class="btn btn-success w-100" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#statusWaitingModal">Start</button>
+									</div>
+								  </div>
+								  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+	<!-- modal 설정 위해 필요하다.  -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/js/bootstrap.min.js'></script>
+	<!-- success modal 3초 후에 닫히는 -->
+	<script src="./js/main.js"></script>
+</body>
+
+</html>
