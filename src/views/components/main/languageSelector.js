@@ -13,24 +13,16 @@ export default class LanguageSelector extends Component {
 
     async renderSkeleton() {
         const view = `
-            <nav class="navbar navbar-expand navbar-light me align-items-center">
-                <div class="container-fluid">
-                    <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="language_menu" role="button" data-bs-toggle="dropdown">
-                                    Language
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="language_menu">
-                                    <li><a class="dropdown-item" href="#" data-language-id="en">English</a></li>
-                                    <li><a class="dropdown-item" href="#" data-language-id="ko">Korean</a></li>
-                                    <li><a class="dropdown-item" href="#" data-language-id="ch">Chinese</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <div class="dropdown position-absolute top-0 end-0">
+                <button class="btn dropdown-toggle mt-3 me-3" type="button" id="Language_menu" data-bs-toggle="dropdown" aria-expanded="false">
+                    Language
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#" data-language-id="en">English</a></li>
+                    <li><a class="dropdown-item" href="#" data-language-id="ko">Korean</a></li>
+                    <li><a class="dropdown-item" href="#" data-language-id="ch">Chinese</a></li>
+                </ul>
+            </div>
         `;
 
         this.element.innerHTML = view;
