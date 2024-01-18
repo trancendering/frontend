@@ -10,5 +10,8 @@ export default {
     },
     logOut(context) {
         context.commit('logOut');
+    },
+    setLanguage(context, payload) {
+        context.commit('setLanguage', payload);
     }
 };

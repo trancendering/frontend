@@ -3,5 +3,6 @@ export default {
         'I made this',
         'Another thing'
     ],
-    isLoggedIn: false
+    isLoggedIn: false,
+    languageId: 'en',
 };
