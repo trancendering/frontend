@@ -3,13 +3,13 @@ import store from "../../store/index.js";
 
 // 삭제 요망
 export default class extends View {
-    constructor(params) {
-        super(params);
-        this.setTitle("Login");
-    }
+  constructor(params) {
+    super(params);
+    this.setTitle("Login");
+  }
 
-    async render() {
-        const view = `
+  async render() {
+    const view = `
             <div class="bg-gray-100 min-h-screen flex items-center justify-center">
                 <div class="max-w-sm rounded-lg shadow-lg bg-white p-6 space-y-6 border border-gray-200">
                     <div class="space-y-2 text-center"><h1 class="text-3xl font-bold">
@@ -33,12 +33,12 @@ export default class extends View {
                 </div>
             </div>
         `;
-        document.getElementById("app").innerHTML = view;
-    }
+    document.getElementById("app").innerHTML = view;
+  }
 
-    async after_render() {
-        document.getElementById("login-btn").addEventListener("click", () => {
-            store.dispatch('logIn');
-        });
-    }
+  async afterRender() {
+    document.getElementById("login-btn").addEventListener("click", () => {
+      store.dispatch("logIn");
+    });
+  }
 }

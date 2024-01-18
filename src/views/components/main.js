@@ -10,7 +10,7 @@ export default class Main extends Component {
       store,
       element: document.getElementById("app"),
     });
-    this.render_skeleton();
+    this.renderSkeleton();
     this.components = {
       languageSelector: new LanguageSelector(),
       gameModeCard1: new GameModeCard("1 vs 1"),
@@ -21,7 +21,7 @@ export default class Main extends Component {
     };
   }
 
-  async render_skeleton() {
+  async renderSkeleton() {
     const view = `
             <main class="flex flex-col items-center justify-center h-screen bg-gray-100 relative">
             

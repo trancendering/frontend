@@ -2,16 +2,16 @@ import store from "../../../store/index.js";
 import Component from "../../../library/component.js";
 
 export default class Login extends Component {
-    constructor(params) {
-        super({
-            store,
-            element: document.getElementById('login-btn')
-        });
-        this.render_skeleton();
-    }
+  constructor(params) {
+    super({
+      store,
+      element: document.getElementById("login-btn"),
+    });
+    this.renderSkeleton();
+  }
 
-    async render_skeleton() {
-        const view = `
+  async renderSkeleton() {
+    const view = `
             <a data-link href="/"
                 class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input hover:bg-accent hover:text-accent-foreground h-12 px-4 py-2 w-full bg-black text-white">
                 <div class="flex items-center justify-center text-base">
@@ -21,12 +21,12 @@ export default class Login extends Component {
             </a>
         `;
 
-        this.element.innerHTML = view;
-    }
+    this.element.innerHTML = view;
+  }
 
-    async after_render() {
-        this.element.addEventListener('click', () => {
-            store.dispatch('logIn');
-        });
-    }
+  async afterRender() {
+    this.element.addEventListener("click", () => {
+      store.dispatch("logIn");
+    });
+  }
 }

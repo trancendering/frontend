@@ -4,13 +4,13 @@ import Logout from "../components/logout.js";
 
 // 삭제 요망
 export default class extends View {
-    constructor(params) {
-        super(params);
-        this.setTitle("Home");
-    }
+  constructor(params) {
+    super(params);
+    this.setTitle("Home");
+  }
 
-    async render() {
-         const view = `
+  async render() {
+    const view = `
             <main class="flex flex-col items-center justify-center h-screen bg-gray-100 relative">
             
                 <!-- User Status Indicator -->
@@ -170,48 +170,54 @@ export default class extends View {
                 
             </main>
         `;
-         document.getElementById('app').innerHTML = view;
+    document.getElementById("app").innerHTML = view;
 
-        this.components = {
-            userStatus: new UserStatus(),
-            logout: new Logout()
-        }
-        // this.components.userStatus.render();
-        // this.components.logout.render();
-    }
+    this.components = {
+      userStatus: new UserStatus(),
+      logout: new Logout(),
+    };
+    // this.components.userStatus.render();
+    // this.components.logout.render();
+  }
 
-    async after_render() {
-        // Open modal
-        window.openModal = function (modalId) {
-            document.getElementById(modalId).style.display = 'flex'
-            document.getElementsByTagName('body')[0].classList.add('overflow-y-hidden');
-        }
+  async afterRender() {
+    // Open modal
+    window.openModal = function (modalId) {
+      document.getElementById(modalId).style.display = "flex";
+      document
+        .getElementsByTagName("body")[0]
+        .classList.add("overflow-y-hidden");
+    };
 
-        // Close modal
-        window.closeModal = function (modalId) {
-            document.getElementById(modalId).style.display = 'none'
-            document.getElementsByTagName('body')[0].classList.remove('overflow-y-hidden');
-            clearModal(modalId);
-        }
+    // Close modal
+    window.closeModal = function (modalId) {
+      document.getElementById(modalId).style.display = "none";
+      document
+        .getElementsByTagName("body")[0]
+        .classList.remove("overflow-y-hidden");
+      clearModal(modalId);
+    };
 
-        // Clear modal input data when close
-        const clearModal = function (modalId) {
-            document.getElementById('nickname').value = '';
-            document.getElementById('speed-up').checked = false;
-            document.getElementById('fancy-ball').checked = false;
-        }
+    // Clear modal input data when close
+    const clearModal = function (modalId) {
+      document.getElementById("nickname").value = "";
+      document.getElementById("speed-up").checked = false;
+      document.getElementById("fancy-ball").checked = false;
+    };
 
-        // Close all modals when press ESC
-        document.onkeydown = function (event) {
-            event = event || window.event;
-            if (event.keyCode === 27) {
-                closeModal('modelConfirm');
-            }
-        };
+    // Close all modals when press ESC
+    document.onkeydown = function (event) {
+      event = event || window.event;
+      if (event.keyCode === 27) {
+        closeModal("modelConfirm");
+      }
+    };
 
-        // Language dropdown
-        document.getElementById('dropdownButton').addEventListener('click', function () {
-            document.getElementById('dropdown').classList.toggle('hidden');
-        });
-    }
+    // Language dropdown
+    document
+      .getElementById("dropdownButton")
+      .addEventListener("click", function () {
+        document.getElementById("dropdown").classList.toggle("hidden");
+      });
+  }
 }
