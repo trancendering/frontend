@@ -12,7 +12,7 @@ export default class Main extends Component {
     });
     this.render_skeleton();
     this.components = {
-      languageSelector: new LanguageSeblector(),
+      languageSelector: new LanguageSelector(),
       gameModeCard1: new GameModeCard("1 vs 1"),
       gameModeCard2: new GameModeCard("2 vs 2"),
       gameModeCard3: new GameModeCard("Tournament"),
@@ -25,12 +25,6 @@ export default class Main extends Component {
     const view = `
             <main class="flex flex-col items-center justify-center h-screen bg-gray-100 relative">
             
-                <!-- User Status Indicator -->
-                <div id="user-status"></div>
-                
-                <!-- LogOut Button -->
-                <div id="logout-btn"></div>
-                
                 <!-- Language Dropdown -->
                 <div id="language-selector"></div>
                 
