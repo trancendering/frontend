@@ -2,17 +2,18 @@ import store from "../../../store/index.js";
 import Component from "../../../library/component.js";
 
 export default class InvalidNicknameModal extends Component {
-    constructor(params) {
-        super({
-            store,
-            element: document.getElementById("invalid-nickname-modal"),
-        });
-        this.renderSkeleton();
-        this.handleEvent();
-    }
+	constructor(params) {
+		super({
+			store,
+			element: document.getElementById("invalid-nickname-modal"),
+		});
+	}
 
-    async renderSkeleton() {
-        const view = `
+    async render() {
+        
+		console.log("render invalid nickname modal");
+
+		const view = `
             <div class="modal fade" id="statusErrorsModal" tabindex="-1" role="dialog" data-bs-backdrop="static"
                  data-bs-keyboard="false">
                 <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -36,10 +37,9 @@ export default class InvalidNicknameModal extends Component {
                 </div>
             </div>
 		`;
+		this.element = document.getElementById("invalid-nickname-modal");
+		this.element = this.element.innerHTML = view;
+	}
 
-        this.element.innerHTML = view;
-    }
-
-    async handleEvent() {
-    }
+	async handleEvent() {}
 }

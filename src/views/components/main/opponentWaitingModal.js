@@ -2,17 +2,17 @@ import store from "../../../store/index.js";
 import Component from "../../../library/component.js";
 
 export default class OpponentWaitingModal extends Component {
-    constructor(params) {
-        super({
-            store,
-            element: document.getElementById("opponent-waiting-modal"),
-        });
-        this.renderSkeleton();
-        this.handleEvent();
-    }
+	constructor(params) {
+		super({
+			store,
+			element: document.getElementById("opponent-waiting-modal"),
+		});
+	}
 
-    async renderSkeleton() {
-        const view = `
+	async render() {
+		console.log("render opponenet wating modal");
+
+		const view = `
             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-body text-center p-lg-4">
@@ -38,21 +38,25 @@ export default class OpponentWaitingModal extends Component {
             </div>
 		`;
 
-        this.element.innerHTML = view;
-    }
+		this.element = document.getElementById("opponent-waiting-modal");
+		this.element.innerHTML = view;
+		this.handleEvent();
+	}
 
-    async handleEvent() {
-        document.getElementById("cancel-match-btn").addEventListener("click", async (event) => {
-            console.log("cancel match making");
+	async handleEvent() {
+		document
+			.getElementById("cancel-match-btn")
+			.addEventListener("click", async (event) => {
+				console.log("cancel match making");
 
-            // Prevent Default Link Behavior
-            event.preventDefault();
+				// Prevent Default Link Behavior
+				event.preventDefault();
 
-            // Reset Fancy Ball State
-            store.dispatch("setFancyBall", { fancyBall: 'normal' });
+				// Reset Fancy Ball State
+				store.dispatch("setFancyBall", { fancyBall: "normal" });
 
-            // Cancel Match Making Post Request
-            // TODO 소켓 Connection 끊는 로직
-        });
-    }
+				// Cancel Match Making Post Request
+				// TODO 소켓 Connection 끊는 로직
+			});
+	}
 }

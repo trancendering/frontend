@@ -11,11 +11,11 @@ export default class GameModeCard extends Component {
 		this.id = params.id;
 		this.gameMode = params.gameMode;
 		this.description = params.description;
-		this.renderSkeleton();
-		this.handleEvent();
 	}
 
-	async renderSkeleton() {
+	async render() {
+		console.log("render game mode card");
+
 		const view = `
             <div class="d-flex flex-column align-items-center justify-content-center p-3">
                 <img class="mr-2" src="/static/img/${this.id}.svg" alt="${this.id}">
@@ -27,7 +27,9 @@ export default class GameModeCard extends Component {
             </div>
         `;
 
+		this.element = document.getElementById(this.id);
 		this.element.innerHTML = view;
+		this.handleEvent();
 	}
 
 	async handleEvent() {

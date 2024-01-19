@@ -7,11 +7,11 @@ export default class GameCustomizationModal extends Component {
 			store,
 			element: document.getElementById("game-customization-modal"),
 		});
-		this.renderSkeleton();
-		this.handleEvent();
 	}
 
-	async renderSkeleton() {
+	async render() {
+		console.log("render game customization modal");
+
 		const view = `
                     <div class="modal-dialog modal- modal-m modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -68,11 +68,13 @@ export default class GameCustomizationModal extends Component {
                 </div>
 		`;
 
+		this.element = document.getElementById("game-customization-modal");
 		this.element.innerHTML = view;
+		this.handleEvent();
 	}
 
 	async handleEvent() {
-	// Reset Form When Modal Closes
+		// Reset Form When Modal Closes
 		this.element.addEventListener("hide.bs.modal", () => {
 			this.element.querySelector("#game-customization-form").reset();
 		});
@@ -80,7 +82,6 @@ export default class GameCustomizationModal extends Component {
 		this.element
 			.querySelector("#game-start-btn")
 			.addEventListener("click", async (event) => {
-				
 				// Prevent Default Submit Behavior
 				event.preventDefault();
 

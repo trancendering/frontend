@@ -2,17 +2,17 @@ import store from "../../../store/index.js";
 import Component from "../../../library/component.js";
 
 export default class LanguageSelector extends Component {
-    constructor() {
-        super({
-            store,
-            element: document.getElementById('language-selector')
-        });
-        this.renderSkeleton();
-        this.handleEvent();
-    }
+	constructor() {
+		super({
+			store,
+			element: document.getElementById("language-selector"),
+		});
+	}
 
-    async renderSkeleton() {
-        const view = `
+	async render() {
+		console.log("render language selector");
+
+		const view = `
             <div class="dropdown position-absolute top-0 end-0">
                 <button class="btn dropdown-toggle mt-3 me-3" type="button" id="Language_menu" data-bs-toggle="dropdown" aria-expanded="false">
                     Language
@@ -25,36 +25,37 @@ export default class LanguageSelector extends Component {
             </div>
         `;
 
-        this.element.innerHTML = view;
-    }
+		this.element = document.getElementById("language-selector");
+		this.element.innerHTML = view;
+		this.handleEvent();
+	}
 
+	async handleEvent() {
+		// Change Language
+		document.querySelectorAll(".dropdown-item").forEach((item) => {
+			item.addEventListener("click", async (event) => {
+				// Prevent Default Link Behavior
+				event.preventDefault();
 
-    async handleEvent() {
-        // Change Language
-        document.querySelectorAll('.dropdown-item').forEach(item => {
-            item.addEventListener('click', async (event) => {
-                // Prevent Default Link Behavior
-                event.preventDefault();
+				// Get Language Id (en, ko, ch)
+				const languageId = item.dataset.languageId;
 
-                // Get Language Id (en, ko, ch)
-                const languageId = item.dataset.languageId;
+				// Change Language State
+				store.dispatch("setLanguage", { languageId });
 
-                // Change Language State
-                store.dispatch('setLanguage', {languageId});
-
-                // Language Change Post Request
-                try {
-                    const response = await fetch('/api/language', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({languageId})
-                    });
-                    const data = await response.json();
-                    console.log(data);
-                } catch (err) {
-                    console.error(err);
-                }
-            });
-        });
-    }
+				// Language Change Post Request
+				try {
+					const response = await fetch("/api/language", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ languageId }),
+					});
+					const data = await response.json();
+					console.log(data);
+				} catch (err) {
+					console.error(err);
+				}
+			});
+		});
+	}
 }

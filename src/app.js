@@ -2,6 +2,8 @@ import Main from "./views/components/main.js";
 import Login from "./views/components/login.js";
 import Game from "./views/pages/Game.js";
 
+const viewCache = {};
+
 const pathToRegex = (path) =>
     new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 
@@ -36,10 +38,10 @@ const router = async () => {
         };
     }
 
-    const view = new match.route.view();
-    // document.querySelector("#app").innerHTML = await view.render();
-    await view.render();
-    // await view.handleEvent();
+    if (!viewCache[match.route.view]) {
+        viewCache[match.route.view] = new match.route.view();
+    } 
+    viewCache[match.route.view].renderAll();
 };
 
 window.addEventListener("popstate", router);

@@ -7,42 +7,47 @@ import OpponentWaitingModal from "./main/opponentWaitingModal.js";
 import InvalidNicknameModal from "./main/invalidNicknameModal.js";
 
 export default class Main extends Component {
-    constructor(params) {
-        super({
-            store,
-            element: document.getElementById("app"),
-        });
-        this.renderSkeleton();
-        this.components = {
-            languageSelector: new LanguageSelector(),
-            gameModeCard1: new GameModeCard({
-                id: "single-game-mode",
-                gameMode: "1 VS 1",
-                description: "Play 1 vs 1 Pong Game.",
-            }),
-            gameModeCard2: new GameModeCard({
-                id: "double-game-mode",
-                gameMode: "2 VS 2",
-                description: "Play 2 vs 2 Pong Game.",
-            }),
-            gameModeCard3: new GameModeCard({
-                id: "tournament-game-mode",
-                gameMode: "Tournament",
-                description: "Compete in a Pong Tournament.",
-            }),
-            gameModeCard4: new GameModeCard({
-                id: "ai-game-mode",
-                gameMode: "AI",
-                description: "Human vs AI Please beat the Machine!",
-            }),
-            gameCustomizationModal: new GameCustomizationModal(),
-            opponentWaitingModal: new OpponentWaitingModal(),
-            invalidNicknameModal: new InvalidNicknameModal(),
-        };
-    }
+	constructor(params) {
+		super({
+			store,
+			element: document.getElementById("app"),
+		});
 
-    async renderSkeleton() {
-        const view = `
+		store.events.subscribe("languageIdChange", () => this.renderAll());
+
+		this.render();
+		this.components = {
+			languageSelector: new LanguageSelector(),
+			gameModeCard1: new GameModeCard({
+				id: "single-game-mode",
+				gameMode: "1 VS 1",
+				description: "Play 1 vs 1 Pong Game.",
+			}),
+			gameModeCard2: new GameModeCard({
+				id: "double-game-mode",
+				gameMode: "2 VS 2",
+				description: "Play 2 vs 2 Pong Game.",
+			}),
+			gameModeCard3: new GameModeCard({
+				id: "tournament-game-mode",
+				gameMode: "Tournament",
+				description: "Compete in a Pong Tournament.",
+			}),
+			gameModeCard4: new GameModeCard({
+				id: "ai-game-mode",
+				gameMode: "AI",
+				description: "Human vs AI Please beat the Machine!",
+			}),
+			gameCustomizationModal: new GameCustomizationModal(),
+			opponentWaitingModal: new OpponentWaitingModal(),
+			invalidNicknameModal: new InvalidNicknameModal(),
+		};
+	}
+
+	async render() {
+		console.log("render main page");
+
+		const view = `
             <!-- Language Dropdown -->
             <div id="language-selector"></div>
                 
@@ -71,6 +76,6 @@ export default class Main extends Component {
             </main>
         `;
 
-        this.element.innerHTML = view;
-    }
+		this.element.innerHTML = view;
+	}
 }
