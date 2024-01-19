@@ -21,22 +21,18 @@ export default class Main extends Component {
 			gameModeCard1: new GameModeCard({
 				id: "single-game-mode",
 				gameMode: "1 VS 1",
-				description: "Play 1 vs 1 Pong Game.",
 			}),
 			gameModeCard2: new GameModeCard({
 				id: "double-game-mode",
 				gameMode: "2 VS 2",
-				description: "Play 2 vs 2 Pong Game.",
 			}),
 			gameModeCard3: new GameModeCard({
 				id: "tournament-game-mode",
 				gameMode: "Tournament",
-				description: "Compete in a Pong Tournament.",
 			}),
 			gameModeCard4: new GameModeCard({
 				id: "ai-game-mode",
 				gameMode: "AI",
-				description: "Human vs AI Please beat the Machine!",
 			}),
 			gameCustomizationModal: new GameCustomizationModal(),
 			opponentWaitingModal: new OpponentWaitingModal(),
@@ -47,6 +43,20 @@ export default class Main extends Component {
 	async render() {
 		console.log("render main page");
 
+		const languageId = store.state.languageId;
+
+		const languageSet = {
+			en : {
+				title: "Choose Your Pong Mode",
+			},
+			ko : {
+				title: "퐁 모드를 선택하세요",
+			},
+			ch : {
+				title: "选择您的乒乓模式",
+			},
+		}
+
 		const view = `
             <!-- Language Dropdown -->
             <div id="language-selector"></div>
@@ -55,7 +65,7 @@ export default class Main extends Component {
                 <!-- Game Mode Selection -->
                 <div>
                     <div class="w-100 d-flex justify-content-center align-items-center py-2">
-                        <h1 class="display-4 fw-bold">Choose Your Pong Mode</h1>
+                        <h1 class="display-4 fw-bold">${languageSet[languageId].title}</h1>
                     </div>
                     <div class="d-flex flex-row gap-3 mt-3">
                         <div id="single-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
