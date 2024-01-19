@@ -1,5 +1,6 @@
 import store from "../../../store/index.js";
 import Component from "../../../library/component.js";
+import {loginButton} from "../../utils/languagePack.js";
 
 export default class Login extends Component {
     constructor(params) {
@@ -14,22 +15,10 @@ export default class Login extends Component {
 
         const languageId = store.state.languageId;
 
-        const languageSet = {
-            en: {
-                loginDescription: "Login with 42 Intra",
-            },
-            ko: {
-                loginDescription: "42 Intra 로그인",
-            },
-            ch: {
-                loginDescription: "使用 42 Intra 登录",
-            }
-        }
-
         const view = `
             <a data-link href="/" class="btn btn-primary text-white" role="button">
                 <img src="../../../static/img/42_logo.svg" width="24" height="24" class="mr-2 align-middle" alt="42_logo">
-                ${languageSet[languageId].loginDescription}
+                ${loginButton[languageId].loginDescription}
             </a>
         `;
 

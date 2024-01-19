@@ -5,6 +5,7 @@ import GameModeCard from "./main/gameModeCard.js";
 import GameCustomizationModal from "./main/gameCustomizationModal.js";
 import OpponentWaitingModal from "./main/opponentWaitingModal.js";
 import InvalidNicknameModal from "./main/invalidNicknameModal.js";
+import { main } from "../utils/languagePack.js";
 
 export default class Main extends Component {
 	constructor(params) {
@@ -45,18 +46,6 @@ export default class Main extends Component {
 
 		const languageId = store.state.languageId;
 
-		const languageSet = {
-			en : {
-				title: "Choose Your Pong Mode",
-			},
-			ko : {
-				title: "퐁 모드를 선택하세요",
-			},
-			ch : {
-				title: "选择您的乒乓模式",
-			},
-		}
-
 		const view = `
             <!-- Language Dropdown -->
             <div id="language-selector"></div>
@@ -65,7 +54,7 @@ export default class Main extends Component {
                 <!-- Game Mode Selection -->
                 <div>
                     <div class="w-100 d-flex justify-content-center align-items-center py-2">
-                        <h1 class="display-4 fw-bold">${languageSet[languageId].title}</h1>
+                        <h1 class="display-4 fw-bold">${main[languageId].title}</h1>
                     </div>
                     <div class="d-flex flex-row gap-3 mt-3">
                         <div id="single-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>

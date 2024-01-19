@@ -1,5 +1,6 @@
 import store from "../../../store/index.js";
 import Component from "../../../library/component.js";
+import { languageSelector } from "../../utils/languagePack.js"
 
 export default class LanguageSelector extends Component {
 	constructor() {
@@ -14,37 +15,15 @@ export default class LanguageSelector extends Component {
 
 		const languageId = store.state.languageId;
 
-		// Change Language
-		const languageSet = {
-			en: {
-				language: 'Language',
-				english: 'English',
-				korean: 'Korean',
-				chinese: 'Chinese'
-			},
-			ko: {
-				language: '언어',
-				english: '영어',
-				korean: '한국어',
-				chinese: '중국어'
-			},
-			ch: {
-				language: '语言',
-				english: '英语',
-				korean: '韩语',
-				chinese: '中文'
-			}
-		};
-
 		const view = `
             <div class="dropdown position-absolute top-0 end-0">
                 <button class="btn dropdown-toggle mt-3 me-3" type="button" id="Language_menu" data-bs-toggle="dropdown" aria-expanded="false">
-                	${languageSet[languageId].language}
+                	${languageSelector[languageId].language}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#" data-language-id="en">${languageSet[languageId].english}</a></li>
-                    <li><a class="dropdown-item" href="#" data-language-id="ko">${languageSet[languageId].korean}</a></li>
-                    <li><a class="dropdown-item" href="#" data-language-id="ch">${languageSet[languageId].chinese}</a></li>
+                    <li><a class="dropdown-item" href="#" data-language-id="en">${languageSelector[languageId].english}</a></li>
+                    <li><a class="dropdown-item" href="#" data-language-id="ko">${languageSelector[languageId].korean}</a></li>
+                    <li><a class="dropdown-item" href="#" data-language-id="ch">${languageSelector[languageId].chinese}</a></li>
                 </ul>
             </div>
         `;
