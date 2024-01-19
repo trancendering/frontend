@@ -12,6 +12,26 @@ export default class OpponentWaitingModal extends Component {
 	async render() {
 		console.log("render opponenet wating modal");
 
+		const languageId = store.state.languageId;
+
+		const languageSet = {
+            en : {
+                waiting: "Waiting",
+                description: "Waiting another player",
+                cancel: "Cancel",
+            },
+            ko : {
+                waiting: "대기중",
+                description: "상대방을 기다리는 중입니다",
+                cancel: "취소",
+            },
+            ch : {
+                waiting: "等待",
+                description: "等待另一位玩家",
+                cancel: "取消",
+            },
+		}
+
 		const view = `
             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
@@ -30,9 +50,9 @@ export default class OpponentWaitingModal extends Component {
                                 <div></div>
                             </div>
                         </div>
-                        <h4 class="text-center mt-3"> Wating 1 / 2</h4>
-                        <p class="mt-3">Waiting another player</p>
-                        <button id="cancel-match-btn" type="button" class="btn btn-sm mt-3 btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <h4 class="text-center mt-3">${languageSet[languageId].waiting} 1 / 2</h4>
+                        <p class="mt-3">${languageSet[languageId].description}</p>
+                        <button id="cancel-match-btn" type="button" class="btn btn-sm mt-3 btn-secondary" data-bs-dismiss="modal">${languageSet[languageId].cancel}</button>
                     </div>
                 </div>
             </div>

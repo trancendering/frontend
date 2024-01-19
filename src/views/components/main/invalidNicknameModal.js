@@ -10,8 +10,27 @@ export default class InvalidNicknameModal extends Component {
 	}
 
     async render() {
-        
 		console.log("render invalid nickname modal");
+
+		const languageId = store.state.languageId;
+
+		const languageSet = {
+			en : {
+				title: "Duplicated Nickname",
+				description: "Please try another nickname",
+				ok: "Ok",
+			},
+			ko : {
+				title: "닉네임 중복",
+				description: "다른 닉네임을 입력해주세요",
+				ok: "확인",
+			},
+			ch : {
+				title: "重复昵称",
+				description: "请输入其他昵称",
+				ok: "确认",
+			},
+		}
 
 		const view = `
             <div class="modal fade" id="statusErrorsModal" tabindex="-1" role="dialog" data-bs-backdrop="static"
@@ -29,9 +48,9 @@ export default class InvalidNicknameModal extends Component {
                                       stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" X2="34.4"
                                       y2="92.2"/>
                             </svg>
-                            <h4 class="text-danger mt-3">Network Error</h4>
-                            <p class="mt-3">One player left the game</p>
-                            <button type="button" class="btn btn-sm mt-3 btn-danger" data-bs-dismiss="modal">Ok</button>
+                            <h4 class="text-danger mt-3">${languageSet[languageId].title}</h4>
+                            <p class="mt-3">${languageSet[languageId].description}</p>
+                            <button type="button" class="btn btn-sm mt-3 btn-danger" data-bs-dismiss="modal">${languageSet[languageId].ok}</button>
                         </div>
                     </div>
                 </div>
