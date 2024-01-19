@@ -1,6 +1,6 @@
 import Main from "./views/components/main.js";
 import Login from "./views/components/login.js";
-import Game from "./views/pages/Game.js";
+// import Login from "./views/components/game.js";
 
 const viewCache = {};
 
@@ -11,7 +11,7 @@ const pathToRegex = (path) =>
 const routes = [
     {path: "/", view: Main},
     {path: "/login", view: Login},
-    {path: "/game", view: Game},
+    // {path: "/game", view: Game},
 ];
 
 const navigateTo = (url) => {
