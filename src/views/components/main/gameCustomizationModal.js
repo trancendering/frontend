@@ -11,8 +11,6 @@ export default class GameCustomizationModal extends Component {
 	}
 
 	async render() {
-		console.log("render game customization modal");
-
 		const languageId = store.state.languageId;
 
 		const view = `

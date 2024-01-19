@@ -11,8 +11,6 @@ export default class LanguageSelector extends Component {
 	}
 
 	async render() {
-		console.log("render language selector");
-
 		const languageId = store.state.languageId;
 
 		const view = `

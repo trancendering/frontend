@@ -11,8 +11,6 @@ export default class OpponentWaitingModal extends Component {
 	}
 
 	async render() {
-		console.log("render opponenet wating modal");
-
 		const languageId = store.state.languageId;
 
 		const view = `

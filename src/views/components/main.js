@@ -42,8 +42,6 @@ export default class Main extends Component {
 	}
 
 	async render() {
-		console.log("render main page");
-
 		const languageId = store.state.languageId;
 
 		const view = `

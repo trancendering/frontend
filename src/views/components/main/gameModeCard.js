@@ -15,8 +15,6 @@ export default class GameModeCard extends Component {
 	}
 
 	async render() {
-		console.log("render game mode card");
-
 		const languageId = store.state.languageId;
 
 		const view = `

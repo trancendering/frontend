@@ -11,8 +11,6 @@ export default class Login extends Component {
     }
 
     async render() {
-        console.log("render login button");
-
         const languageId = store.state.languageId;
 
         const view = `

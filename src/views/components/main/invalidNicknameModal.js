@@ -11,8 +11,6 @@ export default class InvalidNicknameModal extends Component {
 	}
 
     async render() {
-		console.log("render invalid nickname modal");
-
 		const languageId = store.state.languageId;
 
 		const view = `
