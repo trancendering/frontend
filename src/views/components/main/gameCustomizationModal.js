@@ -99,7 +99,7 @@ export default class GameCustomizationModal extends Component {
 				).value;
 				store.dispatch("setFancyBall", { fancyBall: fancyBallValue });
 
-				// TODO: Send Request 완성, nickname 빈칸일 때 에러 처리
+				// TODO: Send Request 완성
 				const gameData = {
 					accessToken: "",
 					gameMode: store.state.gameMode,
@@ -120,6 +120,14 @@ export default class GameCustomizationModal extends Component {
 				} catch (err) {
 					console.error(err);
 				}
+
+				// TODO: Response 확인해서 Nickname 중복 체크 후 중복시
+				// if (중복) {
+				// 	bootstrap.Modal.getOrCreateInstance(
+				// 		document.getElementById("invalid-nickname-modal")
+				// 	).show();
+				// 	return;
+				// }
 
 				// Hide Game Customization Modal
 				bootstrap.Modal.getInstance(
