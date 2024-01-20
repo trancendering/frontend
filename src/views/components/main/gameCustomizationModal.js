@@ -59,7 +59,7 @@ export default class GameCustomizationModal extends Component {
 									    <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">${gameCustomizationModal[languageId].close}</button>
 									</div>
 									<div class="col-4 text-center mt-4 ">
-									    <button type="submit" class="btn btn-success w-100" data-bs-dismiss="modal" id="game-start-btn" data-bs-toggle="modal" data-bs-target="#opponent-waiting-modal">${gameCustomizationModal[languageId].start}</button>
+									    <button id="game-start-btn" type="submit" class="btn btn-success w-100">${gameCustomizationModal[languageId].start}</button>
 									</div>
 								</div>
 							</form>
@@ -84,6 +84,14 @@ export default class GameCustomizationModal extends Component {
 			.addEventListener("click", async (event) => {
 				// Prevent Default Submit Behavior
 				event.preventDefault();
+
+				// Check Nickname is Empty
+				if (this.element.querySelector("#nickname").value === "") {
+					bootstrap.Modal.getOrCreateInstance(
+						document.getElementById("invalid-nickname-modal")
+					).show();
+					return;
+				}
 
 				// Set Fancy Ball State
 				const fancyBallValue = this.element.querySelector(
@@ -112,6 +120,16 @@ export default class GameCustomizationModal extends Component {
 				} catch (err) {
 					console.error(err);
 				}
+
+				// Hide Game Customization Modal
+				bootstrap.Modal.getInstance(
+					document.getElementById("game-customization-modal")
+				).hide();
+
+				// Show Opponent Waiting Modal
+				bootstrap.Modal.getOrCreateInstance(
+					document.getElementById("opponent-waiting-modal")
+				).show();
 			});
 	}
 }

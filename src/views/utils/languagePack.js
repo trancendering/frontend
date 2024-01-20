@@ -126,18 +126,18 @@ export const opponentWaitingModal = {
 
 export const invalidNicknameModal = {
     en: {
-        title: "Duplicated Nickname",
+        title: "Invalid Nickname",
         description: "Please try another nickname",
         ok: "Ok",
     },
     ko: {
-        title: "닉네임 중복",
+        title: "유요하지 않은 닉네임",
         description: "다른 닉네임을 입력해주세요",
         ok: "확인",
     },
     ch: {
-        title: "重复昵称",
-        description: "请输入其他昵称",
-        ok: "确认",
+        title: "无效昵称",
+        description: "请尝试其他昵称",
+        ok: "好的",
     },
 }
