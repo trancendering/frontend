@@ -1,9 +1,6 @@
 import store from "../../../store/index.js";
 import Component from "../../../library/component.js";
-
-const PADDLE_HEIGHT = 40;
-const PADDLE_WIDTH = 10;
-const BALL_RADIUS = 10;
+import { Game } from "../../../enum/constant.js";
 
 export default class gameCanvas extends Component {
 	constructor(params) {
@@ -29,7 +26,6 @@ export default class gameCanvas extends Component {
 	}
 
 	async render() {
-
 		const newCanvas = document.getElementById("gameCanvas");
 		if (this.canvas !== newCanvas) {
 			this.element = this.canvas = newCanvas;
@@ -60,12 +56,17 @@ export default class gameCanvas extends Component {
 	}
 
 	async drawPaddle(side) {
-		const x = side === "left" ? 0 : this.canvas.width - PADDLE_WIDTH;
+		const x = side === "left" ? 0 : this.canvas.width - Game.PADDLE_WIDTH;
 		const y =
 			side === "left" ? store.state.leftPaddle : store.state.rightPaddle;
 
 		this.ctx.beginPath();
-		this.ctx.rect(x, y - PADDLE_HEIGHT / 2, PADDLE_WIDTH, PADDLE_HEIGHT);
+		this.ctx.rect(
+			x,
+			y - Game.PADDLE_HEIGHT / 2,
+			Game.PADDLE_WIDTH,
+			Game.PADDLE_HEIGHT
+		);
 		this.ctx.fillStyle = "#FFF";
 		this.ctx.fill();
 		this.ctx.closePath();
@@ -74,7 +75,7 @@ export default class gameCanvas extends Component {
 	async drawBall() {
 		const { x, y } = store.state.ballPosition;
 		this.ctx.beginPath();
-		this.ctx.arc(x, y, BALL_RADIUS, 0, Math.PI * 2);
+		this.ctx.arc(x, y, Game.BALL_RADIUS, 0, Math.PI * 2);
 		this.ctx.fillStyle = "#FFF";
 		this.ctx.fill();
 		this.ctx.closePath();

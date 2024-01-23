@@ -1,9 +1,6 @@
 // import { io } from "socket.io-client";
 import io from "https://cdn.socket.io/4.7.4/socket.io.esm.min.js";
-// import { Position } from "../enums/positionEnum.js";
-import Position from "../enums/positionEnum.js";
-// import { GameElement } from "../enums/gameElementEnum.js";
-import GameElement from "../enums/gameElementEnum.js";
+import { Position, Game } from "../enum/constant.js";
 import { navigateTo } from "../views/utils/router.js";
 
 function setIntraId(context, payload) {
@@ -170,12 +167,8 @@ function initPositions(context, payload) {
 function moveUserPaddleUp(context) {
 	const curPosition =
 		context.state.gameInfo.userSide === Position.LEFT
-			? context.state.leftPaddle
-			: context.state.rightPaddle;
-	const newPosition = Math.max(
-		curPosition - 20,
-		GameElement.PADDLE_HEIGHT / 2
-	);
+	const newPosition = Math.max(curPosition - 20, Game.PADDLE_HEIGHT / 2);
+
 	if (newPosition === undefined) {
 		console.log("moveUserPaddleUp: new position undefined");
 		return;
@@ -201,7 +194,7 @@ function moveUserPaddleDown(context) {
 			: context.state.rightPaddle;
 	const newPosition = Math.min(
 		curPosition + 20,
-		GameElement.CANVAS_HEIGHT - GameElement.PADDLE_HEIGHT / 2
+		Game.CANVAS_HEIGHT - Game.PADDLE_HEIGHT / 2
 	);
 	console.log(GameElement.CANVAS_HEIGHT - GameElement.PADDLE_HEIGHT / 2);
 	console.log("new position: " + newPosition);
@@ -209,6 +202,7 @@ function moveUserPaddleDown(context) {
 		console.log("moveUserPaddleDown: new position undefined");
 		return;
 	}
+
 	if (context.state.gameInfo.userSide == Position.LEFT) {
 		context.commit("updateLeftPaddlePosition", { leftPaddle: newPosition });
 	} else {
