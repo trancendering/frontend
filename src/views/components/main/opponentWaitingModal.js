@@ -8,6 +8,8 @@ export default class OpponentWaitingModal extends Component {
 			store,
 			element: document.getElementById("opponent-waiting-modal"),
 		});
+
+		store.events.subscribe("gameStatusChange", async ()=>this.closeOpponentWaitingModal());
 	}
 
 	async render() {
@@ -59,5 +61,11 @@ export default class OpponentWaitingModal extends Component {
 				// Cancel Match Making Post Request
 				// TODO 소켓 Connection 끊는 로직
 			});
+	}
+
+	async closeOpponentWaitingModal() {
+		if (store.state.gameStatus !== "playing") return;
+		console.log("close Opponent Waiting Modal");
+		bootstrap.Modal.getOrCreateInstance(this.element).hide();
 	}
 }

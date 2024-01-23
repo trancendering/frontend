@@ -1,40 +1,79 @@
 export default {
-    addItem(state, payload) {
-        const newItems = [...state.items, payload];
-        state.items = newItems;
+	setIntraId(state, payload) {
+		state.intraId = payload.intraId;
+
+		return state;
+	},
+	logIn(state) {
+		state.isLoggedIn = true;
+
+		return state;
+	},
+	logOut(state) {
+		state.isLoggedIn = false;
+
+		return state;
+	},
+	setLanguage(state, payload) {
+		state.languageId = payload.languageId;
+
+		return state;
+	},
+	setGameMode(state, payload) {
+		state.gameMode = payload.gameMode;
+
+		return state;
+	},
+	setFancyBall(state, payload) {
+		state.fancyBall = payload.fancyBall;
+
+		return state;
+	},
+	setSocket(state, payload) {
+        state.socket = payload.socket;
 
         return state;
-    },
-    clearItem(state, payload) {
-        const copiedItems = state.items.slice();
-        copiedItems.splice(payload.index, 1);
-        state.items = Object.assign([], copiedItems);
+	},
+	setGameInfo(state, payload) {
+		state.gameInfo = payload.gameInfo;
+		// state.roomName = payload.roomName;
+		// state.leftUser = payload.leftUser;
+		// state.rightUser = payload.rightUser;
+		// state.userSide = payload.userSide;
 
-        return state;
-    },
-    logIn(state) {
-        state.isLoggedIn = true;
+		return state;
+	},
+	startGame(state) {
+		state.gameStatus = 'playing';
 
-        return state;
-    },
-    logOut(state) {
-        state.isLoggedIn = false;
+		return state;
+	},
+	updateBallPosition(state, payload) {
+		state.ballPosition = payload.ballPosition;
 
-        return state;
-    },
-    setLanguage(state, payload) {
-        state.languageId = payload.languageId;
+		return state;
+	},
+	updateLeftPaddlePosition(state, payload) {
+		state.leftPaddle = payload.leftPaddle;
 
-        return state;
-    },
-    setGameMode(state, payload) {
-        state.gameMode = payload.gameMode;
+		return state;
+	},
+	updateRightPaddlePosition(state, payload) {
+		state.rightPaddle = payload.rightPaddle;
 
-        return state;
-    },
-    setFancyBall(state, payload) {
-        state.fancyBall = payload.fancyBall;
+		return state;
+	},
+	updateGameScore(state, payload) {
+		state.score = payload.score;
 
-        return state;
-    }
+		return state;
+	},
+	endGame(state) {
+		state.gameStatus = 'ended';
+		return state;
+	},
+	setWinner(state, payload) {
+		state.winner = payload.winner;
+		return state;
+	},
 };

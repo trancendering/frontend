@@ -1,6 +1,6 @@
 import store from "../../../store/index.js";
 import Component from "../../../library/component.js";
-import { gameCustomizationModal} from "../../utils/languagePack.js";
+import { gameCustomizationModal } from "../../utils/languagePack.js";
 
 export default class GameCustomizationModal extends Component {
 	constructor(params) {
@@ -8,6 +8,10 @@ export default class GameCustomizationModal extends Component {
 			store,
 			element: document.getElementById("game-customization-modal"),
 		});
+
+		store.events.subscribe("gameStatusChange", async () =>
+			this.hideGameCustomizationModal()
+		);
 	}
 
 	async render() {
@@ -99,35 +103,28 @@ export default class GameCustomizationModal extends Component {
 				).value;
 				store.dispatch("setFancyBall", { fancyBall: fancyBallValue });
 
-				// TODO: Send Request 완성
-				const gameData = {
-					accessToken: "",
-					gameMode: store.state.gameMode,
+				// 임시 랜덤 intraId 생성
+				function makeRandomName() {
+					var name = "";
+					var possible =
+						"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+					for (var i = 0; i < 5; i++)
+						name += possible.charAt(
+							Math.floor(Math.random() * possible.length)
+						);
+					return name;
+				}
+
+				store.dispatch("setIntraId", { intraId: makeRandomName() });
+				// Initialize Socket
+				store.dispatch("joinGame", {
+					intraId: store.state.intraId,
+					gameMode: store.state.gameMode, // single or tournament로 수정하자
 					nickname: this.element.querySelector("#nickname").value,
 					speedUp: this.element.querySelector(
 						'#speed-option input[name="speed-btn"]:checked'
 					).value,
-				};
-
-				try {
-					const response = await fetch("/api/game", {
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify(gameData),
-					});
-					const data = await response.json();
-					console.log(data);
-				} catch (err) {
-					console.error(err);
-				}
-
-				// TODO: Response 확인해서 Nickname 중복 체크 후 중복시
-				// if (중복) {
-				// 	bootstrap.Modal.getOrCreateInstance(
-				// 		document.getElementById("invalid-nickname-modal")
-				// 	).show();
-				// 	return;
-				// }
+				});
 
 				// Hide Game Customization Modal
 				bootstrap.Modal.getInstance(
@@ -139,5 +136,11 @@ export default class GameCustomizationModal extends Component {
 					document.getElementById("opponent-waiting-modal")
 				).show();
 			});
+	}
+
+	async hideGameCustomizationModal() {
+		if (store.state.gameStatus !== "playing") return;
+		console.log("hide game customization modal");
+		bootstrap.Modal.getOrCreateInstance(this.element).hide();
 	}
 }

@@ -21,7 +21,7 @@ export default class Main extends Component {
 			languageSelector: new LanguageSelector(),
 			gameModeCard1: new GameModeCard({
 				id: "single-game-mode",
-				gameMode: "1 VS 1",
+				gameMode: "Single", //"1 VS 1",
 			}),
 			gameModeCard2: new GameModeCard({
 				id: "double-game-mode",
