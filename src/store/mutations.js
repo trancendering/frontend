@@ -1,79 +1,102 @@
+// login
+function setIntraId(state, payload) {
+	state.intraId = payload.intraId;
+	return state;
+}
+
+function logIn(state) {
+	state.isLoggedIn = true;
+	return state;
+}
+
+function logOut(state) {
+	state.isLoggedIn = false;
+	return state;
+}
+
+// main
+function setLanguage(state, payload) {
+	state.languageId = payload.languageId;
+	return state;
+}
+
+function setGameMode(state, payload) {
+	state.gameMode = payload.gameMode;
+	return state;
+}
+
+function setFancyBall(state, payload) {
+	state.fancyBall = payload.fancyBall;
+	return state;
+}
+
+// game start
+function setSocket(state, payload) {
+	state.socket = payload.socket;
+	return state;
+}
+
+function setGameInfo(state, payload) {
+	state.gameInfo = payload.gameInfo;
+	return state;
+}
+
+function startGame(state) {
+	state.gameStatus = "playing";
+	return state;
+}
+
+// real-time game update
+function updateBallPosition(state, payload) {
+	state.ballPosition = payload.ballPosition;
+	return state;
+}
+
+function updateLeftPaddlePosition(state, payload) {
+	state.leftPaddlePosition = payload.leftPaddlePosition;
+	return state;
+}
+
+function updateRightPaddlePosition(state, payload) {
+	state.rightPaddlePosition = payload.rightPaddlePosition;
+	return state;
+}
+
+function updateGameScore(state, payload) {
+	state.score = payload.score;
+	return state;
+}
+
+// game end
+function endGame(state) {
+	state.gameStatus = "ended";
+	return state;
+}
+
+function setWinner(state, payload) {
+	state.winner = payload.winner;
+	return state;
+}
+
 export default {
-	setIntraId(state, payload) {
-		state.intraId = payload.intraId;
-
-		return state;
-	},
-	logIn(state) {
-		state.isLoggedIn = true;
-
-		return state;
-	},
-	logOut(state) {
-		state.isLoggedIn = false;
-
-		return state;
-	},
-	setLanguage(state, payload) {
-		state.languageId = payload.languageId;
-
-		return state;
-	},
-	setGameMode(state, payload) {
-		state.gameMode = payload.gameMode;
-
-		return state;
-	},
-	setFancyBall(state, payload) {
-		state.fancyBall = payload.fancyBall;
-
-		return state;
-	},
-	setSocket(state, payload) {
-        state.socket = payload.socket;
-
-        return state;
-	},
-	setGameInfo(state, payload) {
-		state.gameInfo = payload.gameInfo;
-		// state.roomName = payload.roomName;
-		// state.leftUser = payload.leftUser;
-		// state.rightUser = payload.rightUser;
-		// state.userSide = payload.userSide;
-
-		return state;
-	},
-	startGame(state) {
-		state.gameStatus = 'playing';
-
-		return state;
-	},
-	updateBallPosition(state, payload) {
-		state.ballPosition = payload.ballPosition;
-
-		return state;
-	},
-	updateLeftPaddlePosition(state, payload) {
-		state.leftPaddle = payload.leftPaddle;
-
-		return state;
-	},
-	updateRightPaddlePosition(state, payload) {
-		state.rightPaddle = payload.rightPaddle;
-
-		return state;
-	},
-	updateGameScore(state, payload) {
-		state.score = payload.score;
-
-		return state;
-	},
-	endGame(state) {
-		state.gameStatus = 'ended';
-		return state;
-	},
-	setWinner(state, payload) {
-		state.winner = payload.winner;
-		return state;
-	},
+	// login
+	setIntraId,
+	logIn,
+	logOut,
+	//main
+	setLanguage,
+	setGameMode,
+	setFancyBall,
+	// game start
+	setSocket,
+	setGameInfo,
+	startGame,
+	// real-time update
+	updateBallPosition,
+	updateLeftPaddlePosition,
+	updateRightPaddlePosition,
+	updateGameScore,
+	// game end
+	endGame,
+	setWinner,
 };
