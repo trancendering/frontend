@@ -72,13 +72,20 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
             const leftUserIntraId = this.clients.get(leftUserId)?.intraId;
             const rightUserIntraId = this.clients.get(rightUserId)?.intraId;
+            const leftUserNickname = this.clients.get(leftUserId)?.nickname;
+            const rightUserNickname = this.clients.get(rightUserId)?.nickname;
 
             this.server.to(roomName).emit('userFullEvent', {
                 roomName,
-                users: {left: leftUserIntraId, right: rightUserIntraId}
+                nicknames: { left: leftUserNickname, right: rightUserNickname },
+                intraIds: { left: leftUserIntraId, right: rightUserIntraId },
+                users: {left: leftUserNickname, right: rightUserNickname}
             });
 
-            this.gameService.createGame(roomName, this.server, leftUserIntraId, rightUserIntraId);
+            this.gameService.createGame(roomName, this.server,
+                { left: leftUserNickname, right: rightUserNickname },
+                { left: leftUserIntraId, right: rightUserIntraId }
+            );
         }
     }
 
@@ -103,4 +110,20 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         // Forward the input to GameService for processing
         this.gameService.updatePaddlePosition(data.roomName, data.userSide, data.paddlePosition);
     }
+
+    @SubscribeMessage('gameLeaveEvent')
+    handleClientLeaving(@MessageBody() data: { roomName: string }, @ConnectedSocket() client: Socket) {
+    console.log(`[GameGateway] Client leaving: ${client.id} from room ${data.roomName}`);
+
+    // Notify all clients in the room to disconnect
+    this.server.to(data.roomName).emit('disconnectRoom');
+
+    // Perform additional cleanup if needed
+    this.gameService.handleRoomDisconnection(data.roomName);
+    }
+
+
+
+// ... rest of your existing code ...
+
 }

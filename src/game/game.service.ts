@@ -1,7 +1,8 @@
 import {Server} from "socket.io";
 
 interface GameState {
-    users: { left: string, right: string };
+    intraIds: { left: string, right: string };
+    nicknames: { left: string, right: string };
     scores: { left: number, right: number };
     paddlePositions: { left: number, right: number };
     ballPosition: { x: number, y: number };
@@ -15,10 +16,11 @@ export class GameService {
     private games = new Map<string, any>();
     private server: Server;
 
-    createGame(roomName: string, server: Server, leftUserIntraId: string, rightUserIntraId: string) {
+    createGame(roomName: string, server: Server, nicknames: { left: string, right: string }, intraIds: { left: string, right: string }) {
         this.server = server;
         const gameState: GameState = {
-            users: {left: leftUserIntraId, right: rightUserIntraId},
+            intraIds: intraIds,
+            nicknames: nicknames,
             scores: {left: 0, right: 0},
             paddlePositions: {left: 200, right: 200},
             ballPosition: {x: 400, y: 200},
@@ -54,10 +56,8 @@ export class GameService {
             this.updateBallPosition(gameState);
             this.checkCollisionsAndUpdateScores(gameState, roomName);
 
-            if (this.isGameOver(gameState)) {
+            if (gameState.isEnded) {
                 clearInterval(gameInterval);
-                gameState.isEnded = true;
-                this.server.to(roomName).emit('updateGameStatus', gameState);
                 return;
             }
 
@@ -114,8 +114,20 @@ export class GameService {
         }
 
         if (scored) {
+            gameState.isEnded = this.isGameOver(gameState);
+            console.log("game is ended: ", gameState.isEnded);
+
+            this.server.to(roomName).emit('updateGameScore', {
+                score: {
+                    left: gameState.scores.left,
+                    right: gameState.scores.right
+                },
+                isEnded: gameState.isEnded
+            });
+            
             gameState.isPaused = true;
             this.resetBall(gameState);
+
             setTimeout(() => {
                 gameState.isPaused = false;
             }, 2000);
@@ -131,5 +143,27 @@ export class GameService {
 
     private isGameOver(gameState: any): boolean {
         return gameState.scores.left >= 2 || gameState.scores.right >= 2;
+    }
+
+        // In your GameService class
+
+    async handleRoomDisconnection(roomName: string) {
+    console.log(`[GameService] Handling disconnection for room: ${roomName}`);
+
+    // Example: Remove room from active rooms list
+    this.removeRoom(roomName);
+
+    // Any other cleanup operations...
+    }
+
+    private removeRoom(roomName: string) {
+            // Check if the room exists in the games map
+        if (this.games.has(roomName)) {
+            // If so, remove the room
+            this.games.delete(roomName);
+            console.log(`[GameService] Room removed: ${roomName}`);
+        } else {
+            console.log(`[GameService] Room not found: ${roomName}`);
+        }
     }
 }
