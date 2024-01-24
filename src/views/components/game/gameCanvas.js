@@ -8,29 +8,29 @@ export default class gameCanvas extends Component {
 			store,
 			element: document.getElementById("gameCanvas"),
 		});
-		this.canvas = this.element;
-		this.ctx = this.canvas.getContext("2d");
+		this.ctx = this.element.getContext("2d");
 
 		store.dispatch("initPositions", {
 			ballPosition: {
-				x: this.canvas.width / 2,
-				y: this.canvas.height / 2,
+				x: Game.CANVAS_WIDTH / 2,
+				y: Game.CANVAS_HEIGHT / 2,
 			},
-			leftPaddlePosition: this.canvas.height / 2,
-			rightPaddlePosition: this.canvas.height / 2,
+			leftPaddlePosition: Game.CANVAS_HEIGHT / 2,
+			rightPaddlePosition: Game.CANVAS_HEIGHT / 2,
 		});
 		store.dispatch("initScores");
 
 		this.render();
+		this.handleEvent();
 		store.events.subscribe("ballPositionChange", async () => this.render());
 		store.events.subscribe("scoreChange", async () => this.render());
 	}
 
 	async render() {
-		const newCanvas = document.getElementById("gameCanvas");
-		if (this.canvas !== newCanvas) {
-			this.element = this.canvas = newCanvas;
-			this.ctx = this.canvas.getContext("2d");
+		const newElement = document.getElementById("gameCanvas");
+		if (this.element !== newElement) {
+			this.element = newElement;
+			this.ctx = this.element.getContext("2d");
 			this.handleEvent();
 		}
 
@@ -50,14 +50,14 @@ export default class gameCanvas extends Component {
 
 	async drawObjects() {
 		this.ctx.fillStyle = "#000";
-		this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+		this.ctx.fillRect(0, 0, Game.CANVAS_WIDTH, Game.CANVAS_HEIGHT);
 		this.drawPaddle("left");
 		this.drawPaddle("right");
 		this.drawBall();
 	}
 
 	async drawPaddle(side) {
-		const x = side === "left" ? 0 : this.canvas.width - Game.PADDLE_WIDTH;
+		const x = side === "left" ? 0 : Game.CANVAS_WIDTH - Game.PADDLE_WIDTH;
 		const y =
 			side === "left"
 				? store.state.leftPaddlePosition
@@ -92,8 +92,7 @@ export default class gameCanvas extends Component {
 
 		const leftUserTextX = 30;
 		const rightUserTextX =
-			this.canvas.width - 30 - this.ctx.measureText(rightUserText).width;
-
+			Game.CANVAS_WIDTH - 30 - this.ctx.measureText(rightUserText).width;
 		this.ctx.fillText(leftUserText, leftUserTextX, 30);
 		this.ctx.fillText(rightUserText, rightUserTextX, 30);
 	}
