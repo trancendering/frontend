@@ -9,7 +9,7 @@ export default class OpponentWaitingModal extends Component {
 			element: document.getElementById("opponent-waiting-modal"),
 		});
 
-		store.events.subscribe("gameStatusChange", async ()=>this.closeOpponentWaitingModal());
+		store.events.subscribe("gameStatusChange", async ()=>this.hideOpponentWaitingModal());
 	}
 
 	async render() {
@@ -63,9 +63,9 @@ export default class OpponentWaitingModal extends Component {
 			});
 	}
 
-	async closeOpponentWaitingModal() {
+	async hideOpponentWaitingModal() {
 		if (store.state.gameStatus !== "playing") return;
-		console.log("close Opponent Waiting Modal");
-		bootstrap.Modal.getOrCreateInstance(this.element).hide();
+		console.log("hide Opponent Waiting Modal");
+		document.querySelectorAll('.modal-backdrop').forEach(elem => elem.remove());
 	}
 }

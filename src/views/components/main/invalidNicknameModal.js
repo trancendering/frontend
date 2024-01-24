@@ -8,9 +8,11 @@ export default class InvalidNicknameModal extends Component {
 			store,
 			element: document.getElementById("invalid-nickname-modal"),
 		});
+
+		// store.events.subscribe("gameStatusChange", async () => this.hideInvalidNicknameModal());
 	}
 
-    async render() {
+	async render() {
 		const languageId = store.state.languageId;
 
 		const view = `
@@ -36,7 +38,16 @@ export default class InvalidNicknameModal extends Component {
 		`;
 		this.element = document.getElementById("invalid-nickname-modal");
 		this.element = this.element.innerHTML = view;
+		this.handleEvent();
 	}
 
 	async handleEvent() {}
+
+	async hideInvalidNicknameModal() {
+		if (store.state.gameStatus !== "playing") return;
+		console.log("hide invalid nickname modal");
+
+		const modalInstance = bootstrap.Modal.getInstance(this.element);
+		if (modalInstance) modalInstance.hide();
+	}
 }

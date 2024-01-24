@@ -8,10 +8,6 @@ export default class GameCustomizationModal extends Component {
 			store,
 			element: document.getElementById("game-customization-modal"),
 		});
-
-		store.events.subscribe("gameStatusChange", async () =>
-			this.hideGameCustomizationModal()
-		);
 	}
 
 	async render() {
@@ -116,15 +112,11 @@ export default class GameCustomizationModal extends Component {
 				}
 
 				store.dispatch("setIntraId", { intraId: makeRandomName() });
-				// Initialize Socket
-				store.dispatch("joinGame", {
-					intraId: store.state.intraId,
-					gameMode: store.state.gameMode, // single or tournament로 수정하자
-					nickname: this.element.querySelector("#nickname").value,
-					speedUp: this.element.querySelector(
-						'#speed-option input[name="speed-btn"]:checked'
-					).value,
-				});
+
+				const nickname = this.element.querySelector("#nickname").value;
+				const speedUp = this.element.querySelector(
+					'#speed-option input[name="speed-btn"]:checked'
+				).value;
 
 				// Hide Game Customization Modal
 				bootstrap.Modal.getInstance(
@@ -132,15 +124,27 @@ export default class GameCustomizationModal extends Component {
 				).hide();
 
 				// Show Opponent Waiting Modal
+				console.log("show opponent waiting modal");
 				bootstrap.Modal.getOrCreateInstance(
 					document.getElementById("opponent-waiting-modal")
 				).show();
+
+				// Initialize Socket
+				store.dispatch("joinGame", {
+					intraId: store.state.intraId,
+					gameMode: store.state.gameMode, // single or tournament로 수정하자
+					nickname: nickname,
+					speedUp: speedUp,
+				});
+
+				// document.querySelector('.modal-backdrop').remove();
 			});
 	}
 
 	async hideGameCustomizationModal() {
 		if (store.state.gameStatus !== "playing") return;
 		console.log("hide game customization modal");
-		bootstrap.Modal.getOrCreateInstance(this.element).hide();
+		const modalInstance = bootstrap.Modal.getInstance(this.element);
+		if (modalInstance) modalInstance.hide();
 	}
 }
