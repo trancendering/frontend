@@ -1,12 +1,6 @@
 // import { io } from "socket.io-client";
-import io from "https://cdn.socket.io/4.7.4/socket.io.esm.min.js";
 import { Side, Game } from "../enum/constant.js";
-import { navigateTo } from "../views/utils/router.js";
-import store from "./index.js";
-
-function setIntraId(context, payload) {
-	context.commit("setIntraId", payload);
-}
+import socketHandler from "./socketHandler.js";
 
 function logIn(context) {
 	context.commit("logIn");
@@ -14,6 +8,10 @@ function logIn(context) {
 
 function logOut(context) {
 	context.commit("logOut");
+}
+
+function setIntraId(context, payload) {
+	context.commit("setIntraId", payload);
 }
 
 function setLanguage(context, payload) {
@@ -29,139 +27,35 @@ function setFancyBall(context, payload) {
 }
 
 function joinGame(context, payload) {
-	console.log("intialize socket");
-
-	// const url = "http://localhost:3000/" + payload.gameMode.toLowerCase();
-	const url = "http://localhost:8000/game";
-	// const url = "http://localhost:3000/game";
-	const intraId = payload.intraId;
-	const nickname = payload.nickname;
-	const speedUp = payload.speedUp;
-
-	const socket = io(url, {
-		query: {
-			intraId: intraId,
-			nickname: nickname,
-			isSpeedUp: speedUp,
-		},
-	});
-
-	context.commit("setSocket", { socket: socket });
-
-	socket.on("connect", () => {
-		console.log("on connect: ");
-		console.log(`> intraId=${intraId}, nickname=${nickname}, speedUp=${speedUp}`);
-	
-		context.commit("waitOpponent");
-	});
+	console.log("joinGame: ");
+	const socket = socketHandler.connectSocket(context, payload);
 
 	socket.on("connect_error", (error) => {
-		console.error("Connection Error:", error);
+		socketHandler.printSocketError(error);
 	});
-
-	// data: {roomName, leftUserId, rightUserId, leftUserNickname, rightUserNickname}
 	socket.on("userFullEvent", (data) => {
-		console.log("on userFullEvent: ");
-	
-		let userSide = intraId === data.leftUserId ? Side.LEFT : Side.RIGHT;
-
-		context.commit("setGameInfo", {
-			gameInfo: {
-				roomName: data.roomName,
-				leftUser: data.leftUserNickname,
-				rightUser: data.rightUserNickname,
-				userSide: userSide,
-			},
-		});
-
-		console.log(
-			`> roomName=${data.roomName}, leftUserId=${data.leftUserId}, rightUserId=${data.rightUserId}, leftUserNickname=${data.leftUserNickname}, rightUserNickname=${data.rightUserNickname}, userSide=${userSide}`
-		);
-
-		navigateTo("/game");
-		startGame(context);
+		socketHandler.startGame(context, data);
 	});
-
 	socket.on("updateGameStatus", (data) => {
-		// console.log("on updateGameStatus: ");
-		// console.log(`> gameStatus=${data.gameStatus}`);
-
-		updateGameState(context, {
-			ballPosition: data.ballPosition,
-			leftPaddlePosition: data.leftPaddlePosition,
-			rightPaddlePosition: data.rightPaddlePosition,
-		});
+		socketHandler.updateGameState(context, data);
 	});
-
 	socket.on("updateGameScore", (data) => {
-		// console.log("on updateGameScore: ");
-		// console.log(`> leftUserScore=${data.leftUserScore}, rightUserScore=${data.rightUserScore}`);
-
-		updateGameScore(context, {
-			score: {
-				left: data.leftUserScore,
-				right: data.rightUserScore,
-			},
-		});
+		socketHandler.updateGameScore(context, data);
 	});
-
 	socket.on("endGame", (data) => {
-		console.log("on endGame: ");
-		console.log(`> reason=${data.reason}`);
-
-		endGame(context, { reason: data.reason });
+		socketHandler.endGame(context, { reason: data.reason });
 	});
 }
 
-function startGame(context) {
-	context.commit("startGame");
+function leaveGame(context) {
+	// nest.js 서버 테스트시 사용. django 서버는 emit 문 주석 제거할 것
+	socketHandler.endGame(context, { reason: "opponentLeft" });
 }
 
 function userIsReady(context) {
 	context.state.socket.emit("userReadyEvent", {
 		roomName: context.state.gameInfo.roomName,
 	});
-}
-
-function updateGameState(context, payload) {
-	context.commit("updateBallPosition", {
-		ballPosition: payload.ballPosition,
-	});
-	if (context.state.gameInfo.userSide === Side.LEFT) {
-		context.commit("updateRightPaddlePosition", {
-			rightPaddlePosition: payload.rightPaddlePosition,
-		});
-	} else {
-		context.commit("updateLeftPaddlePosition", {
-			leftPaddlePosition: payload.leftPaddlePosition,
-		});
-	}
-}
-
-function updateGameScore(context, payload) {
-	context.commit("updateGameScore", payload);
-}
-
-// payload.reason: "normal" or "opponentLeft"
-function endGame(context, payload) {
-	if (payload.reason === "normal") {
-		if (context.state.score.left > context.state.score.right) {
-			context.commit("setWinner", {
-				winner: context.state.gameInfo.leftUser,
-			});
-		} else {
-			context.commit("setWinner", {
-				winner: context.state.gameInfo.rightUser,
-			});
-		}
-	}
-	
-	if (context.state.socket) {
-		context.state.socket.disconnect();
-		context.commit("setSocket", { socket: null });
-	}
-	context.commit("setEndReason", { endReason: payload.reason });
-	context.commit("endGame");
 }
 
 function initPositions(context, payload) {
@@ -177,12 +71,8 @@ function initPositions(context, payload) {
 }
 
 function initScores(context) {
-	context.commit("updateGameScore", {
-		score: {
-			left: 0,
-			right: 0,
-		},
-	});
+	context.commit("updateLeftUserScore", { leftUserScore: 0 });
+	context.commit("updateRightUserScore", { rightUserScore: 0 });
 }
 
 function moveUserPaddleUp(context) {
@@ -193,12 +83,12 @@ function moveUserPaddleUp(context) {
 			? context.state.leftPaddlePosition
 			: context.state.rightPaddlePosition;
 	const newPosition = Math.max(curPosition - 10, Game.PADDLE_HEIGHT / 2);
-	
+
 	if (newPosition === undefined) {
 		console.log("moveUserPaddleUp: new position undefined");
 		return;
 	}
-	
+
 	console.log(`moveUserPaddleUp: position=${newPosition}`);
 
 	if (context.state.gameInfo.userSide === Side.LEFT) {
@@ -210,9 +100,7 @@ function moveUserPaddleUp(context) {
 			rightPaddlePosition: newPosition,
 		});
 	}
-	context.state.socket.emit("updatePaddlePosition", {
-		roomName: context.state.gameInfo.roomName,
-		userSide: context.state.gameInfo.userSide,
+	socketHandler.updatePaddlePosition(context, {
 		paddlePosition: newPosition,
 	});
 }
@@ -228,7 +116,7 @@ function moveUserPaddleDown(context) {
 		curPosition + 10,
 		Game.CANVAS_HEIGHT - Game.PADDLE_HEIGHT / 2
 	);
-	
+
 	if (newPosition === undefined) {
 		console.log("moveUserPaddleDown: new position undefined");
 		return;
@@ -245,41 +133,23 @@ function moveUserPaddleDown(context) {
 		});
 	}
 
-	context.state.socket.emit("updatePaddlePosition", {
-		roomName: context.state.gameInfo.roomName,
-		userSide: context.state.gameInfo.userSide,
+	socketHandler.updatePaddlePosition(context, {
 		paddlePosition: newPosition,
 	});
 }
 
-// nest.js 서버 테스트 시 사용
-function leaveGame(context) {
-	context.state.socket.emit("leaveGame", {
-		roomName: store.state.gameInfo.roomName,
-	});
-	
-	if (context.state.socket) {
-		context.state.socket.disconnect();
-		context.commit("setSocket", { socket: null });
-	}
-	context.commit("setEndReason", { reason: "opponentLeft" });
-	context.commit("endGame");
-}
-
 export default {
-	setIntraId,
 	logIn,
 	logOut,
+	setIntraId,
 	setLanguage,
 	setGameMode,
 	setFancyBall,
 	joinGame,
-	startGame,
+	leaveGame,
 	userIsReady,
-	endGame,
 	initPositions,
 	initScores,
 	moveUserPaddleDown,
 	moveUserPaddleUp,
-	leaveGame,
 };

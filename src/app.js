@@ -7,10 +7,7 @@ window.addEventListener("popstate", (event) => {
 	if (store.state.gameStatus === "playing") {
 		event.preventDefault();
 		console.log("leave game");
-		// nest.js 서버 테스트시 사용
-		// store.dispatch("leaveGame");
-		// django 서버 테스트시 사용
-		store.dispatch("endGame", { endReason: "opponentLeft" });
+		store.dispatch("leaveGame");
 		return;
 	}
 	if (window.location.pathname === "/game") {

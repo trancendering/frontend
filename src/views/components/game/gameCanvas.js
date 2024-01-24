@@ -91,8 +91,8 @@ export default class gameCanvas extends Component {
 			store.state.gameInfo.userSide === Side.LEFT ? "(Me)" : "(Opponent)";
 		const rightDesignator =
 			store.state.gameInfo.userSide === Side.RIGHT ? "(Me)" : "(Opponent)";
-		let leftUserText = `${store.state.gameInfo.leftUser} ${leftDesignator}: ${store.state.score.left}`;
-		let rightUserText = `${store.state.gameInfo.rightUser} ${rightDesignator}: ${store.state.score.right}`;
+		let leftUserText = `${store.state.gameInfo.leftUser} ${leftDesignator}: ${store.state.leftUserScore}`;
+		let rightUserText = `${store.state.gameInfo.rightUser} ${rightDesignator}: ${store.state.rightUserScore}`;
 
 		const leftUserTextX = 30;
 		const rightUserTextX =

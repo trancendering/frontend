@@ -1,9 +1,4 @@
 // login
-function setIntraId(state, payload) {
-	state.intraId = payload.intraId;
-	return state;
-}
-
 function logIn(state) {
 	state.isLoggedIn = true;
 	return state;
@@ -11,6 +6,11 @@ function logIn(state) {
 
 function logOut(state) {
 	state.isLoggedIn = false;
+	return state;
+}
+
+function setIntraId(state, payload) {
+	state.intraId = payload.intraId;
 	return state;
 }
 
@@ -30,6 +30,12 @@ function setFancyBall(state, payload) {
 	return state;
 }
 
+// Set Game Status
+function setGameStatus(state, payload) {
+	state.gameStatus = payload.gameStatus;
+	return state;
+}
+
 // game start
 function setSocket(state, payload) {
 	state.socket = payload.socket;
@@ -38,16 +44,6 @@ function setSocket(state, payload) {
 
 function setGameInfo(state, payload) {
 	state.gameInfo = payload.gameInfo;
-	return state;
-}
-
-function waitOpponent(state) {
-	state.gameStatus = "waiting";
-	return state;
-}
-
-function startGame(state) {
-	state.gameStatus = "playing";
 	return state;
 }
 
@@ -67,20 +63,21 @@ function updateRightPaddlePosition(state, payload) {
 	return state;
 }
 
-function updateGameScore(state, payload) {
-	state.score = payload.score;
+function updateLeftUserScore(state, payload) {
+	state.leftUserScore = payload.leftUserScore;
+	return state;
+}
+
+function updateRightUserScore(state, payload) {
+	state.rightUserScore = payload.rightUserScore;
 	return state;
 }
 
 // game end
-function endGame(state) {
-	state.gameStatus = "ended";
-	return state;
-}
 
 function setEndReason(state, payload) {
 	state.endReason = payload.endReason;
-	return state
+	return state;
 }
 
 function setWinner(state, payload) {
@@ -90,25 +87,25 @@ function setWinner(state, payload) {
 
 export default {
 	// login
-	setIntraId,
 	logIn,
 	logOut,
+	setIntraId,
 	//main
 	setLanguage,
 	setGameMode,
 	setFancyBall,
-	// game start
+	// set game status
+	setGameStatus,
+	// at game start
 	setSocket,
 	setGameInfo,
-	waitOpponent,
-	startGame,
 	// real-time update
 	updateBallPosition,
 	updateLeftPaddlePosition,
 	updateRightPaddlePosition,
-	updateGameScore,
-	// game end
-	endGame,
+	updateLeftUserScore,
+	updateRightUserScore,
+	// at game end
 	setEndReason,
 	setWinner,
 };

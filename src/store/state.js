@@ -19,7 +19,8 @@ export default {
 	// game status
 	gameStatus: "ended", // or "playing" or "ended"
 	endReason: "normal", // or "opponentLeft"
-	score: { left: 0, right: 0 },
+	leftUserScore: 0,
+	rightUserScore: 0,
 	ballPosition: { x: 0, y: 0 },
 	leftPaddlePosition: 200,
 	rightPaddlePosition: 200,
