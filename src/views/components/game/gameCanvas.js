@@ -19,6 +19,7 @@ export default class gameCanvas extends Component {
 			leftPaddlePosition: this.canvas.height / 2,
 			rightPaddlePosition: this.canvas.height / 2,
 		});
+		store.dispatch("initScores");
 
 		this.render();
 		store.events.subscribe("ballPositionChange", async () => this.render());

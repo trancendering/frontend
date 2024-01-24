@@ -168,6 +168,15 @@ function initPositions(context, payload) {
 	});
 }
 
+function initScores(context) {
+	context.commit("updateGameScore", {
+		score: {
+			left: 0,
+			right: 0,
+		},
+	});
+}
+
 function moveUserPaddleUp(context) {
 	const curPosition =
 		context.state.gameInfo.userSide === Position.LEFT
