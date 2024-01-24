@@ -77,9 +77,12 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
             this.server.to(roomName).emit('userFullEvent', {
                 roomName,
-                nicknames: { left: leftUserNickname, right: rightUserNickname },
-                intraIds: { left: leftUserIntraId, right: rightUserIntraId },
-                users: {left: leftUserNickname, right: rightUserNickname}
+                leftUserId: leftUserIntraId,
+                rightUserId: rightUserIntraId,
+                leftUserNickname: leftUserNickname,
+                rightUserNickname: rightUserNickname
+                // intraIds: { left: leftUserIntraId, right: rightUserIntraId },
+                // users: {left: leftUserNickname, right: rightUserNickname}
             });
 
             this.gameService.createGame(roomName, this.server,
@@ -111,12 +114,12 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         this.gameService.updatePaddlePosition(data.roomName, data.userSide, data.paddlePosition);
     }
 
-    @SubscribeMessage('gameLeaveEvent')
+    @SubscribeMessage('leaveGame')
     handleClientLeaving(@MessageBody() data: { roomName: string }, @ConnectedSocket() client: Socket) {
     console.log(`[GameGateway] Client leaving: ${client.id} from room ${data.roomName}`);
 
     // Notify all clients in the room to disconnect
-    this.server.to(data.roomName).emit('disconnectRoom');
+    this.server.to(data.roomName).emit('endGame', { reason: 'opponentLeft'});
 
     // Perform additional cleanup if needed
     this.gameService.handleRoomDisconnection(data.roomName);

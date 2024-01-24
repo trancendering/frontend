@@ -61,7 +61,11 @@ export class GameService {
                 return;
             }
 
-            this.server.to(roomName).emit('updateGameStatus', gameState);
+            this.server.to(roomName).emit('updateGameStatus', {
+                ballPosition: gameState.ballPosition,
+                leftPaddlePosition: gameState.paddlePositions.left,
+                rightPaddlePosition: gameState.paddlePositions.right,
+            });
         }, 16);
     }
 
@@ -118,12 +122,15 @@ export class GameService {
             console.log("game is ended: ", gameState.isEnded);
 
             this.server.to(roomName).emit('updateGameScore', {
-                score: {
-                    left: gameState.scores.left,
-                    right: gameState.scores.right
-                },
-                isEnded: gameState.isEnded
+                leftUserScore: gameState.scores.left,
+                rightUserScore: gameState.scores.right,
             });
+
+            if (gameState.isEnded)
+            {
+                this.server.to(roomName).emit('endGame', { reason: 'normal' });
+                return;
+            }
             
             gameState.isPaused = true;
             this.resetBall(gameState);
