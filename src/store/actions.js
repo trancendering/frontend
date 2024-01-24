@@ -34,7 +34,7 @@ function joinGame(context, payload) {
 	console.log("intialize socket");
 
 	// const url = "http://localhost:3000/" + payload.gameMode.toLowerCase();
-	const url = "http://localhost:3000/game";
+	const url = "http://localhost:8000/game";
 	const intraId = payload.intraId;
 	const nickname = payload.nickname;
 	const speedUp = payload.speedUp;
@@ -56,21 +56,21 @@ function joinGame(context, payload) {
 	socket.on("userFullEvent", (data) => {
 		console.log("userFullEvent");
 
-		console.log(intraId, data.intraIds.left, data.intraIds.right);
+		console.log(intraId, data.leftUser, data.rightUser);
 		let userSide =
-			intraId === data.intraIds.left ? Position.LEFT : Position.RIGHT;
+			intraId === data.leftUser ? Position.LEFT : Position.RIGHT;
 		console.log(userSide);
 		context.commit("setGameInfo", {
 			gameInfo: {
 				roomName: data.roomName,
-				leftUser: data.nicknames.left,
-				rightUser: data.nicknames.right,
+				leftUser: data.leftUser,
+				rightUser: data.rightUser,
 				userSide: userSide,
 			},
 		});
 
 		console.log(
-			`roomName: ${data.roomName}, leftUser: ${data.nicknames.left}, rightUser: ${data.nicknames.right}, userSide: ${userSide}`
+			`roomName: ${data.roomName}, leftUser: ${data.leftUser}, rightUser: ${data.rightUser}, userSide: ${userSide}`
 		);
 		navigateTo("/game");
 		startGame(context);
@@ -79,16 +79,16 @@ function joinGame(context, payload) {
 	socket.on("updateGameStatus", (data) => {
 		updateGameState(context, {
 			ballPosition: data.ballPosition,
-			leftPaddle: data.paddlePositions.left,
-			rightPaddle: data.paddlePositions.right,
+			leftPaddle: data.leftPaddlePosition,
+			rightPaddle: data.rightPaddlePosition,
 		});
 	});
 
 	socket.on("updateGameScore", (data) => {
 		updateGameScore(context, {
 			score: {
-				left: data.score.left,
-				right: data.score.right,
+				left: data.leftUserScore,
+				right: data.rightUserScore,
 			},
 		});
 		console.log(data.isEnded);
@@ -173,7 +173,7 @@ function moveUserPaddleUp(context) {
 			? context.state.leftPaddle
 			: context.state.rightPaddle;
 	const newPosition = Math.max(
-		curPosition - 20,
+		curPosition - 10,
 		GameElement.PADDLE_HEIGHT / 2
 	);
 	if (newPosition === undefined) {
@@ -200,7 +200,7 @@ function moveUserPaddleDown(context) {
 			? context.state.leftPaddle
 			: context.state.rightPaddle;
 	const newPosition = Math.min(
-		curPosition + 20,
+		curPosition + 10,
 		GameElement.CANVAS_HEIGHT - GameElement.PADDLE_HEIGHT / 2
 	);
 	console.log(GameElement.CANVAS_HEIGHT - GameElement.PADDLE_HEIGHT / 2);
