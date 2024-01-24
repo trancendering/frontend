@@ -76,8 +76,8 @@ function joinGame(context, payload) {
 
 		console.log(`> roomName=${data.roomName}, leftUser=${data.leftUser}, rightUser=${data.rightUser}, userSide=${userSide}`);
 
-		startGame(context);
 		navigateTo("/game");
+		startGame(context);
 	});
 
 	socket.on("updateGameStatus", (data) => {
