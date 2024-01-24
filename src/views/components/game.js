@@ -1,7 +1,7 @@
 import store from "../../store/index.js";
 import Component from "../../library/component.js";
 import GameCanvas from "./game/gameCanvas.js";
-import {navigateTo} from "../utils/router.js";
+import { navigateTo } from "../utils/router.js";
 
 export default class Game extends Component {
 	constructor(params) {
@@ -11,6 +11,7 @@ export default class Game extends Component {
 		});
 		this.render();
 		this.components = { gameCanvas: new GameCanvas() };
+
 		store.events.subscribe("gameStatusChange", async () =>
 			this.showStartingModal()
 		);
@@ -19,8 +20,8 @@ export default class Game extends Component {
 		);
 	}
 
-    async render() {
-        console.log('render game page');
+	async render() {
+		console.log("render game page");
 		const view = `
             <div id="game-controls">
                 <!-- Canvas for the game -->
@@ -41,8 +42,8 @@ export default class Game extends Component {
             </div>
         `;
 
-        this.element.innerHTML = view;
-        this.handleEvent();
+		this.element.innerHTML = view;
+		this.handleEvent();
 	}
 
 	async handleEvent() {
@@ -50,31 +51,34 @@ export default class Game extends Component {
 			.getElementById("closeModalButton")
 			.addEventListener("click", () => {
 				document.getElementById("gameOverModal").style.display = "none";
-            });
-        
-        this.element.addEventListener("beforeunload", (event) => {
-            store.dispatch("leaveGame");
-        })
+				navigateTo("/");
+			});
 	}
 
-    async showStartingModal() {
-        if (store.state.gameStatus !== "playing")
-            return;
+	async showStartingModal() {
+		if (store.state.gameStatus !== "playing") return;
+	
 		document.getElementById("startingModal").style.display = "block";
 		document.getElementById("startingText").textContent = `
         Game starts soon in room ${store.state.roomName}. 
         Players: ${store.state.gameInfo.leftUser} vs ${store.state.gameInfo.rightUser}`;
-        this.countDown();
-    }
-    
-    async showGameOverModal() {
-        if (store.state.gameStatus !== "ended")
-            return;
-        document.getElementById("gameOverModal").style.display = "block";
-        document.getElementById("gameOverText").textContent = `
-        Game Over! Winner is ${store.state.winner}`;
-        navigateTo("/");
-    }
+		this.countDown();
+	}
+
+	async showGameOverModal() {
+		if (store.state.gameStatus !== "ended") return;
+	
+		document.getElementById("gameOverModal").style.display = "block";
+
+        console.log("game over: ", store.state.endReason, store.state.winner);
+		if (store.state.endReason === "normal") {
+			document.getElementById("gameOverText").textContent = `
+            Game Over! Winner is ${store.state.winner}!`;
+		} else {
+			document.getElementById("gameOverText").textContent = `
+            Game Over! Someone left the game!`;
+		}
+	}
 
 	async countDown() {
 		let count = 3;
@@ -91,8 +95,8 @@ export default class Game extends Component {
 
 			if (count < 0) {
 				clearInterval(countDownInterval);
-                document.getElementById("startingModal").style.display = "none";
-                store.dispatch("userIsReady");
+				document.getElementById("startingModal").style.display = "none";
+				store.dispatch("userIsReady");
 			}
 		}, 1000);
 	}

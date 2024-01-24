@@ -41,6 +41,11 @@ function setGameInfo(state, payload) {
 	return state;
 }
 
+function waitOpponent(state) {
+	state.gameStatus = "waiting";
+	return state;
+}
+
 function startGame(state) {
 	state.gameStatus = "playing";
 	return state;
@@ -73,6 +78,11 @@ function endGame(state) {
 	return state;
 }
 
+function setEndReason(state, payload) {
+	state.endReason = payload.endReason;
+	return state
+}
+
 function setWinner(state, payload) {
 	state.winner = payload.winner;
 	return state;
@@ -90,6 +100,7 @@ export default {
 	// game start
 	setSocket,
 	setGameInfo,
+	waitOpponent,
 	startGame,
 	// real-time update
 	updateBallPosition,
@@ -98,5 +109,6 @@ export default {
 	updateGameScore,
 	// game end
 	endGame,
+	setEndReason,
 	setWinner,
 };

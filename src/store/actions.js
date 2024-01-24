@@ -2,6 +2,7 @@
 import io from "https://cdn.socket.io/4.7.4/socket.io.esm.min.js";
 import { Position, Game } from "../enum/constant.js";
 import { navigateTo } from "../views/utils/router.js";
+import store from "./index.js";
 
 function setIntraId(context, payload) {
 	context.commit("setIntraId", payload);
@@ -32,6 +33,7 @@ function joinGame(context, payload) {
 
 	// const url = "http://localhost:3000/" + payload.gameMode.toLowerCase();
 	const url = "http://localhost:8000/game";
+	// const url = "http://localhost:3000/game";
 	const intraId = payload.intraId;
 	const nickname = payload.nickname;
 	const speedUp = payload.speedUp;
@@ -46,15 +48,22 @@ function joinGame(context, payload) {
 
 	context.commit("setSocket", { socket: socket });
 
+	socket.on("connect", () => {
+		console.log("on connect: ");
+		console.log(`> intraId=${intraId}, nickname=${nickname}, speedUp=${speedUp}`);
+	
+		context.commit("waitOpponent");
+	});
+
 	socket.on("connect_error", (error) => {
 		console.error("Connection Error:", error);
 	});
 
 	socket.on("userFullEvent", (data) => {
 		console.log("on userFullEvent: ");
-
+	
 		let userSide =
-			intraId === data.leftUser ? Position.LEFT : Position.RIGHT;
+		intraId === data.leftUser ? Position.LEFT : Position.RIGHT;
 
 		context.commit("setGameInfo", {
 			gameInfo: {
@@ -67,9 +76,8 @@ function joinGame(context, payload) {
 
 		console.log(`> roomName=${data.roomName}, leftUser=${data.leftUser}, rightUser=${data.rightUser}, userSide=${userSide}`);
 
-		);
-		navigateTo("/game");
 		startGame(context);
+		navigateTo("/game");
 	});
 
 	socket.on("updateGameStatus", (data) => {
@@ -93,16 +101,13 @@ function joinGame(context, payload) {
 				right: data.rightUserScore,
 			},
 		});
-		console.log(data.isEnded);
-		if (data.isEnded === true) {
-			console.log("game ended is true");
-			endGame(context, { normalEnd: true });
-		}
 	});
 
-	socket.on("disconnectRoom", (data) => {
-		console.log("disconnectRoom");
-		endGame(context, { normalEnd: false });
+	socket.on("endGame", (data) => {
+		console.log("on endGame: ");
+		console.log(`> reason=${data.reason}`);
+
+		endGame(context, { reason: data.reason });
 	});
 }
 
@@ -135,9 +140,9 @@ function updateGameScore(context, payload) {
 	context.commit("updateGameScore", payload);
 }
 
+// payload.reason: "normal" or "opponentLeft"
 function endGame(context, payload) {
-	console.log("action: endGame");
-	if (payload.normalEnd === true) {
+	if (payload.reason === "normal") {
 		if (context.state.score.left > context.state.score.right) {
 			context.commit("setWinner", {
 				winner: context.state.gameInfo.leftUser,
@@ -148,12 +153,14 @@ function endGame(context, payload) {
 			});
 		}
 	}
-
+	
 	if (context.state.socket) {
 		context.state.socket.disconnect();
 		context.commit("setSocket", { socket: null });
 	}
+	context.commit("setEndReason", { endReason: payload.reason });
 	context.commit("endGame");
+
 }
 
 function initPositions(context, payload) {
@@ -178,6 +185,8 @@ function initScores(context) {
 }
 
 function moveUserPaddleUp(context) {
+	if (context.state.gameStatus !== "playing") return;
+
 	const curPosition =
 		context.state.gameInfo.userSide === Position.LEFT
 			? context.state.leftPaddlePosition
@@ -208,6 +217,8 @@ function moveUserPaddleUp(context) {
 }
 
 function moveUserPaddleDown(context) {
+	if (context.state.gameStatus !== "playing") return;
+
 	const curPosition =
 		context.state.gameInfo.userSide === Position.LEFT
 			? context.state.leftPaddlePosition
@@ -240,12 +251,16 @@ function moveUserPaddleDown(context) {
 	});
 }
 
+// nest.js 서버 테스트 시 사용
 function leaveGame(context) {
-	console.log("leaveGame");
-	socket.emit("leaveGameEvent", {
-		roomName: context.state.gameInfo.roomName,
-		userSide: context.state.gameInfo.userSide,
-	});
+	context.state.socket.emit("leaveGame", {roomName: store.state.gameInfo.roomName});
+	
+	if (context.state.socket) {
+		context.state.socket.disconnect();
+		context.commit("setSocket", { socket: null });
+	}
+	context.commit("setEndReason", { reason: "opponentLeft" });
+	context.commit("endGame");
 }
 
 export default {
@@ -260,6 +275,7 @@ export default {
 	userIsReady,
 	endGame,
 	initPositions,
+	initScores,
 	moveUserPaddleDown,
 	moveUserPaddleUp,
 	leaveGame,
