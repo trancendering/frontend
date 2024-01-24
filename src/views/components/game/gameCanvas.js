@@ -1,6 +1,6 @@
 import store from "../../../store/index.js";
 import Component from "../../../library/component.js";
-import { Game } from "../../../enum/constant.js";
+import { Side, Game } from "../../../enum/constant.js";
 
 export default class gameCanvas extends Component {
 	constructor(params) {
@@ -87,8 +87,12 @@ export default class gameCanvas extends Component {
 	async drawScores() {
 		this.ctx.font = "20px Arial";
 
-		const leftUserText = `${store.state.gameInfo.leftUser}: ${store.state.score.left}`;
-		const rightUserText = `${store.state.gameInfo.rightUser}: ${store.state.score.right}`;
+		const leftDesignator =
+			store.state.gameInfo.userSide === Side.LEFT ? "(Me)" : "(Opponent)";
+		const rightDesignator =
+			store.state.gameInfo.userSide === Side.RIGHT ? "(Me)" : "(Opponent)";
+		let leftUserText = `${store.state.gameInfo.leftUser} ${leftDesignator}: ${store.state.score.left}`;
+		let rightUserText = `${store.state.gameInfo.rightUser} ${rightDesignator}: ${store.state.score.right}`;
 
 		const leftUserTextX = 30;
 		const rightUserTextX =

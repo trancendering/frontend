@@ -1,6 +1,6 @@
 // import { io } from "socket.io-client";
 import io from "https://cdn.socket.io/4.7.4/socket.io.esm.min.js";
-import { Position, Game } from "../enum/constant.js";
+import { Side, Game } from "../enum/constant.js";
 import { navigateTo } from "../views/utils/router.js";
 import store from "./index.js";
 
@@ -59,22 +59,24 @@ function joinGame(context, payload) {
 		console.error("Connection Error:", error);
 	});
 
+	// data: {roomName, leftUserId, rightUserId, leftUserNickname, rightUserNickname}
 	socket.on("userFullEvent", (data) => {
 		console.log("on userFullEvent: ");
 	
-		let userSide =
-		intraId === data.leftUser ? Position.LEFT : Position.RIGHT;
+		let userSide = intraId === data.leftUserId ? Side.LEFT : Side.RIGHT;
 
 		context.commit("setGameInfo", {
 			gameInfo: {
 				roomName: data.roomName,
-				leftUser: data.leftUser,
-				rightUser: data.rightUser,
+				leftUser: data.leftUserNickname,
+				rightUser: data.rightUserNickname,
 				userSide: userSide,
 			},
 		});
 
-		console.log(`> roomName=${data.roomName}, leftUser=${data.leftUser}, rightUser=${data.rightUser}, userSide=${userSide}`);
+		console.log(
+			`> roomName=${data.roomName}, leftUserId=${data.leftUserId}, rightUserId=${data.rightUserId}, leftUserNickname=${data.leftUserNickname}, rightUserNickname=${data.rightUserNickname}, userSide=${userSide}`
+		);
 
 		navigateTo("/game");
 		startGame(context);
@@ -125,7 +127,7 @@ function updateGameState(context, payload) {
 	context.commit("updateBallPosition", {
 		ballPosition: payload.ballPosition,
 	});
-	if (context.state.gameInfo.userSide === Position.LEFT) {
+	if (context.state.gameInfo.userSide === Side.LEFT) {
 		context.commit("updateRightPaddlePosition", {
 			rightPaddlePosition: payload.rightPaddlePosition,
 		});
@@ -160,7 +162,6 @@ function endGame(context, payload) {
 	}
 	context.commit("setEndReason", { endReason: payload.reason });
 	context.commit("endGame");
-
 }
 
 function initPositions(context, payload) {
@@ -188,7 +189,7 @@ function moveUserPaddleUp(context) {
 	if (context.state.gameStatus !== "playing") return;
 
 	const curPosition =
-		context.state.gameInfo.userSide === Position.LEFT
+		context.state.gameInfo.userSide === Side.LEFT
 			? context.state.leftPaddlePosition
 			: context.state.rightPaddlePosition;
 	const newPosition = Math.max(curPosition - 10, Game.PADDLE_HEIGHT / 2);
@@ -200,7 +201,7 @@ function moveUserPaddleUp(context) {
 	
 	console.log(`moveUserPaddleUp: position=${newPosition}`);
 
-	if (context.state.gameInfo.userSide === Position.LEFT) {
+	if (context.state.gameInfo.userSide === Side.LEFT) {
 		context.commit("updateLeftPaddlePosition", {
 			leftPaddlePosition: newPosition,
 		});
@@ -220,7 +221,7 @@ function moveUserPaddleDown(context) {
 	if (context.state.gameStatus !== "playing") return;
 
 	const curPosition =
-		context.state.gameInfo.userSide === Position.LEFT
+		context.state.gameInfo.userSide === Side.LEFT
 			? context.state.leftPaddlePosition
 			: context.state.rightPaddlePosition;
 	const newPosition = Math.min(
@@ -234,7 +235,7 @@ function moveUserPaddleDown(context) {
 	}
 	console.log(`moveUserPaddleDown: position=${newPosition}`);
 
-	if (context.state.gameInfo.userSide == Position.LEFT) {
+	if (context.state.gameInfo.userSide == Side.LEFT) {
 		context.commit("updateLeftPaddlePosition", {
 			leftPaddlePosition: newPosition,
 		});
@@ -253,7 +254,9 @@ function moveUserPaddleDown(context) {
 
 // nest.js 서버 테스트 시 사용
 function leaveGame(context) {
-	context.state.socket.emit("leaveGame", {roomName: store.state.gameInfo.roomName});
+	context.state.socket.emit("leaveGame", {
+		roomName: store.state.gameInfo.roomName,
+	});
 	
 	if (context.state.socket) {
 		context.state.socket.disconnect();
