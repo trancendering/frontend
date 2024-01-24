@@ -1,4 +1,4 @@
-export const Position = {
+export const Side = {
 	LEFT: "left",
 	RIGHT: "right",
 };
