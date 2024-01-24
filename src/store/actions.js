@@ -118,7 +118,7 @@ function updateGameState(context, payload) {
 	context.commit("updateBallPosition", {
 		ballPosition: payload.ballPosition,
 	});
-	if (context.state.userSide === Position.LEFT) {
+	if (context.state.gameInfo.userSide === Position.LEFT) {
 		context.commit("updateRightPaddlePosition", {
 			rightPaddle: payload.rightPaddle,
 		});
