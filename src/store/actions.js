@@ -76,8 +76,8 @@ function joinGame(context, payload) {
 	socket.on("updateGameStatus", (data) => {
 		updateGameState(context, {
 			ballPosition: data.ballPosition,
-			leftPaddle: data.leftPaddlePosition,
-			rightPaddle: data.rightPaddlePosition,
+			leftPaddlePosition: data.leftPaddlePosition,
+			rightPaddlePosition: data.rightPaddlePosition,
 		});
 	});
 
@@ -91,13 +91,13 @@ function joinGame(context, payload) {
 		console.log(data.isEnded);
 		if (data.isEnded === true) {
 			console.log("game ended is true");
-			endGame(context, {normalEnd: true});
+			endGame(context, { normalEnd: true });
 		}
 	});
 
 	socket.on("disconnectRoom", (data) => {
 		console.log("disconnectRoom");
-		endGame(context, {normalEnd: false});
+		endGame(context, { normalEnd: false });
 	});
 }
 
@@ -117,11 +117,11 @@ function updateGameState(context, payload) {
 	});
 	if (context.state.gameInfo.userSide === Position.LEFT) {
 		context.commit("updateRightPaddlePosition", {
-			rightPaddle: payload.rightPaddle,
+			rightPaddlePosition: payload.rightPaddlePosition,
 		});
 	} else {
 		context.commit("updateLeftPaddlePosition", {
-			leftPaddle: payload.leftPaddle,
+			leftPaddlePosition: payload.leftPaddlePosition,
 		});
 	}
 }
@@ -157,31 +157,30 @@ function initPositions(context, payload) {
 		ballPosition: payload.ballPosition,
 	});
 	context.commit("updateLeftPaddlePosition", {
-		leftPaddle: payload.leftPaddle,
+		leftPaddlePosition: payload.leftPaddlePosition,
 	});
 	context.commit("updateRightPaddlePosition", {
-		rightPaddle: payload.rightPaddle,
+		rightPaddlePosition: payload.rightPaddlePosition,
 	});
 }
 
 function moveUserPaddleUp(context) {
 	const curPosition =
 		context.state.gameInfo.userSide === Position.LEFT
-			? context.state.leftPaddle
-			: context.state.rightPaddle;
-	const newPosition = Math.max(
-		curPosition - 10,
-		Game.PADDLE_HEIGHT / 2
-	);
+			? context.state.leftPaddlePosition
+			: context.state.rightPaddlePosition;
+	const newPosition = Math.max(curPosition - 10, Game.PADDLE_HEIGHT / 2);
 	if (newPosition === undefined) {
 		console.log("moveUserPaddleUp: new position undefined");
 		return;
 	}
 	if (context.state.gameInfo.userSide === Position.LEFT) {
-		context.commit("updateLeftPaddlePosition", { leftPaddle: newPosition });
+		context.commit("updateLeftPaddlePosition", {
+			leftPaddlePosition: newPosition,
+		});
 	} else {
 		context.commit("updateRightPaddlePosition", {
-			rightPaddle: newPosition,
+			rightPaddlePosition: newPosition,
 		});
 	}
 	context.state.socket.emit("updatePaddlePosition", {
@@ -194,8 +193,8 @@ function moveUserPaddleUp(context) {
 function moveUserPaddleDown(context) {
 	const curPosition =
 		context.state.gameInfo.userSide === Position.LEFT
-			? context.state.leftPaddle
-			: context.state.rightPaddle;
+			? context.state.leftPaddlePosition
+			: context.state.rightPaddlePosition;
 	const newPosition = Math.min(
 		curPosition + 10,
 		Game.CANVAS_HEIGHT - Game.PADDLE_HEIGHT / 2
@@ -208,10 +207,12 @@ function moveUserPaddleDown(context) {
 	}
 
 	if (context.state.gameInfo.userSide == Position.LEFT) {
-		context.commit("updateLeftPaddlePosition", { leftPaddle: newPosition });
+		context.commit("updateLeftPaddlePosition", {
+			leftPaddlePosition: newPosition,
+		});
 	} else {
 		context.commit("updateRightPaddlePosition", {
-			rightPaddle: newPosition,
+			rightPaddlePosition: newPosition,
 		});
 	}
 

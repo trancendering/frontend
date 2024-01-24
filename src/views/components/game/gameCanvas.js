@@ -16,8 +16,8 @@ export default class gameCanvas extends Component {
 				x: this.canvas.width / 2,
 				y: this.canvas.height / 2,
 			},
-			leftPaddle: this.canvas.height / 2,
-			rightPaddle: this.canvas.height / 2,
+			leftPaddlePosition: this.canvas.height / 2,
+			rightPaddlePosition: this.canvas.height / 2,
 		});
 
 		this.render();
@@ -58,7 +58,9 @@ export default class gameCanvas extends Component {
 	async drawPaddle(side) {
 		const x = side === "left" ? 0 : this.canvas.width - Game.PADDLE_WIDTH;
 		const y =
-			side === "left" ? store.state.leftPaddle : store.state.rightPaddle;
+			side === "left"
+				? store.state.leftPaddlePosition
+				: store.state.rightPaddlePosition;
 
 		this.ctx.beginPath();
 		this.ctx.rect(
