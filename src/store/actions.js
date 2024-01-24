@@ -51,12 +51,11 @@ function joinGame(context, payload) {
 	});
 
 	socket.on("userFullEvent", (data) => {
-		console.log("userFullEvent");
+		console.log("on userFullEvent: ");
 
-		console.log(intraId, data.leftUser, data.rightUser);
 		let userSide =
 			intraId === data.leftUser ? Position.LEFT : Position.RIGHT;
-		console.log(userSide);
+
 		context.commit("setGameInfo", {
 			gameInfo: {
 				roomName: data.roomName,
@@ -66,14 +65,17 @@ function joinGame(context, payload) {
 			},
 		});
 
-		console.log(
-			`roomName: ${data.roomName}, leftUser: ${data.leftUser}, rightUser: ${data.rightUser}, userSide: ${userSide}`
+		console.log(`> roomName=${data.roomName}, leftUser=${data.leftUser}, rightUser=${data.rightUser}, userSide=${userSide}`);
+
 		);
 		navigateTo("/game");
 		startGame(context);
 	});
 
 	socket.on("updateGameStatus", (data) => {
+		// console.log("on updateGameStatus: ");
+		// console.log(`> gameStatus=${data.gameStatus}`);
+
 		updateGameState(context, {
 			ballPosition: data.ballPosition,
 			leftPaddlePosition: data.leftPaddlePosition,
@@ -82,6 +84,9 @@ function joinGame(context, payload) {
 	});
 
 	socket.on("updateGameScore", (data) => {
+		// console.log("on updateGameScore: ");
+		// console.log(`> leftUserScore=${data.leftUserScore}, rightUserScore=${data.rightUserScore}`);
+
 		updateGameScore(context, {
 			score: {
 				left: data.leftUserScore,
@@ -127,7 +132,6 @@ function updateGameState(context, payload) {
 }
 
 function updateGameScore(context, payload) {
-	console.log("action: updateGameScore");
 	context.commit("updateGameScore", payload);
 }
 
@@ -170,10 +174,14 @@ function moveUserPaddleUp(context) {
 			? context.state.leftPaddlePosition
 			: context.state.rightPaddlePosition;
 	const newPosition = Math.max(curPosition - 10, Game.PADDLE_HEIGHT / 2);
+	
 	if (newPosition === undefined) {
 		console.log("moveUserPaddleUp: new position undefined");
 		return;
 	}
+	
+	console.log(`moveUserPaddleUp: position=${newPosition}`);
+
 	if (context.state.gameInfo.userSide === Position.LEFT) {
 		context.commit("updateLeftPaddlePosition", {
 			leftPaddlePosition: newPosition,
@@ -199,12 +207,12 @@ function moveUserPaddleDown(context) {
 		curPosition + 10,
 		Game.CANVAS_HEIGHT - Game.PADDLE_HEIGHT / 2
 	);
-	console.log(GameElement.CANVAS_HEIGHT - GameElement.PADDLE_HEIGHT / 2);
-	console.log("new position: " + newPosition);
+	
 	if (newPosition === undefined) {
 		console.log("moveUserPaddleDown: new position undefined");
 		return;
 	}
+	console.log(`moveUserPaddleDown: position=${newPosition}`);
 
 	if (context.state.gameInfo.userSide == Position.LEFT) {
 		context.commit("updateLeftPaddlePosition", {
