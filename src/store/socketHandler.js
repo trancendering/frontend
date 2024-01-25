@@ -9,8 +9,8 @@ import { Side } from "../enum/constant.js";
 
 function connectSocket(context, payload) {
 	// const url = "http://localhost:3000/" + payload.gameMode.toLowerCase();
-	// const url = "http://localhost:8000/game";
-	const url = "http://localhost:3000/game";
+	const url = "http://localhost:8000/game";
+	// const url = "http://localhost:3000/game";
 
 	console.log("connect to socket:");
 	console.log(
@@ -102,12 +102,13 @@ function endGame(context, payload) {
 				winner: context.state.gameInfo.rightUser,
 			});
 		}
-	} else if (payload.reason === "opponentLeft") {
-		// nest.js 서버 테스트시 사용. django 서버는 emit 문 주석 처리할 것
-		context.state.socket.emit("leaveGame", {
-			roomName: context.state.gameInfo.roomName,
-		});
 	}
+	// nest.js 서버 테스트시 사용. django 서버는 emit 문 주석 처리할 것
+		// } else if (payload.reason === "opponentLeft") {
+	// 	context.state.socket.emit("leaveGame", {
+	// 		roomName: context.state.gameInfo.roomName,
+	// 	});
+	// }
 
 	if (context.state.socket) {
 		context.state.socket.disconnect();

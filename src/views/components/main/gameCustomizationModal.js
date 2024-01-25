@@ -100,6 +100,7 @@ export default class GameCustomizationModal extends Component {
 				store.dispatch("setFancyBall", { fancyBall: fancyBallValue });
 
 				// 임시 랜덤 intraId 생성
+				// TODO: auth 로직 구현 후 삭제
 				function makeRandomName() {
 					var name = "";
 					var possible =
@@ -110,9 +111,9 @@ export default class GameCustomizationModal extends Component {
 						);
 					return name;
 				}
-
 				store.dispatch("setIntraId", { intraId: makeRandomName() });
 
+				// Set Game Customization State
 				const nickname = this.element.querySelector("#nickname").value;
 				const speedUp = this.element.querySelector(
 					'#speed-option input[name="speed-btn"]:checked'
@@ -129,15 +130,13 @@ export default class GameCustomizationModal extends Component {
 					document.getElementById("opponent-waiting-modal")
 				).show();
 
-				// Initialize Socket
+				// Join Game and connect socket
 				store.dispatch("joinGame", {
 					intraId: store.state.intraId,
 					gameMode: store.state.gameMode, // single or tournament로 수정하자
 					nickname: nickname,
 					speedUp: speedUp,
 				});
-
-				// document.querySelector('.modal-backdrop').remove();
 			});
 	}
 
