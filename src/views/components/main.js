@@ -23,18 +23,18 @@ export default class Main extends Component {
 				id: "single-game-mode",
 				gameMode: "Single", //"1 VS 1",
 			}),
-			gameModeCard2: new GameModeCard({
-				id: "double-game-mode",
-				gameMode: "2 VS 2",
-			}),
+			// gameModeCard2: new GameModeCard({
+			// 	id: "double-game-mode",
+			// 	gameMode: "2 VS 2",
+			// }),
 			gameModeCard3: new GameModeCard({
 				id: "tournament-game-mode",
 				gameMode: "Tournament",
 			}),
-			gameModeCard4: new GameModeCard({
-				id: "ai-game-mode",
-				gameMode: "AI",
-			}),
+			// gameModeCard4: new GameModeCard({
+			// 	id: "ai-game-mode",
+			// 	gameMode: "AI",
+			// }),
 			gameCustomizationModal: new GameCustomizationModal(),
 			opponentWaitingModal: new OpponentWaitingModal(),
 			invalidNicknameModal: new InvalidNicknameModal(),
@@ -55,10 +55,14 @@ export default class Main extends Component {
                         <h1 class="display-4 fw-bold">${main[languageId].title}</h1>
                     </div>
                     <div class="d-flex flex-row gap-3 mt-3">
-                        <div id="single-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
-                        <div id="double-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
-                        <div id="tournament-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
-                        <div id="ai-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
+                        <div id="single-game-mode" class="rounded border bg-light text-dark shadow-sm col-lg" data-v0-t="card"></div>
+                        <!--
+						<div id="double-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
+						-->
+                        <div id="tournament-game-mode" class="rounded border bg-light text-dark shadow-sm col-lg" data-v0-t="card"></div>
+                        <!--
+						<div id="ai-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
+						-->
                     </div>
                 </div>
                 
