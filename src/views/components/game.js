@@ -1,6 +1,7 @@
 import store from "../../store/index.js";
 import Component from "../../library/component.js";
 import GameCanvas from "./game/gameCanvas.js";
+import { Game as GameConsts } from "../../enum/constant.js";
 import { navigateTo } from "../utils/router.js";
 
 export default class Game extends Component {
@@ -22,6 +23,16 @@ export default class Game extends Component {
 
 	async render() {
 		console.log("render game page");
+		store.dispatch("initPositions", {
+			ballPosition: {
+				x: GameConsts.CANVAS_WIDTH / 2,
+				y: GameConsts.CANVAS_HEIGHT / 2,
+			},
+			leftPaddlePosition: GameConsts.CANVAS_HEIGHT / 2,
+			rightPaddlePosition: GameConsts.CANVAS_HEIGHT / 2,
+		});
+		store.dispatch("initScores");
+
 		const view = `
             <div id="game-controls">
                 <!-- Canvas for the game -->
@@ -57,7 +68,7 @@ export default class Game extends Component {
 
 	async showStartingModal() {
 		if (store.state.gameStatus !== "playing") return;
-	
+
 		document.getElementById("startingModal").style.display = "block";
 		document.getElementById("startingText").textContent = `
         Game starts soon in room ${store.state.roomName}. 
@@ -67,10 +78,10 @@ export default class Game extends Component {
 
 	async showGameOverModal() {
 		if (store.state.gameStatus !== "ended") return;
-	
+
 		document.getElementById("gameOverModal").style.display = "block";
 
-        console.log("game over: ", store.state.endReason, store.state.winner);
+		console.log("game over: ", store.state.endReason, store.state.winner);
 		if (store.state.endReason === "normal") {
 			document.getElementById("gameOverText").textContent = `
             Game Over! Winner is ${store.state.winner}!`;
