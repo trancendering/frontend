@@ -12,6 +12,7 @@ export default class GameModeCard extends Component {
 		this.id = params.id;
 		this.gameMode = params.gameMode;
 		this.description = params.description;
+		this.render();
 	}
 
 	async render() {

@@ -8,7 +8,7 @@ export default class InvalidNicknameModal extends Component {
 			store,
 			element: document.getElementById("invalid-nickname-modal"),
 		});
-
+		this.render();
 		// store.events.subscribe("gameStatusChange", async () => this.hideInvalidNicknameModal());
 	}
 
