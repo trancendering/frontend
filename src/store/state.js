@@ -16,16 +16,22 @@ export default {
 		rightUser: "",
 		userSide: "left", // or "right"
 	},
-	// game status
+	gameInfo: {
+		roomName: "",
+		intraId: [],
+		nickname: [],
+		userIndex: 0,
+		userSide: 0,
+	},
+	// Game Status
 	gameStatus: "ended", // or "playing" or "ended"
-	endReason: "normal", // or "opponentLeft"
+	// Real-time Updated Game State
 	leftUserScore: 0,
 	rightUserScore: 0,
 	ballPosition: { x: 0, y: 0 },
 	leftPaddlePosition: 200,
 	rightPaddlePosition: 200,
-	// after game end
+	// At the End of Game
+	endReason: "normal", // or "opponentLeft"
 	winner: null,
-	// before game start
-	countDown: false,
 };
