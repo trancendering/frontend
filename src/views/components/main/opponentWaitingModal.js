@@ -8,6 +8,7 @@ export default class OpponentWaitingModal extends Component {
 			store,
 			element: document.getElementById("opponent-waiting-modal"),
 		});
+		this.render();
 
 		store.events.subscribe("gameStatusChange", async ()=>this.hideOpponentWaitingModal());
 	}

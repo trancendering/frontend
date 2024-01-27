@@ -8,6 +8,7 @@ export default class GameCustomizationModal extends Component {
 			store,
 			element: document.getElementById("game-customization-modal"),
 		});
+		this.render();
 	}
 
 	async render() {

@@ -8,6 +8,7 @@ export default class Login extends Component {
             store,
             element: document.getElementById("login-btn"),
         });
+        this.render();
     }
 
     async render() {

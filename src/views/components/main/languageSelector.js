@@ -8,6 +8,7 @@ export default class LanguageSelector extends Component {
 			store,
 			element: document.getElementById("language-selector"),
 		});
+		this.render();
 	}
 
 	async render() {
