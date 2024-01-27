@@ -26,9 +26,12 @@ function setFancyBall(context, payload) {
 	context.commit("setFancyBall", payload);
 }
 
-function joinGame(context, payload) {
-	console.log("joinGame: ");
-	const socket = socketHandler.connectSocket(context, payload);
+function joinSingleGame(context, payload) {
+	console.log("joinSingleGame: ");
+	const socket = socketHandler.connectSocket(context, {
+		...payload,
+		namespace: "single",
+	});
 
 	socket.on("connect_error", (error) => {
 		socketHandler.printSocketError(error);
@@ -58,15 +61,18 @@ function userIsReady(context) {
 	});
 }
 
-function initPositions(context, payload) {
+function initPositions(context) {
 	context.commit("updateBallPosition", {
-		ballPosition: payload.ballPosition,
+		ballPosition: {
+			x: Game.CANVAS_WIDTH / 2,
+			y: Game.CANVAS_HEIGHT / 2,
+		},
 	});
 	context.commit("updateLeftPaddlePosition", {
-		leftPaddlePosition: payload.leftPaddlePosition,
+		leftPaddlePosition: Game.CANVAS_HEIGHT / 2
 	});
 	context.commit("updateRightPaddlePosition", {
-		rightPaddlePosition: payload.rightPaddlePosition,
+		rightPaddlePosition: Game.CANVAS_HEIGHT / 2
 	});
 }
 
@@ -145,7 +151,7 @@ export default {
 	setLanguage,
 	setGameMode,
 	setFancyBall,
-	joinGame,
+	joinSingleGame,
 	leaveGame,
 	userIsReady,
 	initPositions,

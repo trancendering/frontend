@@ -133,9 +133,8 @@ export default class GameCustomizationModal extends Component {
 				).show();
 
 				// Join Game and connect socket
-				store.dispatch("joinGame", {
+				store.dispatch(`join${store.state.gameMode}Game`, {
 					intraId: store.state.intraId,
-					gameMode: store.state.gameMode, // single or tournament로 수정하자
 					nickname: nickname,
 					speedUp: speedUp,
 				});

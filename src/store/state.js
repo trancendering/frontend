@@ -9,23 +9,23 @@ export default {
 
 	// Real-time Game
 	socket: null,
-	// game Info
+	// Game
 	gameInfo: {
 		roomName: "",
-		leftUser: "",
-		rightUser: "",
-		userSide: "left", // or "right"
+		intraId: [],
+		nickname: [],
+		userIndex: 0,
+		userSide: 0,
 	},
-	// game status
+	// Game Status
 	gameStatus: "ended", // or "playing" or "ended"
-	endReason: "normal", // or "opponentLeft"
+	// Real-time Updated Game State
 	leftUserScore: 0,
 	rightUserScore: 0,
 	ballPosition: { x: 0, y: 0 },
 	leftPaddlePosition: 200,
 	rightPaddlePosition: 200,
-	// after game end
+	// At the End of Game
+	endReason: "normal", // or "opponentLeft"
 	winner: null,
-	// before game start
-	countDown: false,
 };

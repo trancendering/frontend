@@ -1,7 +1,6 @@
 import store from "../../store/index.js";
 import Component from "../../library/component.js";
 import GameCanvas from "./game/gameCanvas.js";
-import { Game as GameConsts } from "../../enum/constant.js";
 import { navigateTo } from "../utils/router.js";
 
 export default class Game extends Component {
@@ -23,15 +22,8 @@ export default class Game extends Component {
 
 	async render() {
 		console.log("render game page");
-		store.dispatch("initPositions", {
-			ballPosition: {
-				x: GameConsts.CANVAS_WIDTH / 2,
-				y: GameConsts.CANVAS_HEIGHT / 2,
-			},
-			leftPaddlePosition: GameConsts.CANVAS_HEIGHT / 2,
-			rightPaddlePosition: GameConsts.CANVAS_HEIGHT / 2,
-		});
-		store.dispatch("initScores");
+		// store.dispatch("initPositions");
+		// store.dispatch("initScores");
 
 		const view = `
             <div id="game-controls">
@@ -39,9 +31,6 @@ export default class Game extends Component {
                 <canvas id="gameCanvas" width="800" height="400"></canvas>
 
                 <!-- Modals for game status -->
-                <div id="waitingModal" style="display: none;">
-                    <p>Waiting for Opponent...</p>
-                </div>
                 <div id="startingModal" style="display: none;">
                     <p id="startingText"></p>
                     <p id="countdownDisplay"></p>
@@ -69,10 +58,11 @@ export default class Game extends Component {
 	async showStartingModal() {
 		if (store.state.gameStatus !== "playing") return;
 
+		const gameInfo = store.state.gameInfo;
 		document.getElementById("startingModal").style.display = "block";
 		document.getElementById("startingText").textContent = `
-        Game starts soon in room ${store.state.roomName}. 
-        Players: ${store.state.gameInfo.leftUser} vs ${store.state.gameInfo.rightUser}`;
+        Game starts soon in room ${gameInfo.roomName}. 
+        Players: ${gameInfo.nickname[0]} vs ${gameInfo.nickname[1]}`;
 		this.countDown();
 	}
 

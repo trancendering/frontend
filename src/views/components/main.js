@@ -54,12 +54,12 @@ export default class Main extends Component {
                     <div class="w-100 d-flex justify-content-center align-items-center py-2">
                         <h1 class="display-4 fw-bold">${main[languageId].title}</h1>
                     </div>
-                    <div class="d-flex flex-row gap-3 mt-3">
-                        <div id="single-game-mode" class="rounded border bg-light text-dark shadow-sm col-lg" data-v0-t="card"></div>
+                    <div class="d-flex flex-row gap-3 mt-3 justify-content-center">
+                        <div id="single-game-mode" class="rounded border bg-light text-dark shadow-sm col-md" data-v0-t="card"></div>
                         <!--
 						<div id="double-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
 						-->
-                        <div id="tournament-game-mode" class="rounded border bg-light text-dark shadow-sm col-lg" data-v0-t="card"></div>
+                        <div id="tournament-game-mode" class="rounded border bg-light text-dark shadow-sm col-md" data-v0-t="card"></div>
                         <!--
 						<div id="ai-game-mode" class="rounded border bg-light text-dark shadow-sm w-25" data-v0-t="card"></div>
 						-->
