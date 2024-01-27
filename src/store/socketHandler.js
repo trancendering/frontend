@@ -96,9 +96,6 @@ function endGame(context, payload) {
 	context.commit("setGameStatus", { gameStatus: "ended" });
 }
 
-	context.commit("setGameStatus", { gameStatus: "playing" });
-}
-
 function updateGameState(context, payload) {
 	// console.log("on updateGameStatus: ");
 	// console.log(" gameStatus=", payload.gameStatus);
