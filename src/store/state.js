@@ -9,13 +9,7 @@ export default {
 
 	// Real-time Game
 	socket: null,
-	// game Info
-	gameInfo: {
-		roomName: "",
-		leftUser: "",
-		rightUser: "",
-		userSide: "left", // or "right"
-	},
+	// Game
 	gameInfo: {
 		roomName: "",
 		intraId: [],
