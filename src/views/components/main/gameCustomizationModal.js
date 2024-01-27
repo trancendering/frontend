@@ -1,6 +1,7 @@
 import store from "../../../store/index.js";
 import Component from "../../../library/component.js";
 import { gameCustomizationModal } from "../../utils/languagePack.js";
+import { Modal } from 'bootstrap'
 
 export default class GameCustomizationModal extends Component {
 	constructor(params) {
@@ -88,7 +89,7 @@ export default class GameCustomizationModal extends Component {
 
 				// Check Nickname is Empty
 				if (this.element.querySelector("#nickname").value === "") {
-					bootstrap.Modal.getOrCreateInstance(
+					Modal.getOrCreateInstance(
 						document.getElementById("invalid-nickname-modal")
 					).show();
 					return;
@@ -121,13 +122,13 @@ export default class GameCustomizationModal extends Component {
 				).value;
 
 				// Hide Game Customization Modal
-				bootstrap.Modal.getInstance(
+				Modal.getInstance(
 					document.getElementById("game-customization-modal")
 				).hide();
 
 				// Show Opponent Waiting Modal
 				console.log("show opponent waiting modal");
-				bootstrap.Modal.getOrCreateInstance(
+				Modal.getOrCreateInstance(
 					document.getElementById("opponent-waiting-modal")
 				).show();
 
@@ -144,7 +145,7 @@ export default class GameCustomizationModal extends Component {
 	async hideGameCustomizationModal() {
 		if (store.state.gameStatus !== "playing") return;
 		console.log("hide game customization modal");
-		const modalInstance = bootstrap.Modal.getInstance(this.element);
+		const modalInstance = Modal.getInstance(this.element);
 		if (modalInstance) modalInstance.hide();
 	}
 }
