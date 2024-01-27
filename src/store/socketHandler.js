@@ -3,9 +3,9 @@
  * actions.js/joinGame에서 socket.on으로 받은 이벤트를 처리하는 함수들이다.
  * 다른 모듈은 이 파일의 함수를 사용할 수 없다.
  */
-import io from "https://cdn.socket.io/4.7.4/socket.io.esm.min.js";
-import { navigateTo } from "../views/utils/router.js";
-import { Side } from "../enum/constant.js";
+import {navigateTo} from "../views/utils/router.js";
+import {Side} from "../enum/constant.js";
+import io from "socket.io-client";
 
 function connectSocket(context, payload) {
 	// const url = "http://localhost:3000/" + payload.gameMode.toLowerCase();
@@ -57,7 +57,7 @@ function startGame(context, payload) {
 	console.log("  nickname=", payload.nickname);
 	console.log("  userIndex=", userIndex);
 	console.log("  userSide=", userSide);
-	
+
 	// 게임 시작 전 초기화
 	context.dispatch("initPositions");
 	context.dispatch("initScores");
@@ -128,6 +128,36 @@ function updateGameScore(context, payload) {
 	context.commit("updateRightUserScore", {
 		rightUserScore: payload.rightUserScore,
 	});
+}
+
+function endGame(context, payload) {
+	console.log("on endGame: endGame");
+	console.log(`> reason=${payload.reason}`);
+
+	if (payload.reason === "normal") {
+		if (context.state.leftUserScore > context.state.rightUserScore) {
+			context.commit("setWinner", {
+				winner: context.state.gameInfo.leftUser,
+			});
+		} else {
+			context.commit("setWinner", {
+				winner: context.state.gameInfo.rightUser,
+			});
+		}
+	// }
+	// nest.js 서버 테스트시 사용. django 서버는 emit 문 주석 처리할 것
+		} else if (payload.reason === "opponentLeft") {
+		context.state.socket.emit("leaveGame", {
+			roomName: context.state.gameInfo.roomName,
+		});
+	}
+
+	if (context.state.socket) {
+		context.state.socket.disconnect();
+		context.commit("setSocket", { socket: null });
+	}
+	context.commit("setEndReason", { endReason: payload.reason });
+	context.commit("setGameStatus", { gameStatus: "ended" });
 }
 
 function updatePaddlePosition(context, payload) {

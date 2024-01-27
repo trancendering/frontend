@@ -1,6 +1,7 @@
 import store from "../../../store/index.js";
 import Component from "../../../library/component.js";
 import {loginButton} from "../../utils/languagePack.js";
+import logo from "../../../static/img/42_logo.svg";
 
 export default class Login extends Component {
     constructor(params) {
@@ -16,7 +17,7 @@ export default class Login extends Component {
 
         const view = `
             <a data-link href="/" class="btn btn-primary text-white" role="button">
-                <img src="../../../static/img/42_logo.svg" width="24" height="24" class="mr-2 align-middle" alt="42_logo">
+                <img src="${logo}" width="24" height="24" class="mr-2 align-middle" alt="42_logo">
                 ${loginButton[languageId].loginDescription}
             </a>
         `;
