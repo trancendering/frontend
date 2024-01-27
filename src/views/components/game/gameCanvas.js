@@ -31,7 +31,6 @@ export default class gameCanvas extends Component {
 		if (this.element !== newElement) {
 			this.element = newElement;
 			this.ctx = this.element.getContext("2d");
-			this.handleEvent();
 		}
 
 		this.drawObjects();
@@ -40,6 +39,7 @@ export default class gameCanvas extends Component {
 
 	async handleEvent() {
 		document.addEventListener("keydown", (e) => {
+			if (store.state.gameStatus !== "playing") return;
 			if (e.key == "ArrowUp") {
 				store.dispatch("moveUserPaddleUp");
 			} else if (e.key == "ArrowDown") {
