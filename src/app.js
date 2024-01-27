@@ -10,9 +10,9 @@ window.addEventListener("popstate", (event) => {
 		store.dispatch("leaveGame");
 		return;
 	}
-	if (window.location.pathname === "/game") {
+	if (window.location.pathname === "/game" || window.location.pathname === "/tournament") {
 		event.preventDefault();
-		console.log("can't go back to game page");
+		console.log("can't go back to game or tournament page");
 		navigateTo("/");
 		return;
 	}
