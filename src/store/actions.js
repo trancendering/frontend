@@ -88,7 +88,7 @@ function moveUserPaddleUp(context) {
         context.state.gameInfo.userSide === Side.LEFT
             ? context.state.leftPaddlePosition
             : context.state.rightPaddlePosition;
-    const newPosition = Math.max(curPosition + 10, Game.PADDLE_HEIGHT / 2);
+    const newPosition = Math.min(curPosition + 10, Game.CANVAS_HEIGHT - Game.PADDLE_HEIGHT / 2);
 
     if (newPosition === undefined) {
         console.log("moveUserPaddleUp: new position undefined");
@@ -118,7 +118,7 @@ function moveUserPaddleDown(context) {
         context.state.gameInfo.userSide === Side.LEFT
             ? context.state.leftPaddlePosition
             : context.state.rightPaddlePosition;
-    const newPosition = Math.min(curPosition - 10, Game.CANVAS_HEIGHT - Game.PADDLE_HEIGHT / 2);
+    const newPosition = Math.max(curPosition - 10, Game.PADDLE_HEIGHT / 2);
 
     if (newPosition === undefined) {
         console.log("moveUserPaddleDown: new position undefined");
