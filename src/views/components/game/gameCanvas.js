@@ -10,16 +10,6 @@ export default class gameCanvas extends Component {
 		});
 		this.ctx = this.element.getContext("2d");
 
-		store.dispatch("initPositions", {
-			ballPosition: {
-				x: Game.CANVAS_WIDTH / 2,
-				y: Game.CANVAS_HEIGHT / 2,
-			},
-			leftPaddlePosition: Game.CANVAS_HEIGHT / 2,
-			rightPaddlePosition: Game.CANVAS_HEIGHT / 2,
-		});
-		store.dispatch("initScores");
-
 		this.render();
 		this.handleEvent();
 		store.events.subscribe("ballPositionChange", async () => this.render());
@@ -40,6 +30,7 @@ export default class gameCanvas extends Component {
 	async handleEvent() {
 		document.addEventListener("keydown", (e) => {
 			if (store.state.gameStatus !== "playing") return;
+			if (store.state.gameContext.participated === false) return;
 			if (e.key == "ArrowUp") {
 				store.dispatch("moveUserPaddleUp");
 			} else if (e.key == "ArrowDown") {
@@ -87,11 +78,18 @@ export default class gameCanvas extends Component {
 	async drawScores() {
 		this.ctx.font = "20px Arial";
 
-		const gameInfo = store.state.gameInfo;
-		const leftDesignator = gameInfo.userSide === Side.LEFT ? "(Me)" : "";
-		const rightDesignator = gameInfo.userSide === Side.RIGHT ? "(Me)" : "";
-		const leftUserText = `${gameInfo.nickname[0]} ${leftDesignator}: ${store.state.leftUserScore}`;
-		const rightUserText = `${gameInfo.nickname[1]} ${rightDesignator}: ${store.state.rightUserScore}`;
+		const gameContext = store.state.gameContext;
+		let leftDesignator = "";
+		let rightDesignator = "";
+		if (gameContext.participated === true) {
+			if (gameContext.userSide === Side.LEFT) {
+				leftDesignator = "(Me)";
+			} else {
+				rightDesignator = "(Me)";
+			}
+		}
+		const leftUserText = `${gameContext.leftUser} ${leftDesignator}: ${store.state.leftUserScore}`;
+		const rightUserText = `${gameContext.rightUser} ${rightDesignator}: ${store.state.rightUserScore}`;
 
 		const leftUserTextX = 30;
 		const rightUserTextX =
