@@ -60,7 +60,7 @@ export default class tournamentActionHandler extends GameActionHandler {
 	}
 
 	/**
-	 * round는 끝날 때마다 호출되는 함수.
+	 * round 끝날 때마다 호출되는 함수.
 	 * 다만, round가 마지막 라운드일 경우에는 호출되지 않는다.
 	 * @param {object} payload {round, reason, winnerSide}
 	 */
