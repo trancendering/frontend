@@ -184,7 +184,7 @@ export default class gameActionHandler {
 			state.gameContext.userSide === Side.LEFT
 				? state.leftPaddlePosition
 				: state.rightPaddlePosition;
-		const newPosition = Math.max(curPosition - 10, Game.PADDLE_HEIGHT / 2);
+		const newPosition = Math.max(curPosition + 10, Game.PADDLE_HEIGHT / 2);
 		if (newPosition === undefined) {
 			console.log("moveUserPaddleUp: new position undefined");
 			return;
@@ -201,7 +201,7 @@ export default class gameActionHandler {
 			state.gameContext.userSide === Side.LEFT
 				? state.leftPaddlePosition
 				: state.rightPaddlePosition;
-		const newPosition = Math.max(curPosition + 10, Game.PADDLE_HEIGHT / 2);
+		const newPosition = Math.max(curPosition - 10, Game.PADDLE_HEIGHT / 2);
 		if (newPosition === undefined) {
 			console.log("moveUserPaddleDown: new position undefined");
 			return;
