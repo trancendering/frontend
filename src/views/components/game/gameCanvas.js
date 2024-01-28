@@ -81,8 +81,8 @@ export default class gameCanvas extends Component {
         this.controls.enableRotate = true;
         this.controls.enableZoom = true;
         this.controls.maxPolarAngle = Math.PI;
-        controls.minAzimuthAngle = -Math.PI / 2;
-        controls.maxAzimuthAngle = Math.PI / 2;
+        this.controls.minAzimuthAngle = -Math.PI / 2;
+        this.controls.maxAzimuthAngle = Math.PI / 2;
     }
 
     introAnimation() {
