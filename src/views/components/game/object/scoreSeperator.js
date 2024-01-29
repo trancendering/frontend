@@ -4,11 +4,12 @@ import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import {
     tableHeight,
 } from "./config/sizeConfig.js";
+import helvetiker_regular from "../../../../static/fonts/helvetiker_regular.typeface.json";
 
 const loader = new FontLoader();
 let scoreSeparator; // Define scoreSeparator in the outer scope
 
-loader.load('fonts/helvetiker_regular.typeface.json', function (font) {
+loader.load(helvetiker_regular, function (font) {
     const geometry = new TextGeometry('-', {
         font: font,
         size: 0.2,

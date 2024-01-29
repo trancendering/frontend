@@ -5,12 +5,13 @@ import { Side } from "../../../../enum/constant.js";
 import {
     tableHeight,
 } from "./config/sizeConfig.js";
+import helvetiker_regular from "../../../../static/fonts/helvetiker_regular.typeface.json";
 
 export default function createScoreObject(score, side) {
     const loader = new FontLoader();
     let scoreObject = new THREE.Group();
 
-    loader.load('fonts/helvetiker_regular.typeface.json', function (font) {
+    loader.load(helvetiker_regular, function (font) {
         const geometry = new TextGeometry(score.toString(), {
             font: font,
             size: 0.2,

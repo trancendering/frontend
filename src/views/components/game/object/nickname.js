@@ -6,12 +6,13 @@ import {
     tableHeight,
     tableWidth,
 } from "./config/sizeConfig.js";
+import helvetiker_regular from "../../../../static/fonts/helvetiker_regular.typeface.json";
 
 export default function createNicknameObject(nickname, side) {
     const loader = new FontLoader();
     let nicknameObject = new THREE.Group();
 
-    loader.load('fonts/helvetiker_regular.typeface.json', function (font) {
+    loader.load(helvetiker_regular, function (font) {
         const geometry = new TextGeometry(nickname, {
             font: font,
             size: 0.2,

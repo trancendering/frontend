@@ -34,13 +34,14 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(woff(2)?|ttf|eot|json)(\?v=\d+\.\d+\.\d+)?$/,
+                test: /\.json$/,
+                type: 'javascript/auto',
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
                             name: '[name].[ext]',
-                            outputPath: 'fonts/'
+                            outputPath: 'static/fonts'
                         }
                     }
                 ]
