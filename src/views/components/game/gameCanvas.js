@@ -65,8 +65,8 @@ export default class gameCanvas extends Component {
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color('#065535');
 
-        const leftNicknameObject = createNicknameObject(store.state.gameInfo.nickname[0], Side.LEFT);
-        const rightNicknameObject = createNicknameObject(store.state.gameInfo.nickname[1], Side.RIGHT);
+        const leftNicknameObject = createNicknameObject(store.state.gameContext.leftUser, Side.LEFT);
+        const rightNicknameObject = createNicknameObject(store.state.gameContext.rightUser, Side.RIGHT);
 
         this.leftScoreObject = createScoreObject(store.state.leftUserScore, Side.LEFT);
         this.rightScoreObject = createScoreObject(store.state.rightUserScore, Side.RIGHT);
