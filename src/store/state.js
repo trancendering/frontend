@@ -9,12 +9,12 @@ export default {
 
 	// 공통 게임 정보: 게임이 종료되었을 때 업데이트
 	endReason: "normal", // or "opponentLeft"
-	// 공통 게임 정보: 게임이 시작되면 업데이트
+	// 공통 게임 정보: 게임이 시작되거나 종료되었을 때 업데이트
 	gameStatus: "ended", // or "playing"
 	gameContext: {
 		roomName: "",
 		leftUser: "-", // nickname
-		rightUser: "-",
+		rightUser: "-", // nickname
 		participated: false, // 본인 참석 여부
 		userSide: "left", // 본인의 side
 	},
@@ -25,12 +25,12 @@ export default {
 	leftPaddlePosition: 200,
 	rightPaddlePosition: 200,
 
-	// single game 정보
+	// single 게임 정보
 	winner: null, // 최근 라운드 우승자의 nickname
 
 	// tournament 정보
 	round: 0,
-	tournamentPlayers: [], // [player1_nickname, player2_nickname, player3_nickname, player4_nickname]
+	tournamentPlayers: ["", "", "", ""], // [player1_nickname, player2_nickname, player3_nickname, player4_nickname]
 	tournamentScore: {
 		round1: ["-", "-"], // [leftScore, rightScore]
 		round2: ["-", "-"],

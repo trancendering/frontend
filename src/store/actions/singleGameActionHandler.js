@@ -4,7 +4,7 @@ import { Side } from "../../enum/constant.js";
 
 /**
  * @class singleGameActionHandler
- * @desc 싱글 게임 관련 액션을 처리하는 클래스
+ * @description single 게임 관련 액션을 처리하는 클래스
  */
 export default class singleGameActionHandler extends GameActionHandler {
 	static instance = null;
@@ -27,12 +27,11 @@ export default class singleGameActionHandler extends GameActionHandler {
 	}
 
 /**
- * fullUserEvent 수신 후, single 모드 게임 시작 시 호출되는 함수.
+ * @description fullUserEvent 수신 후, single 모드 게임 시작 시 호출되는 함수.
  * @param {object} payload { namespace, intraId, nickname, speedUp}
  */
 	async startGame(payload) {
 		console.log("EVENT: userFullEvent: singleGameActionHandler.startGame");
-		const context = this.context;
 		const state = this.context.state;
 
 		// 게임 시작 시 게임 정보 초기화
@@ -55,31 +54,30 @@ export default class singleGameActionHandler extends GameActionHandler {
 
 		// 게임 페이지로 이동
 		navigateTo("/game");
-		context.commit("setGameStatus", { gameStatus: "playing" });
+		this.context.commit("setGameStatus", { gameStatus: "playing" });
 	}
 
 	/**
-	 * single 게임 모드에서 userFullEvent 발생 시 호출되는 함수.
+	 * @description single 게임 모드에서 userFullEvent 발생 시 호출되는 함수.
 	 * @param {object} payload {reason}
 	 */
 	async endGame(payload) {
 		console.log("EVENT: endGame: singleGameActionHandler.endGame");
-		const context = this.context;
-		const state = context.state;
+		const state = this.context.state;
 
 		if (payload.reason === "normal") {
 			const winner =
 				state.leftUserScore > state.rightUserScore
 					? state.gameContext.leftUser
 					: state.gameContext.rightUser;
-			context.commit("setWinner", { winner: winner });
+			this.context.commit("setWinner", { winner: winner });
 		}
 
 		if (this.socket) {
 			this.socket.disconnect();
-			// context.commit("setSocket", { socket: null });
+			this.socket = null;
 		}
-		context.commit("setEndReason", { endReason: payload.reason });
-		context.commit("setGameStatus", { gameStatus: "ended" });
+		this.context.commit("setEndReason", { endReason: payload.reason });
+		this.context.commit("setGameStatus", { gameStatus: "ended" });
 	}
 }
