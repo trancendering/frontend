@@ -8,9 +8,14 @@ import {
 } from "./config/sizeConfig.js";
 import helvetiker_regular from "../../../../static/fonts/helvetiker_regular.typeface.json";
 
-export default function createNicknameObject(nickname, side) {
+export default function createNicknameObject(gameContext, side) {
     const loader = new FontLoader();
     let nicknameObject = new THREE.Group();
+
+    let nickname = (side === Side.LEFT) ? gameContext.leftUser : gameContext.rightUser;
+    if (gameContext.userSide === side && gameContext.participated) {
+        nickname += " (ME)";
+    }
 
     loader.load(helvetiker_regular, function (font) {
         const geometry = new TextGeometry(nickname, {
