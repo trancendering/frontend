@@ -25,7 +25,7 @@ export default class GameModeCard extends Component {
 	async render() {
 		const languageId = store.state.languageId;
 
-		const view = `
+		const view = /*html*/`
             <div class="d-flex flex-column align-items-center justify-content-center p-3 m-3">
                 <img class="mb-3" width="60" height="60" src="${
 					gameModeSvgPaths[this.gameMode]

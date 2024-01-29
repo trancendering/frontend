@@ -16,7 +16,7 @@ export default class InvalidNicknameModal extends Component {
 	async render() {
 		const languageId = store.state.languageId;
 
-		const view = `
+		const view = /*html*/`
 			<div class="modal-dialog modal-dialog-centered modal-sm" role="document">
 				<div class="modal-content">
 					<div class="modal-body text-center p-lg-4">
@@ -42,7 +42,7 @@ export default class InvalidNicknameModal extends Component {
 		this.handleEvent();
 	}
 
-	async handleEvent() {}
+	async handleEvent() { }
 
 	async hideInvalidNicknameModal() {
 		if (store.state.gameStatus !== "playing") return;

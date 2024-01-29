@@ -15,7 +15,7 @@ export default class GameCustomizationModal extends Component {
 	async render() {
 		const languageId = store.state.languageId;
 
-		const view = `
+		const view = /*html*/`
                     <div class="modal-dialog modal- modal-m modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body text-center p-lg-4">

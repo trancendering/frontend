@@ -27,7 +27,7 @@ export default class Tournament extends Component {
 	async render() {
 		console.log("render tournament page");
 
-		const view = `
+		const view = /*html*/`
             <div id="game-controls">
                 <!-- Canvas for the game -->
                 <canvas id="gameCanvas" width="800" height="400"></canvas>

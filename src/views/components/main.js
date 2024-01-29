@@ -44,7 +44,7 @@ export default class Main extends Component {
 	async render() {
 		const languageId = store.state.languageId;
 
-		const view = `
+		const view = /*html*/`
             <!-- Language Dropdown -->
             <div id="languageSelector"></div>
                 
