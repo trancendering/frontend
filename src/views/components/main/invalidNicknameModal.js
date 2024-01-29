@@ -7,7 +7,7 @@ export default class InvalidNicknameModal extends Component {
 	constructor(params) {
 		super({
 			store,
-			element: document.getElementById("invalid-nickname-modal"),
+			element: document.getElementById("invalidNicknameModal"),
 		});
 		this.render();
 		// store.events.subscribe("gameStatusChange", async () => this.hideInvalidNicknameModal());
@@ -37,7 +37,7 @@ export default class InvalidNicknameModal extends Component {
 				</div>
 			</div>
 		`;
-		this.element = document.getElementById("invalid-nickname-modal");
+		this.element = document.getElementById("invalidNicknameModal");
 		this.element = this.element.innerHTML = view;
 		this.handleEvent();
 	}

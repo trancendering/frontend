@@ -1,16 +1,20 @@
 import store from "../../store/index.js";
 import Component from "../../library/component.js";
 import GameCanvas from "./game/gameCanvas.js";
+import TournamentBracketModal from "./game/tournamentBracketModal.js";
 import { navigateTo } from "../utils/router.js";
 
-export default class Game extends Component {
+export default class Tournament extends Component {
 	constructor(params) {
 		super({
 			store,
 			element: document.getElementById("app"),
 		});
 		this.render();
-		this.components = { gameCanvas: new GameCanvas() };
+		this.components = {
+			gameCanvas: new GameCanvas(),
+			tournamentBracketModal: new TournamentBracketModal(),
+		};
 
 		store.events.subscribe("gameStatusChange", async () =>
 			this.showStartingModal()
@@ -21,9 +25,7 @@ export default class Game extends Component {
 	}
 
 	async render() {
-		console.log("render game page");
-		// store.dispatch("initPositions");
-		// store.dispatch("initScores");
+		console.log("render tournament page");
 
 		const view = `
             <div id="game-controls">
@@ -38,6 +40,8 @@ export default class Game extends Component {
                 <div id="gameOverModal" style="display: none;">
                     <p id="gameOverText"></p>
                     <button id="closeModalButton">Close</button>
+                </div>
+                <div id="tournamentBracketModal" class="modal fade" tabindex="-1" aria-labelledby="tournamentBracketModalLabel">
                 </div>
             </div>
         `;
@@ -56,18 +60,20 @@ export default class Game extends Component {
 	}
 
 	async showStartingModal() {
-		if (store.state.gameStatus !== "playing") return;
+		const state = store.state;
 
-		const gameContext = store.state.gameContext;
+		if (state.gameStatus !== "playing") return;
+
 		document.getElementById("startingModal").style.display = "block";
 		document.getElementById("startingText").textContent = `
-        Game starts soon in room ${gameContext.roomName}. 
-        Players: ${gameContext.leftUser} vs ${gameContext.rightUser}`;
+        Game starts soon in room ${state.gameContext.roomName}. 
+        Players: ${state.gameContext.leftUser} vs ${state.gameContext.rightUser}`;
 		this.countDown();
 	}
 
 	async showGameOverModal() {
-		if (store.state.gameStatus !== "ended") return;
+		if (store.state.gameStatus !== "ended" || store.state.round != 3)
+			return;
 
 		document.getElementById("gameOverModal").style.display = "block";
 
