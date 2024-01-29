@@ -32,7 +32,7 @@ export default class InvalidNicknameModal extends Component {
 						</svg>
 						<h4 class="text-danger mt-3">${invalidNicknameModal[languageId].title}</h4>
 						<p class="mt-3">${invalidNicknameModal[languageId].description}</p>
-						<button type="button" class="btn btn-sm mt-3 btn-danger" data-bs-dismiss="modal">${invalidNicknameModal[languageId].ok}</button>
+						<button id="closeInvalidNicknameModalBtn" type="button" class="btn btn-sm mt-3 btn-danger" data-bs-dismiss="modal">${invalidNicknameModal[languageId].ok}</button>
 					</div>
 				</div>
 			</div>
