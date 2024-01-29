@@ -2,6 +2,7 @@ import router, { navigateTo } from "./views/utils/router.js";
 import store from "./store/index.js";
 import "./static/scss/styles.scss";
 import "./static/css/styles.css";
+import "./static/css/tournamentBracketStyle.css";
 import "bootstrap";
 
 window.addEventListener("popstate", (event) => {
