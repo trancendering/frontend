@@ -102,11 +102,11 @@ export default class gameCanvas extends Component {
     }
 
     gameLoop() {
-        leftPaddle.position.y = store.state.leftPaddlePosition / 100 - 2;
-        rightPaddle.position.y = store.state.rightPaddlePosition / 100 - 2;
+        leftPaddle.position.y = store.state.leftPaddlePosition / 100;
+        rightPaddle.position.y = store.state.rightPaddlePosition / 100;
 
-        ball.position.x = store.state.ballPosition.x / 100 - 4;
-        ball.position.y = store.state.ballPosition.y / 100 - 2;
+        ball.position.x = store.state.ballPosition.x / 100;
+        ball.position.y = store.state.ballPosition.y / 100;
 
         TWEEN.update();
         this.controls.update();

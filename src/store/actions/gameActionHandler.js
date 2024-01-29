@@ -67,9 +67,9 @@ export default class gameActionHandler {
 		console.error("Connection Error:", error);
 	}
 
-	async startGame(payload) {}
+	async startGame(payload) { }
 
-	async endGame(payload) {}
+	async endGame(payload) { }
 
 	/**
 	 * @description 새 게임 시작할 때, 좌/우 플레이어 점수 초기화
@@ -85,15 +85,15 @@ export default class gameActionHandler {
 	async initPositions() {
 		this.context.commit("updateBallPosition", {
 			ballPosition: {
-				x: Game.CANVAS_WIDTH / 2,
-				y: Game.CANVAS_HEIGHT / 2,
+				x: 0,
+				y: 0
 			},
 		});
 		this.context.commit("updateLeftPaddlePosition", {
-			leftPaddlePosition: Game.CANVAS_HEIGHT / 2,
+			leftPaddlePosition: 0,
 		});
 		this.context.commit("updateRightPaddlePosition", {
-			rightPaddlePosition: Game.CANVAS_HEIGHT / 2,
+			rightPaddlePosition: 0,
 		});
 	}
 
@@ -216,10 +216,13 @@ export default class gameActionHandler {
 			state.gameContext.userSide === Side.LEFT
 				? state.leftPaddlePosition
 				: state.rightPaddlePosition;
-		const newPosition = Math.min(
-			curPosition + 10,
-			Game.CANVAS_HEIGHT - Game.PADDLE_HEIGHT / 2
-		);
+
+		/**
+		 * @var {number} newPosition
+		 * @description 패들을 위로 이동시킨 후의 위치 단, 패들이 화면 밖으로 나가지 않도록 제한
+		 * @maxRange 180까지 이동 가능
+		 */
+		const newPosition = Math.min(curPosition + 10, Game.CANVAS_HEIGHT / 2 - Game.PADDLE_HEIGHT / 2);
 		if (newPosition === undefined) {
 			console.log("moveUserPaddleUp: new position undefined");
 			return;
@@ -239,7 +242,13 @@ export default class gameActionHandler {
 			state.gameContext.userSide === Side.LEFT
 				? state.leftPaddlePosition
 				: state.rightPaddlePosition;
-		const newPosition = Math.max(curPosition - 10, Game.PADDLE_HEIGHT / 2);
+
+		/**
+		 * @var {number} newPosition
+		 * @description 패들을 아래로 이동시킨 후의 위치 단, 패들이 화면 밖으로 나가지 않도록 제한
+		 * @minRange -180까지 이동 가능
+		 */
+		const newPosition = Math.max(curPosition - 10, -Game.CANVAS_HEIGHT / 2 + Game.PADDLE_HEIGHT / 2);
 		if (newPosition === undefined) {
 			console.log("moveUserPaddleDown: new position undefined");
 			return;

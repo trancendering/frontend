@@ -48,7 +48,8 @@ function setEndReason(state, payload) {
 
 // game common state : real-time update
 function updateBallPosition(state, payload) {
-	state.ballPosition = payload.ballPosition;
+	state.ballPosition.x = payload.ballPosition.x;
+	state.ballPosition.y = payload.ballPosition.y;
 	return state;
 }
 
