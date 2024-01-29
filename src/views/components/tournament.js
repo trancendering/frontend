@@ -53,7 +53,7 @@ export default class Tournament extends Component {
 	}
 
 	async showGameOverModal() {
-		if (store.state.gameStatus !== "ended" || store.state.round != 3)
+		if (store.state.gameStatus !== "ended" || store.state.round != 4)
 			return;
 
 		document.getElementById("gameOverModal").style.display = "block";
@@ -66,5 +66,6 @@ export default class Tournament extends Component {
 			document.getElementById("gameOverText").textContent = `
             Game Over! Someone left the game!`;
 		}
+		// navigateTo("/");
 	}
 }

@@ -70,6 +70,10 @@ function moveUserPaddleDown(context) {
 	gameHandler.moveUserPaddleDown();
 }
 
+function setGameStatus(context, payload) {
+	context.commit("setGameStatus", payload);
+}
+
 export default {
 	logIn,
 	logOut,
@@ -83,4 +87,5 @@ export default {
 	emitUserReadyEvent,
 	moveUserPaddleDown,
 	moveUserPaddleUp,
+	setGameStatus,
 };

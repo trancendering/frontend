@@ -64,6 +64,7 @@ export default class OpponentWaitingModal extends Component {
 
 				// Cancel Match Making Post Request
 				// TODO 소켓 Connection 끊는 로직
+				store.dispatch("leaveGame");
 			});
 	}
 

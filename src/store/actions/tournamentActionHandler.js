@@ -69,6 +69,7 @@ export default class tournamentActionHandler extends GameActionHandler {
 	 */
 	async endRound(payload) {
 		const state = this.context.state;
+		console.log("EVENT: endRound: tournamentActionHandler.endRound");
 
 		this.context.commit("updateTournamentScore", {
 			round: payload.round,
@@ -76,9 +77,11 @@ export default class tournamentActionHandler extends GameActionHandler {
 			rightUserScore: state.rightUserScore,
 		});
 
+		console.log("winnerSide: ", payload.winnerSide);
 		const winnerIndex =
 			this.matchQueue[payload.winnerSide === Side.LEFT ? 0 : 1];
 		this.matchQueue = this.matchQueue.slice(2);
+		console.log("this.matchQueue: ", this.matchQueue);
 		this.matchQueue.push(winnerIndex);
 		this.context.commit("updateTournamentWinner", {
 			round: payload.round,
@@ -98,19 +101,18 @@ export default class tournamentActionHandler extends GameActionHandler {
 		console.log("EVENT: endGame: tournamentActionHandler.endGame");
 		const state = this.context.state;
 
-		// 마지막 round가 아닌 경우, endRound 호출
-		if (payload.reason === "normal" && payload.round !== 3) {
+		if (payload.reason === "normal") {
 			this.endRound(payload);
-			return;
+			if (payload.round <= 3) {
+				return;
+			}
 		}
 		if (this.socket) {
 			this.socket.disconnect();
 			this.socket = null;
 		}
 		this.context.commit("setEndReason", { endReason: payload.reason });
-		if (state.endReason === "normal") {
-			this.context.commit("setRound", { round: 0 });
-		} else {
+		if (state.endReason === "opponentLeft") {
 			this.context.commit("setGameStatus", { gameStatus: "ended" });
 		}
 	}

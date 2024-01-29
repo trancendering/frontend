@@ -59,7 +59,7 @@ export default class gameActionHandler {
 			this.updateGameScore(data);
 		});
 		this.socket.on("endGame", (data) => {
-			this.endGame({ reason: data.reason });
+			this.endGame(data);
 		});
 	}
 
@@ -106,7 +106,8 @@ export default class gameActionHandler {
 		const participated =
 			leftUserIndex === this.userIndex ||
 			rightUserIndex === this.userIndex;
-
+		this.userSide = this.matchQueue.indexOf(this.userIndex) % 2 === 0 ? Side.LEFT: Side.RIGHT;
+				
 		console.log("updateGameContext: ");
 		console.log(
 			`  leftUserIndex=${leftUserIndex}, rightUserIndex=${rightUserIndex}`
@@ -115,6 +116,7 @@ export default class gameActionHandler {
 		console.log(
 			`  leftUser=${this.nicknameList[leftUserIndex]}, rightUser=${this.nicknameList[rightUserIndex]}`
 		);
+		console.log(`  userSide=${this.userSide}`);
 
 		this.context.commit("setGameContext", {
 			gameContext: {

@@ -20,6 +20,7 @@ export default class gameCanvas extends Component {
         });
         this.render();
         this.handleEvent();
+        store.events.subscribe("gameStatusChange", async () => this.render());
         store.events.subscribe("leftUserScoreChange", async () => this.updateLeftUserScore());
         store.events.subscribe("rightUserScoreChange", async () => this.updateRightUserScore());
     }
@@ -115,6 +116,7 @@ export default class gameCanvas extends Component {
     }
 
     async render() {
+        if (store.state.gameStatus !== "playing") return;
         this.initRenderer();
         this.initCamera();
         this.initScene();
