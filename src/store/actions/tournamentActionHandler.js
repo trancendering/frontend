@@ -69,7 +69,7 @@ export default class tournamentActionHandler extends GameActionHandler {
 	 */
 	async endRound(payload) {
 		const state = this.context.state;
-		console.log("EVENT: endRound: tournamentActionHandler.endRound");
+		console.log("EVENT: endGame: tournamentActionHandler.endRound");
 
 		this.context.commit("updateTournamentScore", {
 			round: payload.round,
@@ -77,7 +77,6 @@ export default class tournamentActionHandler extends GameActionHandler {
 			rightUserScore: state.rightUserScore,
 		});
 
-		console.log("winnerSide: ", payload.winnerSide);
 		const winnerIndex =
 			this.matchQueue[payload.winnerSide === Side.LEFT ? 0 : 1];
 		this.matchQueue = this.matchQueue.slice(2);
@@ -99,6 +98,8 @@ export default class tournamentActionHandler extends GameActionHandler {
 	 */
 	async endGame(payload) {
 		console.log("EVENT: endGame: tournamentActionHandler.endGame");
+		console.log(" round: ", payload.round, " reason: ", payload.reason);
+		console.log(" winnerSide: ", payload.winnerSide);
 		const state = this.context.state;
 
 		if (payload.reason === "normal") {

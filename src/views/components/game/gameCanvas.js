@@ -45,6 +45,9 @@ export default class gameCanvas extends Component {
         this.leftScoreObject = createScoreObject(store.state.leftUserScore, Side.LEFT);
         this.rightScoreObject = createScoreObject(store.state.rightUserScore, Side.RIGHT);
 
+        console.log(this.leftScoreObject);
+        console.log(this.rightScoreObject);
+
         this.scene.add(
             table,
             northWall,

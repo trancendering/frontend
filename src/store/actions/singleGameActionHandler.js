@@ -32,6 +32,7 @@ export default class singleGameActionHandler extends GameActionHandler {
  */
 	async startGame(payload) {
 		console.log("EVENT: userFullEvent: singleGameActionHandler.startGame");
+
 		const state = this.context.state;
 
 		// 게임 시작 시 게임 정보 초기화
@@ -45,7 +46,6 @@ export default class singleGameActionHandler extends GameActionHandler {
 		this.initPositions();
 		this.updateGameContext();
 
-		console.log("EVENT: userFullEvent: startGame");
 		console.log("  roomName=", payload.roomName);
 		console.log("  intraId=", payload.intraId);
 		console.log("  nickname=", payload.nickname);
@@ -63,6 +63,8 @@ export default class singleGameActionHandler extends GameActionHandler {
 	 */
 	async endGame(payload) {
 		console.log("EVENT: endGame: singleGameActionHandler.endGame");
+		console.log(" reason=", payload.reason);
+
 		const state = this.context.state;
 
 		if (payload.reason === "normal") {
