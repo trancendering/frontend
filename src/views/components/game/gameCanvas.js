@@ -8,6 +8,9 @@ import {table} from "./object/table.js";
 import {northWall, southWall, eastWall, westWall} from "./object/wall.js";
 import {ball} from "./object/ball.js";
 import {leftPaddle, rightPaddle} from "./object/paddle.js"
+import createNicknameObject from "./object/nickname.js";
+import createScoreObject from "./object/score.js";
+import {scoreSeparator} from "./object/scoreSeperator.js";
 
 export default class gameCanvas extends Component {
     constructor(params) {
@@ -18,6 +21,8 @@ export default class gameCanvas extends Component {
         this.initStore();
         this.render();
         this.handleEvent();
+        store.events.subscribe("leftUserScoreChange", async () => this.updateLeftUserScore());
+        store.events.subscribe("rightUserScoreChange", async () => this.updateRightUserScore());
         // store.events.subscribe("ballPositionChange", async () => this.render());
         // store.events.subscribe("scoreChange", async () => this.render());
     }
@@ -59,7 +64,28 @@ export default class gameCanvas extends Component {
     initScene() {
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color('#065535');
-        this.scene.add(table, northWall, southWall, eastWall, westWall, ball, leftPaddle, rightPaddle);
+
+        const leftNicknameObject = createNicknameObject(store.state.gameInfo.nickname[0], Side.LEFT);
+        const rightNicknameObject = createNicknameObject(store.state.gameInfo.nickname[1], Side.RIGHT);
+
+        this.leftScoreObject = createScoreObject(store.state.leftUserScore, Side.LEFT);
+        this.rightScoreObject = createScoreObject(store.state.rightUserScore, Side.RIGHT);
+
+        this.scene.add(
+            table,
+            northWall,
+            southWall,
+            eastWall,
+            westWall,
+            ball,
+            leftPaddle,
+            rightPaddle,
+            leftNicknameObject,
+            rightNicknameObject,
+            scoreSeparator,
+            this.leftScoreObject,
+            this.rightScoreObject
+        );
     }
 
     initLighting() {
@@ -129,6 +155,7 @@ export default class gameCanvas extends Component {
     async handleEvent() {
         document.addEventListener("keydown", (e) => {
             if (store.state.gameStatus !== "playing") return;
+            if (store.state.gameContext.participated === false) return;
             if (e.key == "ArrowUp") {
                 store.dispatch("moveUserPaddleUp");
             } else if (e.key == "ArrowDown") {
@@ -137,7 +164,7 @@ export default class gameCanvas extends Component {
         });
     }
 
-    handleResize() {
+    async handleResize() {
         window.addEventListener('resize', () => {
             // Update camera aspect ratio
             this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -146,6 +173,18 @@ export default class gameCanvas extends Component {
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         }, false);
+    }
+
+    async updateLeftUserScore() {
+        this.scene.remove(this.leftScoreObject);
+        this.leftScoreObject = createScoreObject(store.state.leftUserScore, Side.LEFT);
+        this.scene.add(this.leftScoreObject);
+    }
+
+    async updateRightUserScore() {
+        this.scene.remove(this.rightScoreObject);
+        this.rightScoreObject = createScoreObject(store.state.rightUserScore, Side.RIGHT);
+        this.scene.add(this.rightScoreObject);
     }
 
     // async drawObjects() {

@@ -28,10 +28,22 @@ module.exports = {
                         loader: 'file-loader',
                         options: {
                             name: '[name].[ext]',
-                            outputPath: './static/img',
+                            outputPath: 'static/img',
                         },
                     },
                 ],
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|json)(\?v=\d+\.\d+\.\d+)?$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'fonts/'
+                        }
+                    }
+                ]
             },
             {
                 test: /\.css$/,
