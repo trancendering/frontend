@@ -88,12 +88,13 @@ export default class gameCanvas extends Component {
         this.controls.enabled = false
 
         const cameraTween = new TWEEN.Tween(this.camera.position.set(30, 30, -25))
-            .to({x: 0, y: 0, z: 3.5}, 2500)
+            .to({x: 0, y: 0, z: 3.5}, 3500)
             .delay(1000)
             .easing(TWEEN.Easing.Quartic.InOut)
             .start();
 
         cameraTween.onComplete(() => {
+            store.dispatch("emitUserReadyEvent");
             this.controls.enabled = true;
             this.setOrbitControlsLimits();
             TWEEN.remove(cameraTween);

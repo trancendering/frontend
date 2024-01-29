@@ -13,28 +13,17 @@ export default class Game extends Component {
 		this.components = { gameCanvas: new GameCanvas() };
 
 		store.events.subscribe("gameStatusChange", async () =>
-			this.showStartingModal()
-		);
-		store.events.subscribe("gameStatusChange", async () =>
 			this.showGameOverModal()
 		);
 	}
 
 	async render() {
-		console.log("render game page");
-		// store.dispatch("initPositions");
-		// store.dispatch("initScores");
-
 		const view = `
             <div id="game-controls">
                 <!-- Canvas for the game -->
                 <canvas id="gameCanvas" width="800" height="400"></canvas>
 
-                <!-- Modals for game status -->
-                <div id="startingModal" style="display: none;">
-                    <p id="startingText"></p>
-                    <p id="countdownDisplay"></p>
-                </div>
+				<!-- Modal for Game Over -->
                 <div id="gameOverModal" style="display: none;">
                     <p id="gameOverText"></p>
                     <button id="closeModalButton">Close</button>
@@ -55,17 +44,6 @@ export default class Game extends Component {
 			});
 	}
 
-	async showStartingModal() {
-		if (store.state.gameStatus !== "playing") return;
-
-		const gameContext = store.state.gameContext;
-		document.getElementById("startingModal").style.display = "block";
-		document.getElementById("startingText").textContent = `
-        Game starts soon in room ${gameContext.roomName}. 
-        Players: ${gameContext.leftUser} vs ${gameContext.rightUser}`;
-		this.countDown();
-	}
-
 	async showGameOverModal() {
 		if (store.state.gameStatus !== "ended") return;
 
@@ -79,26 +57,5 @@ export default class Game extends Component {
 			document.getElementById("gameOverText").textContent = `
             Game Over! Someone left the game!`;
 		}
-	}
-
-	async countDown() {
-		let count = 3;
-
-		function updateCountDownDisplay(count) {
-			document.getElementById(
-				"countdownDisplay"
-			).textContent = `Game starts in ${count}`;
-		}
-
-		let countDownInterval = setInterval(() => {
-			updateCountDownDisplay(count);
-			count--;
-
-			if (count < 0) {
-				clearInterval(countDownInterval);
-				document.getElementById("startingModal").style.display = "none";
-				store.dispatch("emitUserReadyEvent");
-			}
-		}, 1000);
 	}
 }
