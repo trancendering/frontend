@@ -91,6 +91,7 @@ export default class GameCustomizationModal extends Component {
 					Modal.getOrCreateInstance(
 						document.getElementById("invalidNicknameModal")
 					).show();
+					document.getElementById("closeInvalidNicknameModalBtn").focus();
 					return;
 				}
 
