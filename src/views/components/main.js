@@ -44,9 +44,19 @@ export default class Main extends Component {
 	async render() {
 		const languageId = store.state.languageId;
 
-		const view = /*html*/`
-            <!-- Language Dropdown -->
-            <div id="languageSelector"></div>
+		const view = /*html*/ `
+		
+		<!-- Navbar -->
+		<nav class="navbar navbar-light bg-light">
+		<form class="form-inline">
+				<!-- Language Dropdown -->
+				<div id="languageSelector"></div>
+				
+				<!-- Tournament Record -->
+				<a class="btn btn-outline-success text-green mt-3 ms-3" data-link href="/record" role="button">Tournament Record</a></button>
+			</form>
+		</nav>
+
                 
             <main class="d-flex flex-column align-items-center justify-content-center vh-100">
                 <!-- Game Mode Selection -->
