@@ -17,9 +17,6 @@ export default class Tournament extends Component {
 		};
 
 		store.events.subscribe("gameStatusChange", async () =>
-			this.showStartingModal()
-		);
-		store.events.subscribe("gameStatusChange", async () =>
 			this.showGameOverModal()
 		);
 	}
@@ -32,11 +29,7 @@ export default class Tournament extends Component {
                 <!-- Canvas for the game -->
                 <canvas id="gameCanvas" width="800" height="400"></canvas>
 
-                <!-- Modals for game status -->
-                <div id="startingModal" style="display: none;">
-                    <p id="startingText"></p>
-                    <p id="countdownDisplay"></p>
-                </div>
+				<!-- Modal for Game Over -->
                 <div id="gameOverModal" style="display: none;">
                     <p id="gameOverText"></p>
                     <button id="closeModalButton">Close</button>
@@ -59,18 +52,6 @@ export default class Tournament extends Component {
 			});
 	}
 
-	async showStartingModal() {
-		const state = store.state;
-
-		if (state.gameStatus !== "playing") return;
-
-		document.getElementById("startingModal").style.display = "block";
-		document.getElementById("startingText").textContent = `
-        Game starts soon in room ${state.gameContext.roomName}. 
-        Players: ${state.gameContext.leftUser} vs ${state.gameContext.rightUser}`;
-		this.countDown();
-	}
-
 	async showGameOverModal() {
 		if (store.state.gameStatus !== "ended" || store.state.round != 3)
 			return;
@@ -85,26 +66,5 @@ export default class Tournament extends Component {
 			document.getElementById("gameOverText").textContent = `
             Game Over! Someone left the game!`;
 		}
-	}
-
-	async countDown() {
-		let count = 3;
-
-		function updateCountDownDisplay(count) {
-			document.getElementById(
-				"countdownDisplay"
-			).textContent = `Game starts in ${count}`;
-		}
-
-		let countDownInterval = setInterval(() => {
-			updateCountDownDisplay(count);
-			count--;
-
-			if (count < 0) {
-				clearInterval(countDownInterval);
-				document.getElementById("startingModal").style.display = "none";
-				store.dispatch("emitUserReadyEvent");
-			}
-		}, 1000);
 	}
 }
