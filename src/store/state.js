@@ -13,10 +13,10 @@ export default {
 	gameStatus: "ended", // or "playing"
 	gameContext: {
 		roomName: "",
-		leftUser: "-",
+		leftUser: "-", // nickname
 		rightUser: "-",
-		participated: false,
-		userSide: "left",
+		participated: false, // 본인 참석 여부
+		userSide: "left", // 본인의 side
 	},
 	// 공통 게임 정보: 게임 도중 실시간으로 업데이트
 	leftUserScore: 0,
@@ -30,7 +30,7 @@ export default {
 
 	// tournament 정보
 	round: 0,
-	tournamentPlayers: [], // [nickname, nickname, ...]
+	tournamentPlayers: [], // [player1_nickname, player2_nickname, player3_nickname, player4_nickname]
 	tournamentScore: {
 		round1: ["-", "-"], // [leftScore, rightScore]
 		round2: ["-", "-"],
