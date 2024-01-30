@@ -31,7 +31,7 @@ export default class GameCustomizationModal extends Component {
 									<!-- speed Option -->
 									<div class="btn-group d-flex justify-content-center" role="group" id="speedOption">
 										<div class="form-group mt-4">
-											<label for="speed" class="col-form-label">${gameCustomizationModal[languageId].speed}</label>
+											<span class="col-form-label">${gameCustomizationModal[languageId].speed}</span>
 											<div class="btn-group d-flex justify-content-center mt-2" role="group" aria-label="speedOption">
 												<input type="radio" name="speedBtn" class="btn-check" id="normalSpeed" checked value="normal">
 												<label class="btn btn-outline-primary me-2" for="normalSpeed">${gameCustomizationModal[languageId].normalSpeed}</label>
@@ -44,8 +44,8 @@ export default class GameCustomizationModal extends Component {
 									<!-- ballDesign Option -->
 									<div class="btn-group d-flex justify-content-center" role="group" id="ballDesignOption">
 										<div class="form-group mt-4">
-											<label for="ballDesign" class="col-form-label">${gameCustomizationModal[languageId].ballDesign}</label>
-											<div class="btn-group d-flex justify-content-center mt-2" role="group" aria-label="ballDesignOption">
+											<span class="col-form-label">${gameCustomizationModal[languageId].ballDesign}</span>
+											<div class="btn-group d-flex justify-content-center mt-2" role="group" aria-label="ballDesignOption" id>
 												<input type="radio" name="ballDesignBtn" class="btn-check" id="normalBall" checked value="normal">
 												<label class="btn btn-outline-primary me-2" for="normalBall">${gameCustomizationModal[languageId].normalBall}</label>
 												<input type="radio" name="ballDesignBtn" class="btn-check" id="fancyBall" value="fancy">
