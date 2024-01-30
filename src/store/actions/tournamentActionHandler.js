@@ -104,9 +104,12 @@ export default class tournamentActionHandler extends GameActionHandler {
 
 		if (payload.reason === "normal") {
 			this.endRound(payload);
-			if (payload.round <= 3) {
+			if (payload.round < 3) {
 				return;
 			}
+			this.context.commit("setWinner", {
+				winner: state.tournamentWinner.round3,
+			});
 		}
 		if (this.socket) {
 			this.socket.disconnect();
