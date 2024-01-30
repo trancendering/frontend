@@ -18,8 +18,6 @@ export default class gameCanvas extends Component {
 			store,
 			element: document.getElementById("gameCanvas"),
 		});
-		this.render();
-		this.handleEvent();
 		store.events.subscribe("gameStatusChange", async () => this.render());
 		store.events.subscribe("leftUserScoreChange", async () =>
 			this.updateLeftUserScore()
@@ -68,9 +66,6 @@ export default class gameCanvas extends Component {
 			store.state.rightUserScore,
 			Side.RIGHT
 		);
-
-		console.log(this.leftScoreObject);
-		console.log(this.rightScoreObject);
 
 		this.scene.add(
 			table,
@@ -127,7 +122,9 @@ export default class gameCanvas extends Component {
 			.start();
 
 		cameraTween.onComplete(() => {
-			store.dispatch("emitUserReadyEvent");
+			if (store.state.gameStatus !== "ended") {
+				store.dispatch("emitUserReadyEvent");
+			}
 			this.controls.enabled = true;
 			this.setOrbitControlsLimits();
 			TWEEN.remove(cameraTween);
