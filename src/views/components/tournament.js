@@ -3,6 +3,7 @@ import Component from "../../library/component.js";
 import GameCanvas from "./game/gameCanvas.js";
 import TournamentBracketModal from "./game/tournamentBracketModal.js";
 import { navigateTo } from "../utils/router.js";
+import { game } from "../utils/languagePack.js";
 
 export default class Tournament extends Component {
 	constructor(params) {
@@ -24,6 +25,8 @@ export default class Tournament extends Component {
 	async render() {
 		console.log("render tournament page");
 
+		const languageId = store.state.languageId;
+
 		const view = /*html*/ `
             <div id="game-controls">
                 <!-- Canvas for the game -->
@@ -32,7 +35,7 @@ export default class Tournament extends Component {
 				<!-- Modal for Game Over -->
                 <div id="gameOverModal" style="display: none;">
                     <p id="gameOverText"></p>
-                    <button id="closeModalButton">Close</button>
+                    <button id="closeModalButton">${game[languageId].closeButton}</button>
                 </div>
                 <div id="tournamentBracketModal" class="custom-modal"></div>
             </div>
@@ -60,10 +63,10 @@ export default class Tournament extends Component {
 		console.log("game over: ", store.state.endReason, store.state.winner);
 		if (store.state.endReason === "normal") {
 			document.getElementById("gameOverText").textContent = `
-            Game Over! Winner is ${store.state.winner}!`;
+				${game[languageId].normalEnd} ${store.state.winner}!`;
 		} else {
 			document.getElementById("gameOverText").textContent = `
-            Game Over! Someone left the game!`;
+				${game[languageId].abnormalEnd}`;
 		}
 		// navigateTo("/");
 	}
