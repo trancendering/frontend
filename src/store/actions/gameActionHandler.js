@@ -163,6 +163,7 @@ export default class gameActionHandler {
 	 * @param {object} payload {leftUserScore, rightUserScore}
 	 */
 	async updateGameScore(payload) {
+		console.log("updateGameScore: left=",payload.leftUserScore, "right=", payload.rightUserScore)
 		this.context.commit("updateLeftUserScore", {
 			leftUserScore: payload.leftUserScore,
 		});
