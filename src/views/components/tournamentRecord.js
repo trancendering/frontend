@@ -17,11 +17,12 @@ export default class TournamentRecord extends Component {
 	async render() {
 		console.log("render tournament page");
 
+		const languageId = store.state.languageId;
 		const view = /*html*/ `
             <div class="container mt-5">
                 <row>
                     <div class="col-md-12 mb-5 mt-4 d-flex align-items-center justify-content-center">
-                        <h1>Tournament Log</h1>
+                        <h1>${tournamentRecord[languageId].title}</h1>
                     </div>
                 </row>
                 <ul id="tournamentList" class="list-group">
