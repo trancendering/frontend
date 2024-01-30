@@ -50,7 +50,7 @@ function leaveGame(context) {
 	console.log("leaveGame: ");
 
 	const gameHandler = getGameHandler(context);
-	gameHandler.endGame({ reason: "opponentLeft" });
+	gameHandler.endGame({ reason: "userLeft" });
 }
 
 function emitUserReadyEvent(context) {

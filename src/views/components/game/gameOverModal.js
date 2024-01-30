@@ -58,6 +58,7 @@ export default class GameOverModal extends Component {
 	async showModal() {
 		console.log(`showModal() - gameStatus: ${store.state.gameStatus}`);
 		if (store.state.gameStatus !== "ended") return;
+		if (store.state.endReason === "userLeft") return;
 
 		this.render();
 		document.getElementById("gameOverModal").style.display = "flex";

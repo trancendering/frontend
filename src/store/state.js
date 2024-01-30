@@ -8,7 +8,7 @@ export default {
 	fancyBall: "fancy", // or "normal"
 
 	// 공통 게임 정보: 게임이 종료되었을 때 업데이트
-	endReason: "normal", // or "opponentLeft"
+	endReason: "normal", // or "opponentLeft" or "userLeft"
 	winner: null, // 최근 라운드 우승자의 nickname
 	// 공통 게임 정보: 게임이 시작되거나 종료되었을 때 업데이트
 	gameStatus: "ended", // or "playing"

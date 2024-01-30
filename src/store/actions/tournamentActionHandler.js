@@ -118,7 +118,7 @@ export default class tournamentActionHandler extends GameActionHandler {
 			this.socket = null;
 		}
 		this.context.commit("setEndReason", { endReason: payload.reason });
-		if (state.endReason === "opponentLeft") {
+		if (state.endReason === "opponentLeft" || state.endReason === "userLeft") {
 			this.context.commit("setGameStatus", { gameStatus: "ended" });
 		}
 	}
