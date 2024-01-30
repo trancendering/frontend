@@ -26,7 +26,7 @@ export default class gameCanvas extends Component {
     }
 
     initRenderer() {
-        this.renderer = new THREE.WebGLRenderer({canvas: this.element, antialias: true});
+        this.renderer = new THREE.WebGLRenderer({canvas : this.element, antialias: true});
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
@@ -106,11 +106,11 @@ export default class gameCanvas extends Component {
     }
 
     gameLoop() {
-        leftPaddle.position.y = store.state.leftPaddlePosition / 100 - 2;
-        rightPaddle.position.y = store.state.rightPaddlePosition / 100 - 2;
+        leftPaddle.position.y = store.state.leftPaddlePosition / 100;
+        rightPaddle.position.y = store.state.rightPaddlePosition / 100;
 
-        ball.position.x = store.state.ballPosition.x / 100 - 4;
-        ball.position.y = store.state.ballPosition.y / 100 - 2;
+        ball.position.x = store.state.ballPosition.x / 100;
+        ball.position.y = store.state.ballPosition.y / 100;
 
         TWEEN.update();
         this.controls.update();
@@ -119,6 +119,8 @@ export default class gameCanvas extends Component {
     }
 
     async render() {
+        this.element = document.getElementById("gameCanvas");
+
         if (store.state.gameStatus !== "playing") return;
         this.initRenderer();
         this.initCamera();
@@ -155,12 +157,14 @@ export default class gameCanvas extends Component {
     }
 
     async updateLeftUserScore() {
+        if (store.state.gameStatus !== "playing") return;
         this.scene.remove(this.leftScoreObject);
         this.leftScoreObject = createScoreObject(store.state.leftUserScore, Side.LEFT);
         this.scene.add(this.leftScoreObject);
     }
 
     async updateRightUserScore() {
+        if (store.state.gameStatus !== "playing") return;
         this.scene.remove(this.rightScoreObject);
         this.rightScoreObject = createScoreObject(store.state.rightUserScore, Side.RIGHT);
         this.scene.add(this.rightScoreObject);
