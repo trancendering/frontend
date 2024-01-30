@@ -34,7 +34,7 @@ export default class GameOverModal extends Component {
 						<img class="mb-3 mt-3" width="48" height="48" src=${imgSrc} alt="gameOverModal">
 						<h5 class="mb-0">${textContent}</h5>
 						<a id="closeModalBtn" data-link href="/" rol="button" type="button" class="btn btn-lg btn-primary mt-5 w-100">
-							Close
+							${gameOverModal[languageId].closeButton}
 						</a>
 					</div>
 				</div>
