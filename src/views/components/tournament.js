@@ -30,15 +30,14 @@ export default class Tournament extends Component {
 		const view = /*html*/ `
             <div id="game-controls">
                 <!-- Canvas for the game -->
-                <canvas id="gameCanvas" width="800" height="400"></canvas>
+                <canvas id="gameCanvas"></canvas>
 
 				<!-- Modal for Game Over -->
                 <div id="gameOverModal" style="display: none;">
                     <p id="gameOverText"></p>
                     <button id="closeModalButton">${game[languageId].closeButton}</button>
                 </div>
-                <div id="tournamentBracketModal" class="modal fade" tabindex="-1" aria-labelledby="tournamentBracketModalLabel">
-                </div>
+                <div id="tournamentBracketModal" class="custom-modal"></div>
             </div>
         `;
 
