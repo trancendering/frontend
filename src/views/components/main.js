@@ -1,5 +1,6 @@
 import store from "../../store/index.js";
 import Component from "../../library/component.js";
+import TournamentRecordButton from "./record/tournamentRecordButton.js";
 import LanguageSelector from "./main/languageSelector.js";
 import GameModeCard from "./main/gameModeCard.js";
 import GameCustomizationModal from "./main/gameCustomizationModal.js";
@@ -18,6 +19,7 @@ export default class Main extends Component {
 
 		this.render();
 		this.components = {
+			tournamentRecordButton: new TournamentRecordButton(),
 			languageSelector: new LanguageSelector(),
 			gameModeCard1: new GameModeCard({
 				id: "singleGameMode",
@@ -53,7 +55,7 @@ export default class Main extends Component {
 				<div id="languageSelector"></div>
 
 				<!-- Tournament Record -->
-				<a class="btn btn-outline-success text-green mt-3 ms-3" data-link href="/record" role="button">Tournament Record</a></button>
+				<div id="tournamentRecordBtn"></div>
 			</form>
 		</nav>
 
