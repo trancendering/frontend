@@ -148,23 +148,26 @@ export const invalidNicknameModal = {
 	},
 };
 
-export const game = {
+export const gameOverModal = {
 	en: {
-		normalEnd: "Game Over! Winner is",
-		abnormalEnd: "Game Over! Someone left the game!",
+		gameOver: "Game Over!",
+		normalEnd: "The Winner is",
+		abnormalEnd: "Someone left the game!",
 		closeButton: "Close",
 	},
 	ko: {
-		normalEnd: "게임 종료! 승자는",
-		abnormalEnd: "게임 종료! 상대방이 나갔습니다!",
+		gameOver: "게임 종료",
+		normalEnd: "승자는",
+		abnormalEnd: "상대방이 나갔습니다!",
 		closeButton: "닫기",
 	},
 	ch: {
-		normalEnd: "游戏结束！赢家是",
-		abnormalEnd: "游戏结束！有人离开了游戏！",
+		gameOver: "游戏结束",
+		normalEnd: "赢家是",
+		abnormalEnd: "有人离开了游戏！",
 		closeButton: "关闭",
 	},
-}
+};
 
 export const tournamentRecord = {
 	en: {

@@ -80,7 +80,7 @@ canvas {
     }
 }
 
-#gameOverModal {
+/* #gameOverModal {
     position: fixed;
     z-index: 1;
     left: 0;
@@ -89,7 +89,7 @@ canvas {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
 }
@@ -101,7 +101,7 @@ canvas {
     border: 1px solid #888;
     width: 80%;
     text-align: center;
-}
+} */
 
 .modal#statusSuccessModal .modal-content,
 .modal#statusErrorsModal .modal-content,
