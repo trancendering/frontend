@@ -86,8 +86,11 @@ export default class GameCustomizationModal extends Component {
 				// Prevent Default Submit Behavior
 				event.preventDefault();
 
-				// Check Nickname is Empty
-				if (this.element.querySelector("#nickname").value === "") {
+				// Check Nickname is Empty or too long or non-English
+				const nickname = this.element.querySelector("#nickname").value;
+				const englishCheck = /^[A-Za-z0-9]*$/;
+
+				if (nickname === "" || nickname.length > 10 || !englishCheck.test(nickname)) {
 					Modal.getOrCreateInstance(
 						document.getElementById("invalidNicknameModal")
 					).show();
@@ -118,7 +121,6 @@ export default class GameCustomizationModal extends Component {
 				store.dispatch("setIntraId", { intraId: makeRandomName() });
 
 				// Set Game Customization State
-				const nickname = this.element.querySelector("#nickname").value;
 				const speedUp = this.element.querySelector(
 					'#speedOption input[name="speedBtn"]:checked'
 				).value;
@@ -162,3 +164,4 @@ export default class GameCustomizationModal extends Component {
 		if (modalInstance) modalInstance.hide();
 	}
 }
+
