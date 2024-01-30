@@ -12,7 +12,6 @@ window.addEventListener("popstate", (event) => {
 		event.preventDefault();
 		console.log("leave game");
 		store.dispatch("leaveGame");
-		return;
 	}
 	if (
 		window.location.pathname === "/game" ||
