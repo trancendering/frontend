@@ -71,6 +71,9 @@ export default class OpponentWaitingModal extends Component {
 				// Hide Opponent Waiting Modal
 				document.getElementById("opponentWaitingModal").style.display =
 					"none";
+
+				// Reset Form
+				document.getElementById("gameCustomizationForm").reset();
 			});
 	}
 
