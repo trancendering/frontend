@@ -8,6 +8,7 @@ import {
 	verticalWallDepth,
 	tableWidth,
 	tableHeight,
+	sideMargin
 } from "./config/sizeConfig";
 
 const horizontalWallGeometry = new THREE.BoxGeometry(
@@ -38,12 +39,12 @@ southWall.position.set(
 	horizontalWallDepth / 2
 );
 eastWall.position.set(
-	tableWidth / 2 + verticalWallWidth / 2,
+	(tableWidth + sideMargin) / 2 + verticalWallWidth / 2,
 	0,
 	verticalWallDepth / 2
 );
 westWall.position.set(
-	-tableWidth / 2 - verticalWallWidth / 2,
+	-(tableWidth + sideMargin) / 2 - verticalWallWidth / 2,
 	0,
 	verticalWallDepth / 2
 );

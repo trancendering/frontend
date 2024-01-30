@@ -4,6 +4,7 @@ import {
 	paddleHeight,
 	paddleDepth,
 	tableWidth,
+	sideMargin
 } from "./config/sizeConfig";
 
 const paddleGeometry = new THREE.BoxGeometry(
@@ -17,12 +18,12 @@ const leftPaddle = new THREE.Mesh(paddleGeometry, paddleMaterial);
 const rightPaddle = new THREE.Mesh(paddleGeometry, paddleMaterial);
 
 leftPaddle.position.set(
-	-tableWidth / 2 + paddleWidth / 2 + 0.1,
+	-tableWidth / 2 - paddleWidth / 2,
 	0,
 	paddleDepth / 2
 );
 rightPaddle.position.set(
-	tableWidth / 2 - paddleWidth / 2 - 0.1,
+	tableWidth / 2 + paddleWidth / 2,
 	0,
 	paddleDepth / 2
 );

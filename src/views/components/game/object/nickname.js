@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { Side } from "../../../../enum/constant.js";
-import { tableHeight, tableWidth } from "./config/sizeConfig.js";
+import { tableHeight, tableWidth, sideMargin } from "./config/sizeConfig.js";
 import helvetiker_regular from "../../../../static/fonts/helvetiker_regular.typeface.json";
 
 export default function createNicknameObject(gameContext, side) {
@@ -36,13 +36,13 @@ export default function createNicknameObject(gameContext, side) {
 
 		if (side === Side.LEFT) {
 			text.position.set(
-				-tableWidth / 2 + nicknameSpacing,
+				-(tableWidth + sideMargin) / 2 + nicknameSpacing,
 				tableHeight / 2 + 0.5,
 				0
 			);
 		} else if (side === Side.RIGHT) {
 			text.position.set(
-				tableWidth / 2 - textSize.x - nicknameSpacing,
+				(tableWidth + sideMargin) / 2 - textSize.x - nicknameSpacing,
 				tableHeight / 2 + 0.5,
 				0
 			);

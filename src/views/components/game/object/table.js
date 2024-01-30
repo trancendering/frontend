@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import { tableWidth, tableHeight } from "./config/sizeConfig";
+import { tableWidth, tableHeight, sideMargin } from "./config/sizeConfig";
 
-const tableGeometry = new THREE.PlaneGeometry(tableWidth, tableHeight);
+const tableGeometry = new THREE.PlaneGeometry(tableWidth + sideMargin, tableHeight);
 const tableMaterial = new THREE.MeshPhongMaterial({
 	color: 0x000080,
 	side: THREE.DoubleSide,
