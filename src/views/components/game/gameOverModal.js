@@ -51,7 +51,6 @@ export default class GameOverModal extends Component {
 			.getElementById("closeModalBtn")
 			.addEventListener("click", () => {
 				document.getElementById("gameOverModal").style.display = "none";
-				// navigateTo("/");
 			});
 	}
 
