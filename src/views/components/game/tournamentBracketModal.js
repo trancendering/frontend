@@ -1,6 +1,5 @@
 import store from "../../../store/index.js";
 import Component from "../../../library/component.js";
-import { Modal } from "bootstrap";
 // import { tournamentBracketModal } from "../../utils/languagePack.js";
 
 export default class TournamentBracketModal extends Component {
@@ -26,11 +25,10 @@ export default class TournamentBracketModal extends Component {
 		console.log(score);
 		console.log(winner);
 		const view = /*html*/ `
-        <div class="modal-dialog modal-m modal-dialog-centered ">
-            <div class="modal-content">
+        <div class="custom-modal-dialog">
+            <div class="custom-modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="tournamentBracketModalLabel">Tournament Bracket</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="background bracket">
@@ -117,13 +115,10 @@ export default class TournamentBracketModal extends Component {
 		this.render();
 
 		// 2.5초 후에 모달을 닫는다
-		// const modalInstance = Modal.getInstance(this.element);
-		const modalInstance = Modal.getOrCreateInstance(
-			document.getElementById("tournamentBracketModal")
-		);
-		if (modalInstance) modalInstance.show();
+		const modal = document.getElementById("tournamentBracketModal");
+		modal.style.display = "flex";
 		await new Promise((resolve) => setTimeout(resolve, 2500));
-		if (modalInstance) modalInstance.hide();
+		modal.style.display = "none";
 
 		// 해당 라운드 게임을 시작한다
 		if (store.state.round < 4) store.dispatch("startRound");

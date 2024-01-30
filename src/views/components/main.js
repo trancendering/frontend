@@ -77,13 +77,13 @@ export default class Main extends Component {
                 </div>
 
                 <!-- Game Customization Modal -->
-                <div id="gameCustomizationModal" class="modal fade" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="true"></div>
+                <div id="gameCustomizationModal" class="custom-modal"></div>
 
                 <!-- Waiting Opponent Modal -->
-                <div id="opponentWaitingModal" class="modal fade" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"></div>
+                <div id="opponentWaitingModal" class="custom-modal"></div>
 
                 <!-- Invalid Nickname Modal -->
-                <div id="invalidNicknameModal" class="modal fade" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"></div>
+                <div id="invalidNicknameModal" class="custom-modal"></div>
             </main>
         `;
 
