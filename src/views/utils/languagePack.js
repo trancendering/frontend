@@ -58,12 +58,18 @@ export const languageSelector = {
 export const gameModeCard = {
 	en: {
 		play: "Play",
+		Single: "Single",
+		Tournament: "Tournament",
 	},
 	ko: {
 		play: "플레이",
+		Single: "싱글",
+		Tournament: "토너먼트",
 	},
 	ch: {
 		play: "玩",
+		Single: "单人",
+		Tournament: "锦标赛",
 	},
 };
 
@@ -141,3 +147,63 @@ export const invalidNicknameModal = {
 		ok: "好的",
 	},
 };
+
+export const game = {
+	en: {
+		normalEnd: "Game Over! Winner is",
+		abnormalEnd: "Game Over! Someone left the game!",
+		closeButton: "Close",
+	},
+	ko: {
+		normalEnd: "게임 종료! 승자는",
+		abnormalEnd: "게임 종료! 상대방이 나갔습니다!",
+		closeButton: "닫기",
+	},
+	ch: {
+		normalEnd: "游戏结束！赢家是",
+		abnormalEnd: "游戏结束！有人离开了游戏！",
+		closeButton: "关闭",
+	},
+}
+
+export const tournamentRecord = {
+	en: {
+		title: "Tournament Log",
+		tournament: "Tournament",
+		noGame: "No games in this tournament.",
+		winner: "Winner",
+		loser: "Loser",
+		score: "Score",
+		gameId: "Game ID",
+	},
+	ko: {
+		title: "토너먼트 기록",
+		tournament: "토너먼트",
+		noGame: "이 토너먼트에는 게임이 없습니다.",
+		winner: "승자",
+		loser: "패자",
+		score: "점수",
+		gameId: "게임 ID",
+	},
+	ch: {
+		title: "锦标赛记录",
+		tournament: "锦标赛",
+		noGame: "此锦标赛中没有游戏。",
+		winner: "赢家",
+		loser: "输家",
+		score: "分数",
+		gameId: "游戏 ID",
+	},
+}
+
+export const tournamentRecordButton = {
+	en: {
+		record: "Tournament Record",
+	},
+	ko: {
+		record: "토너먼트 기록",
+	},
+	ch: {
+		record: "锦标赛记录",
+	},
+}
