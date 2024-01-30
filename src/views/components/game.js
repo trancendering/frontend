@@ -18,7 +18,7 @@ export default class Game extends Component {
 	}
 
 	async render() {
-		const view = /*html*/`
+		const view = /*html*/ `
             <div id="game-controls">
                 <!-- Canvas for the game -->
                 <canvas id="gameCanvas"></canvas>

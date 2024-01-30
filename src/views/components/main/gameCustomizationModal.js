@@ -15,7 +15,7 @@ export default class GameCustomizationModal extends Component {
 	async render() {
 		const languageId = store.state.languageId;
 
-		const view = /*html*/`
+		const view = /*html*/ `
                     <div class="modal-dialog modal- modal-m modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body text-center p-lg-4">
@@ -54,7 +54,7 @@ export default class GameCustomizationModal extends Component {
 											</div>
 										</div>
 									</div>
-										
+
 									<div class="row mt-4 justify-content-center">
 										<div class="col-4 text-center mt-4">
 											<button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">${gameCustomizationModal[languageId].close}</button>
@@ -91,7 +91,9 @@ export default class GameCustomizationModal extends Component {
 					Modal.getOrCreateInstance(
 						document.getElementById("invalidNicknameModal")
 					).show();
-					document.getElementById("closeInvalidNicknameModalBtn").focus();
+					document
+						.getElementById("closeInvalidNicknameModalBtn")
+						.focus();
 					return;
 				}
 

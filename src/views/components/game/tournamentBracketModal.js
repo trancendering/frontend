@@ -22,9 +22,9 @@ export default class TournamentBracketModal extends Component {
 		const score = store.state.tournamentScore;
 		const winner = store.state.tournamentWinner;
 
-        console.log(player);
-        console.log(score);
-        console.log(winner);
+		console.log(player);
+		console.log(score);
+		console.log(winner);
 		const view = /*html*/ `
         <div class="modal-dialog modal-m modal-dialog-centered ">
             <div class="modal-content">

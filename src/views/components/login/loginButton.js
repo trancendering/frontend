@@ -15,7 +15,7 @@ export default class Login extends Component {
 	async render() {
 		const languageId = store.state.languageId;
 
-		const view = /*html*/`
+		const view = /*html*/ `
             <a data-link href="/" class="btn btn-primary text-white" role="button">
                 <img src="${logo}" width="24" height="24" class="mr-2 align-middle" alt="42_logo">
                 ${loginButton[languageId].loginDescription}

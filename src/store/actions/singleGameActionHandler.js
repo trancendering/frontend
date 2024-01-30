@@ -26,10 +26,10 @@ export default class singleGameActionHandler extends GameActionHandler {
 		return singleGameActionHandler.instance;
 	}
 
-/**
- * @description fullUserEvent 수신 후, single 모드 게임 시작 시 호출되는 함수.
- * @param {object} payload { namespace, intraId, nickname, speedUp}
- */
+	/**
+	 * @description fullUserEvent 수신 후, single 모드 게임 시작 시 호출되는 함수.
+	 * @param {object} payload { namespace, intraId, nickname, speedUp}
+	 */
 	async startGame(payload) {
 		console.log("EVENT: userFullEvent: singleGameActionHandler.startGame");
 

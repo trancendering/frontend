@@ -20,7 +20,9 @@ export default class tournamentActionHandler extends GameActionHandler {
 	static getInstance(context) {
 		console.log("getInstance of tournamentActionHandler");
 		if (!tournamentActionHandler.instance) {
-			tournamentActionHandler.instance = new tournamentActionHandler(context);
+			tournamentActionHandler.instance = new tournamentActionHandler(
+				context
+			);
 		}
 		return tournamentActionHandler.instance;
 	}
@@ -88,11 +90,11 @@ export default class tournamentActionHandler extends GameActionHandler {
 		});
 
 		// 다음 round 번호 설정 -> Tournament Bracket Modal이 뜸
-		this.context.commit("setRound", { round: payload.round + 1});
+		this.context.commit("setRound", { round: payload.round + 1 });
 	}
 
 	/**
-	 * @description endGame 이벤트를 수신할 때, 즉 round가 끝나거나 비정상적으로 
+	 * @description endGame 이벤트를 수신할 때, 즉 round가 끝나거나 비정상적으로
 	 *              게임이 종료하는 경우 호출되는 함수.
 	 * @param {object} payload {round, reason, winnerSide}
 	 */
@@ -129,7 +131,7 @@ export default class tournamentActionHandler extends GameActionHandler {
 			tournamentPlayer: this.nicknameList,
 		});
 	}
-	
+
 	/**
 	 * @description round별로 tournament 참여자의 점수를 초기화
 	 */

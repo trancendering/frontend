@@ -67,9 +67,9 @@ export default class gameActionHandler {
 		console.error("Connection Error:", error);
 	}
 
-	async startGame(payload) { }
+	async startGame(payload) {}
 
-	async endGame(payload) { }
+	async endGame(payload) {}
 
 	/**
 	 * @description 새 게임 시작할 때, 좌/우 플레이어 점수 초기화
@@ -106,7 +106,10 @@ export default class gameActionHandler {
 		const participated =
 			leftUserIndex === this.userIndex ||
 			rightUserIndex === this.userIndex;
-		this.userSide = this.matchQueue.indexOf(this.userIndex) % 2 === 0 ? Side.LEFT : Side.RIGHT;
+		this.userSide =
+			this.matchQueue.indexOf(this.userIndex) % 2 === 0
+				? Side.LEFT
+				: Side.RIGHT;
 
 		console.log("updateGameContext: ");
 		console.log(
@@ -163,7 +166,12 @@ export default class gameActionHandler {
 	 * @param {object} payload {leftUserScore, rightUserScore}
 	 */
 	async updateGameScore(payload) {
-		console.log("updateGameScore: left=",payload.leftUserScore, "right=", payload.rightUserScore)
+		console.log(
+			"updateGameScore: left=",
+			payload.leftUserScore,
+			"right=",
+			payload.rightUserScore
+		);
 		this.context.commit("updateLeftUserScore", {
 			leftUserScore: payload.leftUserScore,
 		});

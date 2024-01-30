@@ -19,7 +19,7 @@ export default class OpponentWaitingModal extends Component {
 		console.log("render opponent waiting modal");
 		const languageId = store.state.languageId;
 
-		const view = /*html*/`
+		const view = /*html*/ `
             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
 			<div class="modal-content">
                     <div class="modal-body text-center p-lg-4">
