@@ -21,7 +21,7 @@ export default class Game extends Component {
 		const view = /*html*/`
             <div id="game-controls">
                 <!-- Canvas for the game -->
-                <canvas id="gameCanvas" width="800" height="400"></canvas>
+                <canvas id="gameCanvas"></canvas>
 
 				<!-- Modal for Game Over -->
                 <div id="gameOverModal" style="display: none;">
