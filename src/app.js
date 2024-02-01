@@ -54,6 +54,18 @@ function setupNavigation() {
 	});
 }
 
+async function setUserInfo() {
+	const response = await fetch("/api/v1/user", {
+		method: "GET",
+		credentials: "include",
+	});
+
+	const data = await response.json();
+
+	store.dispatch("setIntraId", { intraId: data.intraId });
+	store.dispatch("setLanguage", { languageId: data.preferred_language });
+}
+
 async function checkLoginStatus() {
 	const response = await fetch("/api/v1/check-login", {
 		credentials: "include",
@@ -63,6 +75,7 @@ async function checkLoginStatus() {
 
 	if (data.isLoggedIn) {
 		store.dispatch("logIn");
+		await setUserInfo();
 		navigateTo("/");
 		console.log("login state: redirect to /");
 	} else {
