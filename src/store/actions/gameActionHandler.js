@@ -191,8 +191,8 @@ export default class gameActionHandler {
 	async emitUserReadyEvent() {
 		const state = this.context.state;
 
-		// if (!this.socket)
-		// 	return;
+		if (!this.socket)
+			return;
 		this.socket.emit("userReadyEvent", {
 			roomName: state.gameContext.roomName,
 		});
@@ -216,8 +216,8 @@ export default class gameActionHandler {
 				rightPaddlePosition: paddlePosition,
 			});
 		}
-		// if (!this.socket)
-			// return;
+		if (!this.socket)
+			return;
 		this.socket.emit("updatePaddlePosition", {
 			roomName: state.gameContext.roomName,
 			userSide: state.gameContext.userSide,
