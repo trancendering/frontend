@@ -3,11 +3,8 @@ import Component from "../../library/component.js";
 import { tournamentRecord } from "../utils/languagePack.js";
 
 export default class TournamentRecord extends Component {
-	constructor(params) {
-		super({
-			store,
-			element: document.getElementById("app"),
-		});
+	constructor() {
+		super({ element: document.getElementById("app") });
 		this.render();
 		this.tournamentLogData = "";
 		this.tournamentData = "";
@@ -75,8 +72,7 @@ export default class TournamentRecord extends Component {
 					});
 					tournamentItem.appendChild(gameList);
 				} else {
-					tournamentItem.innerHTML +=
-						`<p>${tournamentRecord[languageId].noGame}.</p>`;
+					tournamentItem.innerHTML += `<p>${tournamentRecord[languageId].noGame}.</p>`;
 				}
 				tournamentList.appendChild(tournamentItem);
 			});

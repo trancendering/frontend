@@ -13,11 +13,8 @@ import createScoreObject from "./object/score.js";
 import { scoreSeparator } from "./object/scoreSeperator.js";
 
 export default class gameCanvas extends Component {
-	constructor(params) {
-		super({
-			store,
-			element: document.getElementById("gameCanvas"),
-		});
+	constructor() {
+		super({ element: document.getElementById("gameCanvas") });
 		store.events.subscribe("gameStatusChange", async () => this.render());
 		store.events.subscribe("leftUserScoreChange", async () =>
 			this.updateLeftUserScore()

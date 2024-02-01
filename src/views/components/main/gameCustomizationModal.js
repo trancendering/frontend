@@ -3,11 +3,8 @@ import Component from "../../../library/component.js";
 import { gameCustomizationModal } from "../../utils/languagePack.js";
 
 export default class GameCustomizationModal extends Component {
-	constructor(params) {
-		super({
-			store,
-			element: document.getElementById("gameCustomizationModal"),
-		});
+	constructor() {
+		super({ element: document.getElementById("gameCustomizationModal") });
 		this.render();
 	}
 

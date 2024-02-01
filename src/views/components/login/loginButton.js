@@ -4,11 +4,8 @@ import { loginButton } from "../../utils/languagePack.js";
 import logo from "../../../static/img/42_logo.svg";
 
 export default class Login extends Component {
-	constructor(params) {
-		super({
-			store,
-			element: document.getElementById("loginBtn"),
-		});
+	constructor() {
+		super({ element: document.getElementById("loginBtn") });
 		this.render();
 	}
 

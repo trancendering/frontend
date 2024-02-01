@@ -4,10 +4,7 @@ import { languageSelector } from "../../utils/languagePack.js";
 
 export default class LanguageSelector extends Component {
 	constructor() {
-		super({
-			store,
-			element: document.getElementById("languageSelector"),
-		});
+		super({ element: document.getElementById("languageSelector") });
 		this.render();
 	}
 
