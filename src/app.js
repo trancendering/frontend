@@ -27,23 +27,56 @@ window.addEventListener("popstate", (event) => {
 	router();
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+	setupNavigation();
+
+	if (!store.state.isLoggedIn) {
+		try {
+			await checkLoginStatus();
+		} catch (error) {
+			console.error(error);
+			navigateTo("/login");
+			return;
+		}
+	}
+
+	handleInitialRoute();
+});
+
+function setupNavigation() {
 	document.body.addEventListener("click", (event) => {
 		const targetElement = event.target.closest("[data-link]");
 
 		if (targetElement) {
 			event.preventDefault();
-			navigateTo(targetElement.href);
+			navigateTo(targetElement.getAttribute("href"));
 		}
 	});
+}
 
+async function checkLoginStatus() {
+	const response = await fetch("/api/v1/check-login", {
+		credentials: "include",
+	});
+
+	const data = await response.json();
+
+	if (data.isLoggedIn) {
+		store.dispatch("logIn");
+		navigateTo("/");
+		console.log("login state: redirect to /");
+	} else {
+		throw new Error("Not logged in");
+	}
+}
+
+function handleInitialRoute() {
 	if (
-		store.state.gameStatus !== "playing" &&
-		(window.location.pathname === "/game" ||
-			window.location.pathname === "/tournament")
+		!store.state.gameStatus === "playing" &&
+		["/game", "/tournament"].includes(window.location.pathname)
 	) {
 		navigateTo("/");
 	} else {
 		router();
 	}
-});
+}
