@@ -218,7 +218,7 @@ export const mainButton = {
 	ko: {
 		main: "메인",
 	},
-	ch: {
+	zh: {
 		main: "主页",
 	},
 }
