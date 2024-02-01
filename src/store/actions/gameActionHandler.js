@@ -67,9 +67,9 @@ export default class gameActionHandler {
 		console.error("Connection Error:", error);
 	}
 
-	async startGame(payload) {}
+	startGame(payload) {}
 
-	async endGame(payload) {}
+	endGame(payload) {}
 
 	/**
 	 * @description 새 게임 시작할 때, 좌/우 플레이어 점수 초기화
