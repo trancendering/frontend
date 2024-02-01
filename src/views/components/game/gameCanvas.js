@@ -22,6 +22,8 @@ export default class gameCanvas extends Component {
 		store.events.subscribe("rightUserScoreChange", async () =>
 			this.updateRightUserScore()
 		);
+		this.handleEvent();
+		this.handleResize();
 	}
 
 	initRenderer() {
@@ -155,8 +157,6 @@ export default class gameCanvas extends Component {
 		this.initControls();
 		this.introAnimation();
 		this.gameLoop();
-		this.handleEvent();
-		this.handleResize();
 	}
 
 	async handleEvent() {
@@ -175,6 +175,7 @@ export default class gameCanvas extends Component {
 		window.addEventListener(
 			"resize",
 			() => {
+				if (store.state.gameStatus !== "playing") return;
 				// Update camera aspect ratio
 				this.camera.aspect = window.innerWidth / window.innerHeight;
 				this.camera.updateProjectionMatrix();
