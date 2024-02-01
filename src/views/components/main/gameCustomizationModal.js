@@ -89,7 +89,7 @@ export default class GameCustomizationModal extends Component {
 
 				// Check Nickname is Empty or too long or non-English
 				const nickname = this.element.querySelector("#nickname").value;
-				const englishCheck = /^[A-Za-z0-9]*$/;
+				const englishCheck = /^[A-Za-z]+$/;
 
 				if (
 					nickname === "" ||
