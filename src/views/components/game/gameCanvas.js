@@ -141,7 +141,10 @@ export default class gameCanvas extends Component {
 		TWEEN.update();
 		this.controls.update();
 		this.renderer.render(this.scene, this.camera);
-		requestAnimationFrame(() => this.gameLoop());
+		const frameId = requestAnimationFrame(() => this.gameLoop());
+		if (store.state.gameStatus === "ended") {
+			cancelAnimationFrame(frameId);
+		}
 	}
 
 	async render() {
