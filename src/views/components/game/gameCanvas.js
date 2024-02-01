@@ -149,8 +149,8 @@ export default class gameCanvas extends Component {
 
 	async render() {
 		this.element = document.getElementById("gameCanvas");
-
 		if (store.state.gameStatus !== "playing") return;
+
 		this.initRenderer();
 		this.initCamera();
 		this.initScene();

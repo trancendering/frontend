@@ -60,6 +60,8 @@ export default class GameOverModal extends Component {
 		if (store.state.endReason === "userLeft") return;
 
 		this.render();
-		document.getElementById("gameOverModal").style.display = "flex";
+		if (this.element) {
+			this.element.style.display = "flex";
+		}
 	}
 }

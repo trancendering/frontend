@@ -121,7 +121,7 @@ export default class TournamentBracketModal extends Component {
 		modal.style.display = "none";
 
 		// 해당 라운드 게임을 시작한다
-		if (store.state.round < 4) {
+		if (store.state.endReason === "normal" && store.state.round <= 3) {
 			store.dispatch("startRound");
 		} else {
 			store.dispatch("setGameStatus", { gameStatus: "ended" });

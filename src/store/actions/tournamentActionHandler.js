@@ -48,6 +48,7 @@ export default class tournamentActionHandler extends GameActionHandler {
 		this.initTournamentScores();
 		this.initTournamentWinners();
 		this.updateGameContext();
+		this.context.commit("setEndReason", { endReason: "normal" });
 
 		// 게임 페이지로 이동
 		navigateTo("/tournament");
@@ -60,7 +61,8 @@ export default class tournamentActionHandler extends GameActionHandler {
 	async startRound() {
 		this.initScores();
 		this.initPositions();
-		await this.updateGameContext();
+		this.updateGameContext();
+
 		this.context.commit("setGameStatus", { gameStatus: "playing" });
 	}
 
@@ -82,7 +84,6 @@ export default class tournamentActionHandler extends GameActionHandler {
 		const winnerIndex =
 			this.matchQueue[payload.winnerSide === Side.LEFT ? 0 : 1];
 		this.matchQueue = this.matchQueue.slice(2);
-		console.log("this.matchQueue: ", this.matchQueue);
 		this.matchQueue.push(winnerIndex);
 		this.context.commit("updateTournamentWinner", {
 			round: payload.round,
@@ -118,7 +119,10 @@ export default class tournamentActionHandler extends GameActionHandler {
 			this.socket = null;
 		}
 		this.context.commit("setEndReason", { endReason: payload.reason });
-		if (state.endReason === "opponentLeft" || state.endReason === "userLeft") {
+		if (
+			state.endReason === "opponentLeft" ||
+			state.endReason === "userLeft"
+		) {
 			this.context.commit("setGameStatus", { gameStatus: "ended" });
 		}
 	}
