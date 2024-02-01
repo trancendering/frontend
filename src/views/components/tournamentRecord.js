@@ -50,7 +50,7 @@ export default class TournamentRecord extends Component {
 		// Clear any existing content
 		// Parse the tournament log data and get the tournament list container
 		try {
-			const tournamentData = this.tournamentData;
+			let tournamentData = this.tournamentData;
 			const tournamentLogData = this.tournamentLogData;
 			const tournamentList = this.tournamentList;
 
